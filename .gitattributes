@@ -2,3 +2,6 @@ brain/results/*.pkl filter=lfs diff=lfs merge=lfs -text
 brain/** filter=lfs diff=lfs merge=lfs -text
 *.pkl filter=lfs diff=lfs merge=lfs -text
 data/**/*.pkl filter=lfs diff=lfs merge=lfs -text
+ZamaUPEN/**/*.pkl filter=lfs diff=lfs merge=lfs -text
+ZamaUPEN/**/*.mat filter=lfs diff=lfs merge=lfs -text
+ZamaUPEN/**/*.png filter=lfs diff=lfs merge=lfs -text
