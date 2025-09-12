@@ -1,0 +1,20 @@
+%filename e parameters for synthetic T1T2 kernel 30/10/2017
+
+% [File Data]
+  filenamedata          =data2D_full.dat
+  filenameTimeX         =Tau_AxisX.dat
+  filenameTimeY         =Tau_AxisY.dat
+%
+% [Weight Matrix]
+  FileNameMatrixB       =Matrix_B.dat
+%
+% [Inversion Points]
+  nx                    =80
+  ny                    =80
+% [Inversione Time limit]
+  T1min                 =2.5000E-1
+  T1max                 =1.2649E4
+  T2min                 =1.2690E-1
+  T2max                 =4.1583E3
+%
+END

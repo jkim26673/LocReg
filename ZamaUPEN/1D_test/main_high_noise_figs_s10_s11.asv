@@ -1,0 +1,176 @@
+% High noise tests
+%
+clear
+close all
+%addpath ../regu
+% tests
+test='T1';
+%test='T2';
+%test='T3';
+% methods
+i_multiL2 = 0;
+i_multiL2_nneg = 0;
+multiL2 = 0;
+multiL2_nneg = 1;
+%
+multi_fig=1;
+%
+noise_level=0.1;
+switch(test)
+    case 'T1'        
+        beta_0 = 1e-3; tol_lam=1.e-5;%1e-2;  
+        Lambda=logspace(-3,0,200);  
+        [A,b,xex,noise_norm,b_exact] =T1(100,noise_level);
+
+    case 'T2'        
+        beta_0 = 1e-7; tol_lam=1.e-5;%tol_lam=5.e-2;
+        Lambda=logspace(-2,1,200);%beta_0 = 1e-6;
+        %Lambda=logspace(0,2,200);%%noise_level=0.5;
+        [A,b,xex,noise_norm,b_exact] =T2(100,noise_level);
+
+    case 'T3'      
+        beta_0 = 1e-7;tol_lam=1.e-5;%tol_lam=5.e-2;
+         Lambda=logspace(-2,1,200);%%noise_level=0.1;
+        %Lambda=logspace(0,2,200);%%noise_level=0.2;
+        [A,b,xex,noise_norm,b_exact] =T3(100,noise_level);
+
+end
+%
+figure;plot([b b_exact]);grid on
+itermax=500;format short e
+if i_multiL2 
+    method='GUPenMM';
+     [xpwL2,errML2,resML2,Q,INd_exit,ck,Lam,time_ML2i]=UPenMMmL2_i(A,b,xex,noise_norm,beta_0,itermax,tol_lam);
+     N=numel(xpwL2);
+     fprintf('GUPenMM  & %e & %d & %e \n',errML2(INd_exit),INd_exit,time_ML2i);
+     [errML2(INd_exit), resML2(INd_exit), Lam(INd_exit), INd_exit];
+      ERR_GUPenMM_L2=errML2;
+      INd_gu=INd_exit;
+      Res_GUPenMM_L2=resML2;
+      Q_GUPenMM_L2=Q;
+      X_GUPenMM_L2=xpwL2;
+
+end
+% if i_multiL2_nneg 
+%     method='GUPenMM\_nn';
+%     [xpwL2_nn,errML2,resML2,Q,INd_exit,ck,Lam,it_pn,time_ML2nni]=...
+%         UPenMMmL2nn_i(A,b,xex,noise_norm,beta_0,itermax,tol_lam);
+%     N=numel(xpwL2_nn);
+%     fprintf('GUPen NN    & %e & %d & %e \n',errML2(INd_exit),INd_exit,time_ML2nni);
+%      [errML2(INd_exit), resML2(INd_exit), Lam(INd_exit), INd_exit,sum(it_pn(1:INd_exit))];
+%       ERR_GUPenMM_L2nn=errML2;
+%       INd_gu_nn=INd_exit;
+%       Res_GUPenMM_L2nn=resML2;
+%       Q_GUPenMM_L2nn=Q;
+%       X_GUPenMM_L2nn=xpwL2_nn;
+%       res_GUPnn=resML2;
+%       err_GUPnn=errML2;
+%       ck_gup=ck;
+%       it_in_GUPnn=sum(it_pn(1:INd_gu_nn));
+% end
+% if multiL2 
+%     method='UPenMM';
+%      [xpwL2,errML2,resML2,Q,INd_exit,ck,Lam,timeML2]=UPenMMmL2(A,b,xex,noise_norm,beta_0,itermax,tol_lam);
+% 
+%      fprintf('UPenMM    & %e & %d & %e \n',errML2(INd_exit),INd_exit,timeML2);N=numel(xpwL2);
+%      %
+%      [errML2(INd_exit), resML2(INd_exit), Lam(INd_exit), INd_exit];
+%      ERR_UPenMM_L2=errML2;Res_UPenMM_L2=resML2;
+%       Q_UPenMM_L2=Q;INd_u=INd_exit;
+%       X_UPenMM_L2=xpwL2;
+% 
+% end
+if multiL2_nneg 
+    method='UPenMM\_nn';
+    load("testingfordebugdata.mat")
+    b = reshape(b, [], 1);
+    gt = reshape(gt,[], 1);
+    xex = gt;
+    [xpwL2_nn,errML2,resML2,Q,INd_exit,ck,Lam,it_pn,timeML2nn]=...
+        UPenMMmL2nn(A,b,gt,noise_norm,beta_0,itermax,tol_lam);
+    N=numel(xpwL2_nn);
+    fprintf('UPen NN  & %e & %d & %e \n',errML2(INd_exit),INd_exit,timeML2nn);
+    
+     [errML2(INd_exit), resML2(INd_exit), Lam(INd_exit), INd_exit,sum(it_pn(1:INd_exit))];
+     ERR_UPenMM_L2nn=errML2;Res_UPenMM_L2nn=resML2;
+      Q_UPenMM_L2nn=Q;
+      INd_u_nn=INd_exit;
+      X_UPenMM_L2nn=xpwL2_nn;
+      res_UPnn=resML2;
+      err_UPnn=errML2;
+      it_in_UPnn=sum(it_pn(1:INd_u_nn));
+
+end
+%%
+if i_multiL2_nneg && multiL2_nneg
+%
+fig=figure;ax = axes('FontSize', 16); %fig.3 (b)
+plot(1:numel(Q_GUPenMM_L2nn),Q_GUPenMM_L2nn,'--b','LineWidth',2);hold on
+plot(1:numel(Q_UPenMM_L2nn),Q_UPenMM_L2nn,'-.k','LineWidth',2);hold on
+xlabel('k');
+%legend('Q GUPenMM\_L2nn',' Q UPenMM\_L2nn');
+grid on 
+set(gca,"FontWeight","bold","FontSize",16)
+namef='newT1_Ex_G_mL2nn_Q.png';
+print(gcf, namef, '-dpng', '-r300');
+fig=figure;ax = axes('FontSize', 16); %fig.4 (b)
+MG=numel(Res_GUPenMM_L2nn);MU=numel(Res_UPenMM_L2nn);
+plot(1:MG,Res_GUPenMM_L2nn,'--b','LineWidth',2);hold on
+plot(1:MU,Res_UPenMM_L2nn,'-.k','LineWidth',2);hold on
+plot(ones(max(MG,MU),1)*noise_norm,'r');
+xlabel('k');
+%legend('Res GUPenMM\_L2nn',' Res UPenMM\_L2nn','noise norm');
+grid on 
+% set(gca,"FontWeight","bold")
+set(gca,"FontWeight","bold","FontSize",16)
+%namef='newT1_Ex_G_mL2nn_Res.png';
+%print(gcf, namef, '-dpng', '-r300');
+%
+fig=figure;ax = axes('FontSize', 16);%Fig5(b)
+plot(X_GUPenMM_L2nn,'-b','LineWidth',2); hold on; 
+         plot(X_UPenMM_L2nn,'-.k','LineWidth',2); hold on; 
+        plot(xex,'r--','LineWidth',2); hold off; 
+        %legend('GUPenMM\_L2','UPenMM\_L2','exact','FontSize',15)
+     axis tight; %xticks([0 round(N/2) N]);
+     set(gca,"FontWeight","bold","FontSize",16)
+     namef='newT1_Ex_G_mL2nn_solpng.png';
+     print(gcf, namef, '-dpng', '-r300');
+end    
+if i_multiL2 && multiL2
+%
+    fig=figure;ax = axes('FontSize', 16);%Fig3(a)
+    plot(1:numel(Q_GUPenMM_L2),Q_GUPenMM_L2,'--b','LineWidth',2);hold on
+    plot(1:numel(Q_UPenMM_L2),Q_UPenMM_L2,'-.k','LineWidth',2);hold on
+    xlabel('k');
+    %legend('Q GUPenMM\_L2',' Q UPenMM\_L2');
+    grid on 
+     set(gca,"FontWeight","bold","FontSize",16)
+     %namef='newT1_Ex_G_mL2_Q.png';
+     %print(gcf, namef, '-dpng', '-r300');
+
+    fig=figure;ax = axes('FontSize', 16);%Fig4(a)
+    MG=numel(Res_GUPenMM_L2);MU=numel(Res_UPenMM_L2);
+    plot(1:MG,Res_GUPenMM_L2,'--b','LineWidth',2);hold on
+    plot(1:MU,Res_UPenMM_L2,'-.k','LineWidth',2);hold on
+    plot(ones(max(MG,MU),1)*noise_norm,'r');
+    xlabel('k');
+    %legend('Res GUPenMM\_L2',' Res UPenMM\_L2','noise norm');
+    grid on 
+    set(gca,"FontWeight","bold","FontSize",16)
+     %namef='newT1_Ex_G_mL2_Res.png';
+     %print(gcf, namef, '-dpng', '-r300');
+
+    fig=figure;ax = axes('FontSize', 16);%Fig5(a)
+ 
+     plot(X_GUPenMM_L2,'-b','LineWidth',2); hold on; 
+     plot(X_UPenMM_L2,'-.k','LineWidth',2); hold on; 
+     plot(xex,'r--','LineWidth',2); hold off; 
+     %legend('GUPenMM\_L2','UPenMM\_L2','exact','FontSize',15)
+     axis tight; %xticks([0 round(N/2) N]);
+    set(gca,"FontWeight","bold","FontSize",16)
+     %namef='newT1_Ex_G_mL2_solpng.png';
+     %print(gcf, namef, '-dpng', '-r300');
+    
+end
+
+

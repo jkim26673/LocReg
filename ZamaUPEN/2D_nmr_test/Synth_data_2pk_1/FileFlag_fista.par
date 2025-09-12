@@ -1,0 +1,12 @@
+%Flags for synthetic data T1T2 kernel 30/10/2017
+%
+  FL_typeKernel         =1
+  FL_UPEN2D             =2
+  FL_TIKHONOV           =0
+  FL_Stelar_Magriteck   =2
+  FL_InversionTimeLimits=1
+  FL_LoadMatrixB        =0
+  FL_UseMatrixB         =0
+  FL_OutputData         =1
+  FL_NoContour          =1
+END

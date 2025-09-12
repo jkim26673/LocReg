@@ -1,0 +1,32 @@
+%Parameters for sythetic T1T2 kernel 30/10/2017
+
+% [GRADIENTE PROIETTATO]
+  par.gpnr.tol          =1.e-3
+  par.gpnr.maxiter      =100000
+%
+% [NEWTON PROIETTATO]
+  par.nwtp.maxiter      =15000
+  par.nwtp.tolrho       =1.e-6
+%
+% [CG]
+  par.cgn2d.tol         =1.e-4
+  par.cgn2d.maxiter     =15104000
+%
+%[VARIOUS]
+%
+%[SVD]
+  par.svd.svd           =1
+  par.svd.soglia        =1.0E-6
+% 
+%[UPEN]
+  par.upen.tol          =0.0001
+  par.upen.iter         =500
+  par.upen.beta00       =1
+  par.upen.beta0        =1.0E-6
+  par.upen.beta_p       =1.0
+  par.upen.beta_c       =1.0
+%
+%[TIKHONOV]
+  par.tikh.lambda       =5.0E-1
+%
+END
