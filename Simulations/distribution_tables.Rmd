@@ -1,0 +1,198 @@
+---
+title: "distribution_tables"
+output:
+  pdf_document: null
+  geometry: margin=1cm
+  html_document: default
+header-includes:
+  - \usepackage{float} # Include the 'float' package
+  - \usepackage{longtable}
+date: "2024-05-13"
+---
+
+```{r setup, include=FALSE, echo = FALSE, message = FALSE, header = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+# Initialize an empty dataframe to store the combined data
+#combined_df <- read.csv("/Users/steveh/Downloads/NIH 23-24/LocReg_Python/baart_nrun_10.csv")
+#combined_df = subset(combined_df, select = -c(X, medians,number.of.NR))
+#combined_df <- bind_rows(combined_df, df)
+# Create the LaTeX table using stargazer
+```
+
+```{r, echo = FALSE, message = FALSE, header = FALSE}
+library(stargazer)
+library(dplyr)
+library(tidyr)
+library(magrittr)
+library(stringr)
+library(tidyverse)
+```
+
+
+```{r, echo = FALSE, message = FALSE, header = FALSE}
+# List of file paths to your CSV files along with corresponding labels
+#vecs = np.asarray([com_vec_DP, com_vec_LC, com_vec_GCV, com_vec_locreg_LC, com_vec_ItoLR])
+
+filepath = "//Users/steveh/Downloads/NIH 23-24/LocReg_Python/Experiments"
+file_info <- list(
+  list(path = paste0(filepath, "/Testing_Ito_20240513_orig_50.csv"), label = "Original SNR 50"),
+  list(path = paste0(filepath, "/Testing_Ito_20240513_orig_200.csv"), label = "Original SNR 200"),
+  list(path = paste0(filepath, "/Testing_Ito_20240513_orig_1000.csv"), label = "Original SNR 1000"),
+  list(path = paste0(filepath, "/Testing_Ito_20240513_flip_50.csv"), label = "Flip SNR 50"),
+  list(path = paste0(filepath, "/Testing_Ito_20240513_flip_200.csv"), label = "Flip SNR 200"),
+  list(path = paste0(filepath, "/Testing_Ito_20240513_flip_1000.csv"), label = "Flip SNR 1000"),
+  list(path = paste0(filepath, "/Testing_Ito_20240513_merge_50.csv"), label = "Merge SNR 50"),
+  list(path = paste0(filepath,"/Testing_Ito_20240513_merge_200.csv"), label = "Merge SNR 200"),
+  list(path = paste0(filepath, "/Testing_Ito_20240513_merge_1000.csv"), label = "Merge SNR 1000"),
+  list(path = paste0(filepath, "/Testing_Ito_20240513_thrbump_1000.csv"), label = "3Bump SNR 1000")
+)
+```
+
+
+```{r}
+# Load the dplyr package
+library(dplyr)
+
+# Function to compute median and standard deviation for each method within each CSV label
+compute_stats_grouped <- function(file_info) {
+  # Initialize an empty list to store data frames
+  stats_list <- list()
+  
+  # Loop through each file info
+  for (info in file_info) {
+    # Read CSV file
+    data <- read.csv(info$path, header=FALSE)
+    
+    # Transpose data
+    data <- t(data)
+    
+    # Compute median and standard deviation for each method
+    medians <- sapply(data, median)
+    std_devs <- sapply(data, sd)
+    
+    # Create a data frame for the current CSV label
+    stats_df <- data.frame(
+      Method = c("DP", "LC", "GCV", "Chuan", "Ito"),
+      Median = medians,
+      Std_Dev = std_devs
+    )
+    
+    # Add the CSV label to the data frame
+    stats_df$Label <- info$label
+    
+    # Append the data frame to the list
+    stats_list[[length(stats_list) + 1]] <- stats_df
+  }
+  
+  # Combine all data frames into one
+  combined_df <- do.call(rbind, stats_list)
+  
+  # Group by CSV label and summarize median and standard deviation for each method
+  grouped_stats <- combined_df %>%
+    group_by(Label, Method) %>%
+    summarise(Median = median(Median), Std_Dev = median(Std_Dev))
+  
+  return(grouped_stats)
+}
+
+# Call the function with your file_info list
+grouped_stats_table <- compute_stats_grouped(file_info)
+
+# Print the resulting table
+print(grouped_stats_table)
+
+
+```
+
+
+
+```{r}
+# # Function to create data tables for each vector in each CSV file
+# create_data_tables <- function(file_info) {
+#   # Loop through each file info
+#   for (info in file_info) {
+#     # Read CSV file
+#     data <- read.csv(info$path, header=FALSE)
+#     
+#     # Extract vectors from data
+#     vecs <- as.matrix(data)
+#     
+#     # Names for vectors
+#     vector_names <- c("DP", "LC", "GCV", "Chuan", "Ito")
+#     
+#     # Create a list to store data frames
+#     data_tables <- list()
+#     
+#     # Loop through each vector in vecs
+#     for (i in 1:length(vector_names)) {
+#       # Extract the vector
+#       vec <- vecs[i, ]
+#       
+#       # Create a data frame
+#       df <- data.frame(iteration = 1:length(vec), value = vec)
+#       
+#       # Assign a name to the data frame
+#       names(df) <- c("iteration", vector_names[i])
+#       
+#       # Store the data frame in the list
+#       data_tables[[i]] <- df
+#     }
+#     
+#     # Print label
+#     cat("Data tables for:", info$label, "\n")
+#     
+#     # Print data tables
+#     for (i in 1:length(data_tables)) {
+#       cat("Vector:", vector_names[i], "\n")
+#       print(data_tables[[i]])
+#       cat("\n")
+#     }
+#   }
+# }
+# 
+# # Call the function with your file_info list
+# create_data_tables(file_info)
+
+```
+
+```{r}
+# # Function to create tables from CSV files
+# create_tables <- function(file_info) {
+#   for (info in file_info) {
+#     # Read CSV file
+#     data <- read.csv(info$path, header=FALSE)
+#     
+#     # Extract arrays
+#     com_vec_DP <- data[, 1]
+#     com_vec_LC <- data[, 2]
+#     com_vec_GCV <- data[, 3]
+#     com_vec_locreg_LC <- data[, 4]
+#     com_vec_ItoLR <- data[, 5]
+#     
+#     # Create data frame
+#     df <- data.frame(
+#       DP = com_vec_DP,
+#       LC = com_vec_LC,
+#       GCV = com_vec_GCV,
+#       locreg_LC = com_vec_locreg_LC,
+#       ItoLR = com_vec_ItoLR
+#     )
+#     
+#     # Print label
+#     cat("Table for:", info$label, "\n")
+#     
+#     # Print data frame
+#     print(df)
+#     cat("\n")
+#   }
+# }
+# 
+# # Call the function with your file_info list
+# create_tables(file_info)
+
+
+```
+
