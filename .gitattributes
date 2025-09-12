@@ -11,3 +11,6 @@ Utilities_functions/**/*.png filter=lfs diff=lfs merge=lfs -text
 regu/**/*.pkl filter=lfs diff=lfs merge=lfs -text
 regu/**/*.mat filter=lfs diff=lfs merge=lfs -text
 regu/**/*.png filter=lfs diff=lfs merge=lfs -text
+SimulationSets/**/*.pkl filter=lfs diff=lfs merge=lfs -text
+SimulationSets/**/*.mat filter=lfs diff=lfs merge=lfs -text
+SimulationSets/**/*.png filter=lfs diff=lfs merge=lfs -text
