@@ -209,3 +209,5 @@ __marimo__/
 #MACOS
 .DS_Store
 
+.DS_Store
+__MACOSX/
