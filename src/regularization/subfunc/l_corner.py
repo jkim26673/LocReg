@@ -1,12 +1,12 @@
 import numpy as np
 from scipy.optimize import minimize_scalar
-from regu.lcfun import lcfun 
-from regu.fnder import fnder
-from regu.corner import corner
-from regu.sp2pp import sp2pp
-from regu.spleval import spleval
-from regu.spmak import spmak
-from regu.ppbrk import ppbrk
+from regularization.subfunc.lcfun import lcfun 
+from regularization.subfunc.fnder import fnder
+from regularization.subfunc.corner import corner
+from regularization.subfunc.sp2pp import sp2pp
+from regularization.subfunc.spleval import spleval
+from regularization.subfunc.spmak import spmak
+from regularization.subfunc.ppbrk import ppbrk
 
 def l_corner(rho, eta, reg_param, nargin, U=None, s=None, b=None, method=None, M=None):
     # Ensure that rho and eta are column vectors.
