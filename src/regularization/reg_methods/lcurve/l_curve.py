@@ -32,8 +32,8 @@
 
 # % Set defaults.
 import numpy as np
-from regu.l_corner import l_corner
-from Simulations.l_curve_corner import l_curve_corner
+from regularization.subfunc.l_corner import l_corner
+from regularization.subfunc.l_curve_corner import l_curve_corner
 from numpy.linalg import norm
 
 def l_curve(U,sm,b,method,L,V, nargin, nargout):
