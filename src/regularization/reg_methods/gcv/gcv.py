@@ -1,7 +1,7 @@
 import numpy as np
 from numpy.linalg import norm
 from scipy.optimize import fminbound, minimize_scalar
-from regu.gcvfun import gcvfun
+from regularization.subfunc.gcvfun import gcvfun
 import matplotlib.pyplot as plt
 
 def gcv(U, s, b, method, nargin, nargout):
