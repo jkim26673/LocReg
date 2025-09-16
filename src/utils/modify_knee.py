@@ -1,7 +1,7 @@
 
-import sys
-sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-import numpy as np
+# import sys
+# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# import numpy as np
 # from regu.baart import baart
 # from regu.foxgood import foxgood
 # from regu.phillips import phillips
