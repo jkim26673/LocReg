@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from Utilities_functions.tikhonov_vec import tikhonov_vec
+from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
 
 def LocReg_unconstrainedB(data_noisy, G, x0_ini, lambda_ini, ep1, ep2, ep3):
     U, s, V = np.linalg.svd(G)

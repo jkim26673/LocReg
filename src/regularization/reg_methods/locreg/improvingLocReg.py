@@ -1,18 +1,22 @@
 import numpy as np
-from regu.baart import baart
-from regu.foxgood import foxgood
-from regu.phillips import phillips
-from regu.csvd import csvd
-from regu.deriv2 import deriv2
-from regu.gravity import gravity
-from regu.heat import heat
-from regu.shaw import shaw
+from regularization.classical.hansen_test_prob.baart import baart
+from regularization.classical.hansen_test_prob.blur import blur
+from regularization.classical.hansen_test_prob.deriv2 import deriv2
+from regularization.classical.hansen_test_prob.foxgood import foxgood
+from regularization.classical.hansen_test_prob.gravity import gravity
+from regularization.classical.hansen_test_prob.heat import heat
+from regularization.classical.hansen_test_prob.i_laplace import i_laplace
+from regularization.classical.hansen_test_prob.ilaplace import i_laplace as i_laplace2
+from regularization.classical.hansen_test_prob.phillips import phillips
+from regularization.classical.hansen_test_prob.shaw import shaw 
+from regularization.classical.hansen_test_prob.wing import wing 
+
+from regularization.reg_methods.lcurve.l_curve import l_curve
 from numpy.linalg import norm
 import matplotlib.pyplot as plt
-from regu.l_curve import l_curve
 import numpy as np
 from math import factorial
-from regu.discrep import discrep
+from regularization.reg_methods.dp.discrep import discrep
 import numpy as np
 from scipy.interpolate import lagrange
 # from pykalman import KalmanFilter, UnscentedKalmanFilter

@@ -1,5 +1,5 @@
 import numpy as np
-from regu.nonnegtik_hnorm import *
+from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 
 def GCV_NNLS(dat_noisy, A, Lambda):
     # This code implements GCV for regularized NNLS method
