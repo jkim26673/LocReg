@@ -32,17 +32,20 @@
 # import sys
 # import os
 from utils.load_imports.load_classical import *
-parent = os.path.dirname(os.path.abspath(''))
-sys.path.append(parent)
-cwd = os.getcwd()
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
-cwd_temp = os.getcwd()
-base_file = 'LocReg_Regularization-1'
-cwd_cut = f'{cwd_temp.split(base_file, 1)[0]}{base_file}/'
+# parent = os.path.dirname(os.path.abspath(''))
+# sys.path.append(parent)
+# cwd = os.getcwd()
 
-pat_tag = "classical_prob"#"BLSA_1742_04_MCIAD_m41"#"BLSA_1935_06_MCIAD_m79"
-series_tag = "blur"
-output_folder = f"SimulationSets/{pat_tag}/{series_tag}"
+# cwd_temp = os.getcwd()
+# base_file = 'LocReg_Regularization-1'
+# cwd_cut = f'{cwd_temp.split(base_file, 1)[0]}{base_file}/'
+
+# pat_tag = "classical_prob"#"BLSA_1742_04_MCIAD_m41"#"BLSA_1935_06_MCIAD_m79"
+# series_tag = "blur"
+# output_folder = f"SimulationSets/{pat_tag}/{series_tag}"
 
 # cwd_full = cwd_cut + output_folder + lam_ini
 cwd_full = cwd_cut + output_folder 

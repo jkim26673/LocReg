@@ -22,6 +22,9 @@
 # from Utilities_functions.tikhonov_vec import tikhonov_vec
 
 from utils.load_imports.load_classical import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
+
 def minimize_OP(Alpha_vec, L, data_noisy, G, nT2, g):
     OP_x_lc_vec = np.zeros((nT2, len(Alpha_vec)))
     OP_rhos = np.zeros((len(Alpha_vec)))

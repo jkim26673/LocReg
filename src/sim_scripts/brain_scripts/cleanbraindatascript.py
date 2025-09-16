@@ -44,6 +44,7 @@
 # from scipy.integrate import simpson
 # Ensure log directory exists
 from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 log_dir = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1"
 try:

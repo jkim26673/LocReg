@@ -26,6 +26,8 @@
 # from datetime import datetime
 # from Utilities_functions.pasha_gcv import Tikhonov
 # from Utilities_functions.tikhonov_vec import tikhonov_vec
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 from src.utils.load_imports.load_classical import *
 
 # nrun = 20

@@ -41,6 +41,7 @@
 # import unittest
 # from scipy.integrate import simpson
 from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 # print("setting license path")
 # mosek_license_path = r"/home/kimjosy/mosek/mosek.lic"

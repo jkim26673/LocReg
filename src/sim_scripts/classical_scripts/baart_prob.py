@@ -26,7 +26,8 @@
 # from tqdm import tqdm
 # from datetime import datetime
 from utils.load_imports.load_classical import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 def create_result_folder(string, SNR):
     # Create a folder based on the current date and time
     date = datetime.now().strftime("%Y%m%d")

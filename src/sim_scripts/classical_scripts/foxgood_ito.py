@@ -24,6 +24,8 @@
 # from functools import partial
 
 from utils.load_imports.load_classical import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)

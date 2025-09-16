@@ -34,6 +34,8 @@
 # from Utilities_functions.tikhonov_vec import tikhonov_vec
 # import multiprocessing as mp
 from utils.load_imports.load_classical import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 cwd = os.getcwd()

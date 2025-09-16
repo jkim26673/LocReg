@@ -180,7 +180,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.ticker as ticker
 
-from scipy.stats import norm as normsci, wasserstein_distance, entropy
+from scipy.stats import norm as norm, wasserstein_distance, entropy
 from scipy.linalg import norm as linalg_norm, svd
 from scipy.optimize import nnls
 from scipy.integrate import simpson

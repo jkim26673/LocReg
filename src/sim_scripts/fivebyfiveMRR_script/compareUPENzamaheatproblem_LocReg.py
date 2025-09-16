@@ -47,6 +47,8 @@
 err_type = "WassScore"
 file_path_final = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\classicalproblems\upenzamacomparison"
 from utils.load_imports.load_classical import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 def minimize_OP(Alpha_vec, data_noisy, G, nT2, g):
     OP_x_lc_vec = np.zeros((nT2, len(Alpha_vec)))

@@ -45,6 +45,9 @@
 # eng = matlab.engine.start_matlab()
 # eng.addpath(r'C:\Users\kimjosy\Downloads\LocReg_Regularization-1\ZamaUPEN\1D_test', nargout=0)
 from utils.load_imports.load_classical import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
+
 err_type = "WassScore"
 file_path_final = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\classicalproblems\upenzamacomparison"
 def minimize_OP(Alpha_vec, data_noisy, G, nT2, g):
