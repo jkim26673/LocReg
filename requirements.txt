@@ -34,4 +34,6 @@ tensorflow
 torch
 tqdm
 kneed
+plotly
+autograd
 #octave
