@@ -2,17 +2,18 @@ import numpy as np
 import sys
 sys.path.append('.')
 import matplotlib.pyplot as plt
-from regu.baart import baart
-from regu.foxgood import foxgood
-from regu.heat import heat
-from regu.gravity import gravity
-from regu.csvd import csvd
-from regu.l_curve import l_curve
-from regu.tikhonov import tikhonov
-from regu.gcv import gcv
-from regu.discrep import discrep
-from regu.csvd import csvd
-from regu.find_corner import find_corner
+# from regu.baart import baart
+# from regu.foxgood import foxgood
+# from regu.heat import heat
+# from regu.gravity import gravity
+# from regu.csvd import csvd
+# from regu.l_curve import l_curve
+# from regu.tikhonov import tikhonov
+# from regu.gcv import gcv
+# from regu.discrep import discrep
+# from regu.csvd import csvd
+# from regu.find_corner import find_corner
+from utils.load_imports.load_classical import *
 
 if __name__ == '__main__':
     # Initialize parameters
