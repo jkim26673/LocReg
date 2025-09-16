@@ -1,51 +1,52 @@
-import sys
-import os
-print("Setting system path")
-sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
-import numpy as np
-from scipy.stats import norm as normsci
-from scipy.linalg import norm as linalg_norm
-from scipy.optimize import nnls
-import matplotlib.pyplot as plt
-import pickle
-from Utilities_functions.discrep_L2 import *
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.Lcurve import Lcurve
-import pandas as pd
-import cvxpy as cp
-from scipy.linalg import svd
-from regu.csvd import csvd
-from regu.discrep import discrep
-from Simulations.LRalgo import *
-from regu.l_curve import l_curve
-from tqdm import tqdm
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-import mosek
-import seaborn as sns
-from regu.nonnegtik_hnorm import nonnegtik_hnorm
-from multiprocessing import Pool, freeze_support
-from multiprocessing import set_start_method
-import functools
-from datetime import date
-import random
-import cProfile
-import pstats
-from io import StringIO
-from Simulations.resolutionanalysis import find_min_between_peaks, check_resolution
-import logging
-import time
-from scipy.stats import wasserstein_distance
-import matplotlib.ticker as ticker  # Add this import
-import scipy
-import timeit
-import unittest
-from scipy.integrate import simpson
+# import sys
+# import os
+# print("Setting system path")
+# sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
+# import numpy as np
+# from scipy.stats import norm as normsci
+# from scipy.linalg import norm as linalg_norm
+# from scipy.optimize import nnls
+# import matplotlib.pyplot as plt
+# import pickle
+# from Utilities_functions.discrep_L2 import *
+# from Utilities_functions.GCV_NNLS import GCV_NNLS
+# from Utilities_functions.Lcurve import Lcurve
+# import pandas as pd
+# import cvxpy as cp
+# from scipy.linalg import svd
+# from regu.csvd import csvd
+# from regu.discrep import discrep
+# from Simulations.LRalgo import *
+# from regu.l_curve import l_curve
+# from tqdm import tqdm
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
+# import mosek
+# import seaborn as sns
+# from regu.nonnegtik_hnorm import nonnegtik_hnorm
+# from multiprocessing import Pool, freeze_support
+# from multiprocessing import set_start_method
+# import functools
+# from datetime import date
+# import random
+# import cProfile
+# import pstats
+# from io import StringIO
+# from Simulations.resolutionanalysis import find_min_between_peaks, check_resolution
+# import logging
+# import time
+# from scipy.stats import wasserstein_distance
+# import matplotlib.ticker as ticker  # Add this import
+# import scipy
+# import timeit
+# import unittest
+# from scipy.integrate import simpson
+from utils.load_imports.loading import *
 
-print("setting license path")
-mosek_license_path = r"/home/kimjosy/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
-os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-print(f'MOSEK License Set from {mosek_license_path}')
+# print("setting license path")
+# mosek_license_path = r"/home/kimjosy/mosek/mosek.lic"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+# os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+# print(f'MOSEK License Set from {mosek_license_path}')
 # logging.info(f'MOSEK License Set from {mosek_license_path}')
 
 try:
