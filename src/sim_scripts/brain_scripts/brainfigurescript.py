@@ -454,13 +454,13 @@ filetag = "NESMAfiltered"
 # filepath = "/home/kimjosy/LocReg_Regularization-1/data/Brain/results_29Jan25"
 filepath = "/home/kimjosy/LocReg_Regularization-1/data/Brain/results_29Jan25/filteredbrain"
 # filepath = "/home/kimjosy/LocReg_Regularization-1/data/Brain/results_29Jan25/unfilterdbrain_1_21_25"
-import pickle
-import numpy as np
-import scipy
-import matplotlib.pyplot as plt
-from scipy.stats import wasserstein_distance
+# import pickle
+# import numpy as np
+# import scipy
+# import matplotlib.pyplot as plt
+# from scipy.stats import wasserstein_distance
 
-
+from utils.load_imports.loading import *
 class OrigBrainAnalysis:
     def __init__(self, brain_data_filepath, mask_filepath, estimates_filepath):
         # Load the brain data

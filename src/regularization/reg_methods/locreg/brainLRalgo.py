@@ -1,26 +1,27 @@
-import sys
-# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-sys.path.append(".")
-# from Utilities_functions.lsqnonneg import lsqnonneg
-from scipy.optimize import nnls
-import numpy as np
-import cvxpy as cp
-import os
-import mosek
-import cvxpy as cp
-from scipy.signal import savgol_filter
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-from regu.csvd import csvd
-import pylops
-from scipy.ndimage import convolve
-from scipy import sparse
-import scipy
-from scipy import linalg as la
-from Utilities_functions.pasha_gcv import Tikhonov
-from regu.nonnegtik_hnorm import nonnegtik_hnorm
+# import sys
+# # sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# sys.path.append(".")
+# # from Utilities_functions.lsqnonneg import lsqnonneg
+# from scipy.optimize import nnls
+# import numpy as np
+# import cvxpy as cp
+# import os
+# import mosek
+# import cvxpy as cp
+# from scipy.signal import savgol_filter
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
+# from regu.csvd import csvd
+# import pylops
+# from scipy.ndimage import convolve
+# from scipy import sparse
+# import scipy
+# from scipy import linalg as la
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from regu.nonnegtik_hnorm import nonnegtik_hnorm
 
-mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+# mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+from utils.load_imports.loading import *
 def LocReg_Ito_mod(data_noisy, G, lam_ini, gamma_init, maxiter):
     def minimize(lam_vec):
             # Fallback to nonnegtik_hnorm
