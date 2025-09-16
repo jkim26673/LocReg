@@ -38,4 +38,4 @@ plotly
 autograd
 fnnls
 cv2
-#octave
+oct2py
