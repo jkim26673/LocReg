@@ -1,30 +1,30 @@
-import sys
-# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-import numpy as np
-import os
-import pickle
-import matplotlib.pyplot as plt
-from regu.Lcurve import Lcurve
-from regu.baart import baart
-from regu.csvd import csvd
-from regu.l_curve import l_curve
-from regu.tikhonov import tikhonov
-from regu.gcv import gcv
-from regu.discrep import discrep
-from numpy.linalg import norm
-from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
-from regu.foxgood import foxgood
-from Ito_LocReg import *
-from tqdm import tqdm
-from datetime import datetime
-from Utilities_functions.pasha_gcv import Tikhonov
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-from regu.baart import baart
-from concurrent.futures import ThreadPoolExecutor
-from functools import partial
+# import sys
+# # sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# import numpy as np
+# import os
+# import pickle
+# import matplotlib.pyplot as plt
+# from regu.Lcurve import Lcurve
+# from regu.baart import baart
+# from regu.csvd import csvd
+# from regu.l_curve import l_curve
+# from regu.tikhonov import tikhonov
+# from regu.gcv import gcv
+# from regu.discrep import discrep
+# from numpy.linalg import norm
+# from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
+# from regu.foxgood import foxgood
+# from Ito_LocReg import *
+# from tqdm import tqdm
+# from datetime import datetime
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
+# from regu.baart import baart
+# from concurrent.futures import ThreadPoolExecutor
+# from functools import partial
 
-import sys
-import os
+from utils.load_imports.load_classical import *
+
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)
 cwd = os.getcwd()

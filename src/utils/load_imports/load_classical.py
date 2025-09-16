@@ -36,7 +36,7 @@ import seaborn as sns
 import matplotlib.ticker as ticker
 
 from scipy.stats import norm as normsci, wasserstein_distance, entropy
-from scipy.linalg import norm as linalg_norm, svd
+from scipy.linalg import norm as norm, svd
 from scipy.optimize import nnls
 from scipy.integrate import simpson
 import cvxpy as cp
@@ -85,6 +85,9 @@ from regularization.reg_methods.lcurve import l_curve
 from regularization.reg_methods.locreg.LocReg import LocReg, LocReg as Chuan_LR
 from regularization.reg_methods.locreg.LocReg_unconstrainedB import LocReg_unconstrainedB
 from regularization.reg_methods.locreg.LocReg_NEW_NNLS import LocReg_NEW_NNLS
+from regularization.reg_methods.locreg.LocReg_unconstrained import LocReg_unconstrained
+from regularization.reg_methods.locreg.LocReg_v2 import LocReg_v2
+from regularization.reg_methods.locreg.LocReg_NE import LocReg_unconstrained_NE
 from regularization.reg_methods.locreg.Ito_LocReg import *  # ⚠️ careful with *
 from regularization.reg_methods.spanreg.Multi_Reg_Gaussian_Sum1 import Multi_Reg_Gaussian_Sum1
 from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec

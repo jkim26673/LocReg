@@ -1,60 +1,62 @@
-import sys
-import os
-print("Setting system path")
-sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
-import numpy as np
-from scipy.stats import norm as normsci
-from scipy.linalg import norm as linalg_norm
-from scipy.optimize import nnls
-import matplotlib.pyplot as plt
-import pickle
-from Utilities_functions.discrep_L2 import discrep_L2
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.Lcurve import Lcurve
-import pandas as pd
-import cvxpy as cp
-from scipy.linalg import svd
-from Simulations.lcurve_functions import l_cuve,csvd,l_corner
-from Simulations.l_curve_corner import l_curve_corner
-from regu.csvd import csvd
-from regu.discrep import discrep
-from Simulations.Ito_LocReg import Ito_LocReg
-from Simulations.Ito_LocReg import *
-from Utilities_functions.pasha_gcv import Tikhonov
-from regu.l_curve import l_curve
-from tqdm import tqdm
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-import mosek
-from ItoLocRegConst import LocReg_Ito_C,LocReg_Ito_C_2,LocReg_Ito_C_4
-from regu.nonnegtik_hnorm import nonnegtik_hnorm
-import multiprocess as mp
-from multiprocessing import Pool, freeze_support
-from multiprocessing import set_start_method
-import functools
-from datetime import date
-import random
-import cProfile
-import pstats
-import matplotlib.pyplot as plt
-from regu.Lcurve import Lcurve
-from regu.baart import baart
-from regu.csvd import csvd
-from concurrent.futures import ThreadPoolExecutor
-from functools import partial
-from regu.l_curve import l_curve
-from regu.tikhonov import tikhonov
-from regu.gcv import gcv
-from regu.discrep import discrep
-from numpy.linalg import norm
-from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
-from regu.wing import wing
-from Utilities_functions.pasha_gcv import Tikhonov
-from Ito_LocReg import *
-from tqdm import tqdm
-from datetime import datetime
-from Utilities_functions.pasha_gcv import Tikhonov
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-from regu.ilaplace import i_laplace
+# import sys
+# import os
+# print("Setting system path")
+# sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
+# import numpy as np
+# from scipy.stats import norm as normsci
+# from scipy.linalg import norm as linalg_norm
+# from scipy.optimize import nnls
+# import matplotlib.pyplot as plt
+# import pickle
+# from Utilities_functions.discrep_L2 import discrep_L2
+# from Utilities_functions.GCV_NNLS import GCV_NNLS
+# from Utilities_functions.Lcurve import Lcurve
+# import pandas as pd
+# import cvxpy as cp
+# from scipy.linalg import svd
+# from Simulations.lcurve_functions import l_cuve,csvd,l_corner
+# from Simulations.l_curve_corner import l_curve_corner
+# from regu.csvd import csvd
+# from regu.discrep import discrep
+# from Simulations.Ito_LocReg import Ito_LocReg
+# from Simulations.Ito_LocReg import *
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from regu.l_curve import l_curve
+# from tqdm import tqdm
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
+# import mosek
+# from ItoLocRegConst import LocReg_Ito_C,LocReg_Ito_C_2,LocReg_Ito_C_4
+# from regu.nonnegtik_hnorm import nonnegtik_hnorm
+# import multiprocess as mp
+# from multiprocessing import Pool, freeze_support
+# from multiprocessing import set_start_method
+# import functools
+# from datetime import date
+# import random
+# import cProfile
+# import pstats
+# import matplotlib.pyplot as plt
+# from regu.Lcurve import Lcurve
+# from regu.baart import baart
+# from regu.csvd import csvd
+# from concurrent.futures import ThreadPoolExecutor
+# from functools import partial
+# from regu.l_curve import l_curve
+# from regu.tikhonov import tikhonov
+# from regu.gcv import gcv
+# from regu.discrep import discrep
+# from numpy.linalg import norm
+# from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
+# from regu.wing import wing
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from Ito_LocReg import *
+# from tqdm import tqdm
+# from datetime import datetime
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
+# from regu.ilaplace import i_laplace
+from utils.load_imports.load_classical import *
+
 # from regu.i_laplace import i_laplace
 
 # import scipy.io
@@ -242,9 +244,9 @@ for i in tqdm(range(nrun)):
     lambda_LC,rho,eta,_ = l_curve(U,s,data_noisy, method = None, L = None, V = None, nargin = 3, nargout = 3)
     f_rec_LC,lambda_LC = tikhonov_vec(U, s, V, data_noisy, (lambda_LC), x_0 = None, nargin = 5)
     # f_rec_LC,_,_ = tikhonov(U,s,V,data_noisy,lambda_LC, nargin=5, nargout=1)
-    com_vec_LC[i] = norm(g - f_rec_LC)
+    com_vec_LC[i] = linalg_norm(g - f_rec_LC)
 
-    delta1 = norm(noise)*1.05
+    delta1 = linalg_norm(noise)*1.05
     # x_delta,lambda_DP = discrep(U,s,V,data_noisy,delta1, x_0= None, nargin = 5)
     # f_rec_DP,_,_ = tikhonov(U,s,V,data_noisy,lambda_DP, nargin=5, nargout=1)
     
@@ -256,7 +258,7 @@ for i in tqdm(range(nrun)):
     f_rec_DP, lambda_DP = tikhonov_vec(U, s, V, data_noisy, lambda_DP, x_0 = None, nargin = 5)
     # f_rec_DP,_,_ = tikhonov(U,s,V,data_noisy,lambda_DP, nargin=5, nargout=1)
 
-    com_vec_DP[i] = norm(g - f_rec_DP)
+    com_vec_DP[i] = linalg_norm(g - f_rec_DP)
 
     L = np.eye(G.shape[1])
     x_true = None
@@ -268,7 +270,7 @@ for i in tqdm(range(nrun)):
 
     # lambda_GCV,_,reg_param = gcv(U,s,data_noisy, method = 'Tikh', nargin = 3, nargout = 3)
     # f_rec_GCV,_,_ = tikhonov(U,s,V,data_noisy,lambda_GCV, nargin=5, nargout=1)
-    com_vec_GCV[i] = norm(g - f_rec_GCV)
+    com_vec_GCV[i] = linalg_norm(g - f_rec_GCV)
 
     # x0_ini = f_rec_LC
     # ep1 = 1e-8
@@ -292,10 +294,10 @@ for i in tqdm(range(nrun)):
     f_rec_LocReg = f_rec_DP
     lambda_locreg = lambda_DP
     LR_Ito_lams = lambda_locreg
-    com_vec_ItoLR[i] = norm(g - f_rec_LocReg)
+    com_vec_ItoLR[i] = linalg_norm(g - f_rec_LocReg)
 
     f_rec_oracle, oracle_lam = minimize_OP(Lambda_vec, L, data_noisy, G, nT2, g)
-    com_vec_oracle[i] = norm(g - f_rec_oracle)
+    com_vec_oracle[i] = linalg_norm(g - f_rec_oracle)
 
     #normalization:
     sum_x = np.sum(f_rec_LocReg)
