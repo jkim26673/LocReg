@@ -20,6 +20,8 @@
 # #/Users/steveh/Downloads/noisearr1000for10diffnoisereal3.mat
 # noise = noise['noise_arr']
 from utils.load_imports.load_classical import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 n = 1000
 nT2 = n

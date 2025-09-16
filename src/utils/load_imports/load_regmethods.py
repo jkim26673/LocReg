@@ -12,7 +12,7 @@ from src.regularization.reg_methods.dp.discrep_L2 import discrep_L2_brain
 from src.regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
 from src.regularization.reg_methods.gcv.gcv import gcv
 from src.regularization.reg_methods.lcurve.Lcurve import Lcurve
-from src.regularization.reg_methods.lcurve import l_curve
+from src.regularization.reg_methods.lcurve.l_curve import l_curve
 
 from src.regularization.reg_methods.locreg.LocReg import LocReg
 from src.regularization.reg_methods.locreg.LocReg_unconstrainedB import LocReg_unconstrainedB
@@ -30,6 +30,9 @@ from src.regularization.reg_methods.spanreg.generate_gaussian_regs_L2_old import
 from src.sim_scripts.fivebyfiveMRR_script.gen_spanreg_heatmap_copyreference import heatmap_unequal_width_All
 from src.regularization.reg_methods.locreg.TwoParam_LR import Multi_Param_LR
 from src.regularization.reg_methods.nnls_multiparameter.tikhonov_multi_param import tikhonov_multi_param
+from src.regularization.reg_methods.upen.upenzama import UPEN_Zama
+from src.regularization.reg_methods.upen.upenzama import UPEN_Zama0th
+from src.regularization.reg_methods.upen.upenzama import UPEN_Zama1st
 
 # -----------------------------
 # 🧩 Subfunctions
@@ -50,14 +53,14 @@ from src.sim_scripts.peak_resolution_scripts.resolutionanalysis import (
 # 🧠 Expose Regularization Names
 # -----------------------------
 __all__ = [
-    'discrep', 'discrep_L2','GCV_NNLS', 'gcv',
+    'discrep', 'discrep_L2','discrep_L2_brain','GCV_NNLS', 'gcv',
     'Lcurve', 'l_curve',
     'LocReg', 'LocReg_unconstrainedB', 'LocReg_NEW_NNLS',
     'LocReg_unconstrained', 'LocReg_Ito_mod', 'LocReg_Ito_mod_deriv', 'LocReg_Ito_mod_deriv2',
     'LocReg_v2', 'LocReg_unconstrained_NE',
     'Multi_Reg_Gaussian_Sum1', 'tikhonov_vec', 'nonnegtik_hnorm',
     'lsqnonneg', 'generate_gaussian_regs_L2_old',
-    'heatmap_unequal_width_All', 'Multi_Param_LR', 'tikhonov_multi_param',
+    'heatmap_unequal_width_All', 'Multi_Param_LR', 'tikhonov_multi_param', 'UPEN_Zama', 'UPEN_Zama0th', 'UPEN_Zama1st',
 
     # Subfunctions
     'l_cuve', 'csvd', 'l_corner', 'l_curve_corner',

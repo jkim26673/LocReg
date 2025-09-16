@@ -41,6 +41,7 @@
 # import timeit
 # import unittest
 from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 print("setting license path")
 logging.info("setting license path")

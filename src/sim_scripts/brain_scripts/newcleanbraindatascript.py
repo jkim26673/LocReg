@@ -32,6 +32,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 # from Simulations.LRalgo import LocReg_Ito_mod, LocReg_Ito_mod_deriv, LocReg_Ito_mod_deriv2
 # from Simulations.upenzama import UPEN_Zama
 from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 # import matlab.engine
 # import mosek

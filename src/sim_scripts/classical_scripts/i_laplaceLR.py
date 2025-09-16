@@ -56,7 +56,8 @@
 # from Utilities_functions.tikhonov_vec import tikhonov_vec
 # from regu.ilaplace import i_laplace
 from utils.load_imports.load_classical import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 # from regu.i_laplace import i_laplace
 
 # import scipy.io

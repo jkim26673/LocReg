@@ -47,7 +47,8 @@
 # import matplotlib.ticker as ticker  # Add this import
 # import scipy
 # import timeit
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 import scipy.io
 from scipy.ndimage import rotate
 import pickle

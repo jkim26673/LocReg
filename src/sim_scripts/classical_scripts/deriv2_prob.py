@@ -18,7 +18,8 @@
 # from Utilities_functions.LocReg_v2 import LocReg_v2
 # from Utilities_functions.LocReg_NE import LocReg_unconstrained_NE
 from utils.load_imports.load_classical import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 import scipy.io
 noise = scipy.io.loadmat('/Users/steveh/Downloads/NIH 23-24/LocReg_Python/Matlab NRs/deriv2_prob_NR.mat')
 #/Users/steveh/Downloads/noisearr1000for10diffnoisereal3.mat

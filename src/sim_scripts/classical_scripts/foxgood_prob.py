@@ -23,6 +23,8 @@
 # from datetime import datetime
 
 from utils.load_imports.load_classical import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 # import scipy.io
 # noise = scipy.io.loadmat('/Users/steveh/Downloads/NIH 23-24/LocReg_Python/Matlab NRs/foxgood_NR.mat')
 # #/Users/steveh/Downloads/noisearr1000for10diffnoisereal3.mat

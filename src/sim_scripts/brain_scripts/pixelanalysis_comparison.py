@@ -48,7 +48,7 @@
 # import timeit
 from scipy.ndimage import rotate
 from src.utils.load_imports.loading import *
-
+from src.utils.load_imports.load_regmethods import *
 
 brain_data = scipy.io.loadmat("/home/kimjosy/LocReg_Regularization/cleaned_brain_data.mat")["final_data_2"]
 maskfilepath = "/home/kimjosy/LocReg_Regularization-1/data/brain/masks/new_mask.mat"
