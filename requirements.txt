@@ -39,3 +39,4 @@ autograd
 fnnls
 cv2
 oct2py
+statsmodel
