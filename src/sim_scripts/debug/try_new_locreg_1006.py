@@ -13,8 +13,9 @@ import matplotlib.pyplot as plt
 # from regu.discrep import discrep
 # from regu.csvd import csvd
 # from regu.find_corner import find_corner
-from utils.load_imports.load_classical import *
-
+from src.utils.load_imports.load_classical import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 if __name__ == '__main__':
     # Initialize parameters
     n = 300

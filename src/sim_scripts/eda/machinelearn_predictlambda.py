@@ -12,7 +12,9 @@
 # from numpy.linalg import norm
 # import matplotlib.pyplot as plt
 # from regu.l_curve import l_curve
-from utils.load_imports.load_classical import *
+from src.utils.load_imports.load_classical import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 import numpy as np
 from math import factorial
 # from regu.discrep import discrep

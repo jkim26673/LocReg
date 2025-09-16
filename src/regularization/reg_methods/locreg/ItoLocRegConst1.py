@@ -19,7 +19,7 @@
 # import scipy
 # from scipy import linalg as la
 # from Utilities_functions.pasha_gcv import Tikhonov
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 ### N Parameter Ito problem
 def LocReg_Ito_mod(data_noisy, G, lam_ini, gamma_init, maxiter):
     #Initialize the MRR Problem

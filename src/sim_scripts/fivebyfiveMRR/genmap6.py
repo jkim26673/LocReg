@@ -45,8 +45,8 @@
 # mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
 # os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
 # os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-from utils.load_imports.loading import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 logging.basicConfig(
     filename='my_script.log',
     level=logging.INFO,

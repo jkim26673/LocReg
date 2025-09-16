@@ -45,8 +45,8 @@
 # import sys
 # import os
 # import mosek
-from utils.load_imports.loading import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 # print("setting license path")
 mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
 os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path

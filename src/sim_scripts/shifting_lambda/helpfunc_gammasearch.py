@@ -1,6 +1,7 @@
 # import numpy as np
 # from scipy.stats import wasserstein_distance, entropy
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 def l2_rms(T2, gamma, data, g):
     """

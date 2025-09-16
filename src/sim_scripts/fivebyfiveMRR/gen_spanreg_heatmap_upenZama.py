@@ -39,10 +39,8 @@
 # import matplotlib.ticker as ticker  # Add this import
 # from regularization.reg_methods.upen.upencode import upen_param_setup, upen_setup
 # from regularization.reg_methods.upen.upenzama import UPEN_Zama, UPEN_Zama0th, UPEN_Zama1st
-
-from utils.load_imports.loading import *
-from utils.load_imports.load_regmethods import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 # Configure logging
 logging.basicConfig(
     filename='my_script.log',

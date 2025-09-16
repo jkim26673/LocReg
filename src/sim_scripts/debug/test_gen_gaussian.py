@@ -1,6 +1,6 @@
 import numpy as np
-from regularization.reg_methods.spanreg.Gaussian_basis import Gaussian_basis
-from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
+from src.regularization.reg_methods.spanreg.Gaussian_basis import Gaussian_basis
+from src.regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 # import cvxpy as cp
 # from cvxopt import matrix, solvers
 import os

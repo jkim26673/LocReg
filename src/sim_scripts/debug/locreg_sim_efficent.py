@@ -14,8 +14,8 @@
 
 # mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
 # os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
-from utils.load_imports.loading import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 np.random.seed(34)
 

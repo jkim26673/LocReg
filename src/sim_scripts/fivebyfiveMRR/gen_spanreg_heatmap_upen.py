@@ -38,6 +38,8 @@ import time
 from scipy.stats import wasserstein_distance
 import matplotlib.ticker as ticker  # Add this import
 from regularization.reg_methods.upen.upencode import upen_param_setup, upen_setup
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 # Configure logging
 logging.basicConfig(

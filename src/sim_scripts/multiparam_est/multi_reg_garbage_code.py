@@ -1,22 +1,26 @@
 #multi_reg_garbage_code
-from regu.Lcurve import Lcurve
-from regu.gravity import gravity
-from regu.baart import baart
-from regu.heat import heat
-from regu.csvd import csvd
-from regu.l_curve import l_curve
-from regu.tikhonov import tikhonov
-from regu.gcv import gcv
-from regu.discrep import discrep
-from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
-from Utilities_functions.TwoParam_LR import Multi_Param_LR
-from regu.shaw import shaw
-from regu.tikhonov_multi_param import tikhonov_multi_param
-from regu.i_laplace import i_laplace
-from lsqnonneg import lsqnonneg
-#from Simulations.lcurve_functions import l_cuve,csvd,l_corner
-from Simulations.l_curve_corner import l_curve_corner
-from regu.csvd import csvd
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
+from src.utils.load_imports.load_classical import *
+
+# from regu.Lcurve import Lcurve
+# from regu.gravity import gravity
+# from regu.baart import baart
+# from regu.heat import heat
+# from regu.csvd import csvd
+# from regu.l_curve import l_curve
+# from regu.tikhonov import tikhonov
+# from regu.gcv import gcv
+# from regu.discrep import discrep
+# from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
+# from Utilities_functions.TwoParam_LR import Multi_Param_LR
+# from regu.shaw import shaw
+# from regu.tikhonov_multi_param import tikhonov_multi_param
+# from regu.i_laplace import i_laplace
+# from lsqnonneg import lsqnonneg
+# #from Simulations.lcurve_functions import l_cuve,csvd,l_corner
+# from Simulations.l_curve_corner import l_curve_corner
+# from regu.csvd import csvd
 #Find the relative error:
 def min_max(arr):
     minimum = np.min(arr)
