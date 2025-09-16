@@ -34,3 +34,4 @@ tensorflow
 torch
 tqdm
 kneed
+#octave
