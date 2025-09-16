@@ -33,3 +33,4 @@ seaborn
 tensorflow
 torch
 tqdm
+kneed

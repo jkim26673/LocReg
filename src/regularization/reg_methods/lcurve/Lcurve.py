@@ -17,3 +17,4 @@ def Lcurve(dat_noisy, A, Lambda):
     f_rec_LC = nonnegtik_hnorm(A, dat_noisy, reg_c, '0')
     
     return f_rec_LC, reg_c
+

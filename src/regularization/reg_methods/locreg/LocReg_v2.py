@@ -1,7 +1,7 @@
 import numpy as np
-from regu.find_corner import find_corner
+from regularization.subfunc.find_corner import find_corner
 from kneed import KneeLocator
-from regu.csvd import csvd
+from regularization.subfunc.csvd import csvd
 
 def LocReg_v2(data_noisy, G, lambda_ini):
     # Singular Value Decomposition
