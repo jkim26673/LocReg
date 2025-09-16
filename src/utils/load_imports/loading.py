@@ -154,6 +154,8 @@ import cProfile
 import pstats
 import subprocess
 import unittest
+import pickle
+
 
 # Add project root to sys.path (if needed)
 print("Setting system path")
@@ -200,6 +202,7 @@ from tqdm import tqdm
 # ✅ MOSEK (after setting license)
 # -----------------------------
 import mosek
+mosek_license_path = r"/Users/kimjosy/Downloads/LocReg/tools/mosek/mosek.lic"
 
 # -----------------------------
 # 🧠 Expose Common Names
@@ -214,7 +217,7 @@ __all__ = [
     # System/util
     'os', 'sys', 'logging', 'time', 'datetime', 'date',
     'functools', 'random', 'cProfile', 'pstats',
-    'subprocess', 'unittest', 'timeit',
+    'subprocess', 'unittest', 'timeit', 'pickle',
 
     # Parallel
     'mp', 'Pool', 'freeze_support', 'set_start_method',

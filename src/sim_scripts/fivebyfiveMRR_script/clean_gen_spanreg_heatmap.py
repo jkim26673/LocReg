@@ -742,7 +742,7 @@
 # from regularization.reg_methods.locreg.LRalgo import LocReg_Ito_mod, LocReg_Ito_mod_deriv, LocReg_Ito_mod_deriv2
 # from regularization.reg_methods.upen.upenzama import UPEN_Zama, UPEN_Zama0th, UPEN_Zama1st
 
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 
 @dataclass
 class SimulationConfig:

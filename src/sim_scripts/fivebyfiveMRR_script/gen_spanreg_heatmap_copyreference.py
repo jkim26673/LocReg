@@ -47,31 +47,31 @@
 # import os
 # import mosek
 # # from ItoLocRegConst import LocReg_Ito_C,LocReg_Ito_C_2,LocReg_Ito_C_4
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 # print("setting license path")
-mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+# mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
 
-parent = os.path.dirname(os.path.abspath(''))
-sys.path.append(parent)
-cwd = os.getcwd()
+# parent = os.path.dirname(os.path.abspath(''))
+# sys.path.append(parent)
+# cwd = os.getcwd()
 
-cwd_temp = os.getcwd()
-base_file = 'LocReg_Regularization-1'
-cwd_cut = f'{cwd_temp.split(base_file, 1)[0]}{base_file}/'
+# cwd_temp = os.getcwd()
+# base_file = 'LocReg_Regularization-1'
+# cwd_cut = f'{cwd_temp.split(base_file, 1)[0]}{base_file}/'
 
-pat_tag = "MRR"#"BLSA_1742_04_MCIAD_m41"#"BLSA_1935_06_MCIAD_m79"
-series_tag = "SpanRegFig"
-output_folder = f"SimulationSets/{pat_tag}/{series_tag}"
+# pat_tag = "MRR"#"BLSA_1742_04_MCIAD_m41"#"BLSA_1935_06_MCIAD_m79"
+# series_tag = "SpanRegFig"
+# output_folder = f"SimulationSets/{pat_tag}/{series_tag}"
 date = datetime.now().strftime("%Y%m%d")
 
 lam_ini_val = "LCurve"
 normset = True
 # cwd_full = cwd_cut + output_folder + lam_ini
-cwd_full = cwd_cut + output_folder 
-
-preset_noise = True
+cwd_full = r"/Users/kimjosy/Downloads/LocReg/tests/test_regularization"
+preset_noise = False
 
 if preset_noise == True:
     noisearr = np.load("/home/kimjosy/LocReg_Regularization-1/SimulationsSets/MRR/SpanRegFig/est_table_SNR1000_iter1_13Aug24noise_arr.txt.npy")

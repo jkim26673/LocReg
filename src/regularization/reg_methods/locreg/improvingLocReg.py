@@ -24,11 +24,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KernelDensity
 from sklearn.mixture import GaussianMixture
-from scipy.signal import gaussian
+from scipy.signal.windows import gaussian
 from scipy.ndimage import convolve1d
 
 from src.utils.load_imports.loading import *
-
+from src.utils.load_imports.load_regmethods import *
 
 def savitzky_golay(y, window_size, order, deriv=0, rate=1):
     try:
@@ -66,7 +66,9 @@ TE = T2
 # G,data_noiseless,g = baart(n, nargout=3)
 G,data_noiseless,g = foxgood(n)
 #G,data_noiseless,g = phillips(n, nargout=3)
+# U,s,V = csvd(G, tst = None, nargin = 1, nargout = 3)
 U,s,V = csvd(G, tst = None, nargin = 1, nargout = 3)
+
 SNR = 30
 
 
