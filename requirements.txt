@@ -37,4 +37,5 @@ kneed
 plotly
 autograd
 fnnls
+cv2
 #octave

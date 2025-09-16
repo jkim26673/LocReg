@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import cv2 as cv
 
 def pathname(classical_prob, method):
     path = f"/Users/steveh/Downloads/NIH 23-24/LocReg_Python/figure_data/Creating Publication Figures Classical Problem/Classical problems figures 1023/{classical_prob}_prob_nrun_1_{method}.png"
@@ -18,9 +17,6 @@ gcv_images = [pathname(classical_prob, 'gcv_gt') for classical_prob in classical
 lcurve_images = [pathname(classical_prob, 'lc_gt') for classical_prob in classical_prob_names]
 dp_images = [pathname(classical_prob, 'dp_gt') for classical_prob in classical_prob_names]
 lambda_images = [pathname(classical_prob, 'lambda_plt') for classical_prob in classical_prob_names]
-
-import cv2 as cv
-import matplotlib.pyplot as plt
 
 # Define the list of image file paths for each category
 categories = [locreg_images, gcv_images, dp_images, lcurve_images, lambda_images]
