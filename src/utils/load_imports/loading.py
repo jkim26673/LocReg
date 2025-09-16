@@ -81,6 +81,9 @@ from sim_scripts.fivebyfiveMRR_script.gen_spanreg_heatmap_copyreference import h
 from regularization.reg_methods.locreg.LocReg_unconstrained import LocReg_unconstrained
 from regularization.reg_methods.locreg.LocReg_v2 import LocReg_v2
 from regularization.reg_methods.locreg.LocReg_NE import LocReg_unconstrained_NE
+from regularization.reg_methods.locreg.TwoParam_LR import Multi_Param_LR
+from regularization.reg_methods.nnls_multiparameter.tikhonov_multi_param import tikhonov_multi_param
+
 # -----------------------------
 # 🧩 Subfunctions
 # -----------------------------
@@ -119,10 +122,12 @@ __all__ = [
 
     # Regularization
     'discrep_L2', 'discrep', 'GCV_NNLS', 'gcv',
-    'Lcurve', 'l_curve', 'LocReg', 'Chuan_LR', 'LocReg_unconstrainedB', 'LocReg_NEW_NNLS','LocReg_unconstrained', 'LocReg_unconstrained_NE',
-    'LocReg_v2', 'Multi_Reg_Gaussian_Sum1', 'tikhonov_vec', 'nonnegtik_hnorm',
+    'Lcurve', 'l_curve',
+    'LocReg', 'Chuan_LR', 'LocReg_unconstrainedB', 'LocReg_NEW_NNLS',
+    'Multi_Reg_Gaussian_Sum1', 'tikhonov_vec', 'nonnegtik_hnorm',
     'upen_param_setup', 'upen_setup', 'UPEN_Zama', 'UPEN_Zama0th', 'UPEN_Zama1st',
-    'lsqnonneg', 'generate_gaussian_regs_L2_old','heatmap_unequal_width_All',
+    'lsqnonneg', 'generate_gaussian_regs_L2_old',
+    'heatmap_unequal_width_All','Multi_Param_LR', 'tikhonov_multi_param',
 
     # Subfunctions
     'l_cuve', 'csvd', 'l_corner', 'l_curve_corner',

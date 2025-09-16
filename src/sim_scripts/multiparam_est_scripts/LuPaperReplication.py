@@ -1,26 +1,57 @@
 #Replicating the results from Lu and Pereverzev
-import numpy as np
-import sys
-sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-import matplotlib.pyplot as plt
-from regu.Lcurve import Lcurve
-from regu.gravity import gravity
-from regu.baart import baart
-from regu.heat import heat
-from regu.csvd import csvd
-from regu.l_curve import l_curve
-from regu.tikhonov import tikhonov
-from regu.gcv import gcv
-from regu.discrep import discrep
-from numpy.linalg import norm
-from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
-from Utilities_functions.TwoParam_LR import Multi_Param_LR
-from regu.shaw import shaw
-from regu.tikhonov_multi_param import tikhonov_multi_param
-from tqdm import tqdm
-from regu.i_laplace import i_laplace
+# import numpy as np
+# import sys
+# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# import matplotlib.pyplot as plt
+# from regu.Lcurve import Lcurve
+# from regu.gravity import gravity
+# from regu.baart import baart
+# from regu.heat import heat
+# from regu.csvd import csvd
+# from regu.l_curve import l_curve
+# from regu.tikhonov import tikhonov
+# from regu.gcv import gcv
+# from regu.discrep import discrep
+# from numpy.linalg import norm
+# from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
+# from Utilities_functions.TwoParam_LR import Multi_Param_LR
+# from regu.shaw import shaw
+# from regu.tikhonov_multi_param import tikhonov_multi_param
+# from tqdm import tqdm
+# from regu.i_laplace import i_laplace
 
-
+from tools.trips_py.new_gcv_pasha import generalized_crossvalidation
+from pylops import LinearOperator, Identity
+# from numpy.linalg import norm
+# from regu.csvd import csvd
+# from regu.tikhonov import tikhonov
+# from regu.discrep import discrep
+# from regu.l_curve import l_curve
+# from fnnls import fnnls
+# from regu.gcv import gcv
+# from Utilities_functions.discrep_L2 import discrep_L2
+# from Utilities_functions.GCV_NNLS import GCV_NNLS
+# from Utilities_functions.Lcurve import Lcurve
+# from regu.nonnegtik_hnorm import nonnegtik_hnorm
+# from scipy.optimize import nnls
+# from itertools import product
+# import cvxpy as cp
+# from tqdm import tqdm
+# import scipy
+# import matplotlib.pyplot as plt
+# import time
+from utils.load_imports.load_classical import *
+import math
+from mpl_toolkits.mplot3d import Axes3D
+import h5py
+import seaborn as sns
+import plotly.graph_objects as go
+import plotly.io as pio
+import sympy as sp
+# import fnnlsEigen as fe 
+# import numdifftools.nd_statsmodels as nd
+from autograd import grad, elementwise_grad, jacobian, hessian, holomorphic_grad
+from mpl_toolkits import mplot3d
 #Find the relative error:
 def min_max(arr):
     minimum = np.min(arr)
