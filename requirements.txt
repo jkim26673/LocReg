@@ -10,26 +10,26 @@ matplotlib
 scipy
 tqdm
 ipykernel
-# addcopyfighandler
-# clarabel
-# cvxopt
-# cvxpy
-# cython
-# h5py
-# keras
-# matplotlib
-# mosek
-# multiprocess
-# nlopt
-# numpy
-# openpyxl
-# pandas==2.2.2
-# piqp
-# pylops
-# scikit-learn
-# scipy
-# scs
-# seaborn
-# tensorflow
-# torch
-# tqdm
+addcopyfighandler
+clarabel
+cvxopt
+cvxpy
+cython
+h5py
+keras
+matplotlib
+mosek
+multiprocess
+nlopt
+numpy
+openpyxl
+pandas==2.2.2
+piqp
+pylops
+scikit-learn
+scipy
+scs
+seaborn
+tensorflow
+torch
+tqdm
