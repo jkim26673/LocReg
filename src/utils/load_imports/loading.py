@@ -71,6 +71,7 @@ from regularization.reg_methods.lcurve import l_curve
 from regularization.reg_methods.locreg.LocReg import LocReg, LocReg as Chuan_LR
 from regularization.reg_methods.locreg.LocReg_unconstrainedB import LocReg_unconstrainedB
 from regularization.reg_methods.locreg.LocReg_NEW_NNLS import LocReg_NEW_NNLS
+from regularization.reg_methods.locreg.LRalgo import LocReg_Ito_mod,LocReg_Ito_mod_deriv,LocReg_Ito_mod_deriv2
 from regularization.reg_methods.locreg.Ito_LocReg import *  # ⚠️ careful with *
 from regularization.reg_methods.spanreg.Multi_Reg_Gaussian_Sum1 import Multi_Reg_Gaussian_Sum1
 from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec

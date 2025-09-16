@@ -86,6 +86,7 @@ from regularization.reg_methods.locreg.LocReg import LocReg, LocReg as Chuan_LR
 from regularization.reg_methods.locreg.LocReg_unconstrainedB import LocReg_unconstrainedB
 from regularization.reg_methods.locreg.LocReg_NEW_NNLS import LocReg_NEW_NNLS
 from regularization.reg_methods.locreg.LocReg_unconstrained import LocReg_unconstrained
+from regularization.reg_methods.locreg.LRalgo import LocReg_Ito_mod,LocReg_Ito_mod_deriv,LocReg_Ito_mod_deriv2
 from regularization.reg_methods.locreg.LocReg_v2 import LocReg_v2
 from regularization.reg_methods.locreg.LocReg_NE import LocReg_unconstrained_NE
 from regularization.reg_methods.locreg.Ito_LocReg import *  # ⚠️ careful with *
