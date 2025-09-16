@@ -8,9 +8,9 @@ from scipy.linalg import norm as linalg_norm
 from scipy.optimize import nnls
 import matplotlib.pyplot as plt
 import pickle
-from Utilities_functions.discrep_L2 import discrep_L2
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.Lcurve import Lcurve
+from regularization.reg_methods.dp.discrep_L2 import discrep_L2
+from regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
+from regularization.reg_methods.lcurve.Lcurve import Lcurve
 import pandas as pd
 import matplotlib.ticker as ticker  # Add this import
 import cvxpy as cp

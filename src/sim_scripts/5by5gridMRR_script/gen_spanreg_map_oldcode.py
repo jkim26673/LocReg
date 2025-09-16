@@ -9,24 +9,23 @@ from scipy.optimize import nnls
 import matplotlib.pyplot as plt
 import pickle
 from scipy.stats import wasserstein_distance, entropy
-from Utilities_functions.discrep_L2 import discrep_L2
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.Lcurve import Lcurve
+from regularization.reg_methods.dp.discrep_L2 import discrep_L2
+from regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
+from regularization.reg_methods.lcurve.Lcurve import Lcurve
 import pandas as pd
 import cvxpy as cp
 from scipy.linalg import svd
-from regu.csvd import csvd
-from regu.discrep import discrep
-from Simulations.Ito_LocReg import Ito_LocReg
-from Simulations.Ito_LocReg import *
-from Utilities_functions.pasha_gcv import Tikhonov
-from regu.l_curve import l_curve
+from regularization.subfunc.csvd import csvd
+from regularization.reg_methods.dp.discrep import discrep
+from regularization.reg_methods.locreg.LRalgo import LocReg_Ito_mod, LocReg_Ito_mod_deriv, LocReg_Ito_mod_deriv2
+from tools.trips_py.pasha_gcv import Tikhonov
+from regularization.reg_methods.lcurve import l_curve
 from tqdm import tqdm
-from Utilities_functions.tikhonov_vec import tikhonov_vec
+from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
 import mosek
 import seaborn as sns
-from ItoLocRegConst import LocReg_Ito_C,LocReg_Ito_C_2,LocReg_Ito_C_4
-from regu.nonnegtik_hnorm import nonnegtik_hnorm
+# from ItoLocRegConst import LocReg_Ito_C,LocReg_Ito_C_2,LocReg_Ito_C_4
+from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 import multiprocess as mp
 from multiprocessing import Pool, freeze_support
 from multiprocessing import set_start_method
@@ -35,7 +34,7 @@ from datetime import date
 import random
 import cProfile
 import pstats
-from Simulations.resolutionanalysis import find_min_between_peaks, check_resolution
+from sim_scripts.peak_resolution_scripts.resolutionanalysis import find_min_between_peaks, check_resolution
 
 print("setting license path")
 mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
