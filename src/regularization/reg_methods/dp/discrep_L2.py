@@ -8,7 +8,7 @@
 #Lambda -- int | dat_noisy
 
 import numpy as np
-from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
+from src.regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 from scipy.optimize import nnls
 import cvxpy as cp
 

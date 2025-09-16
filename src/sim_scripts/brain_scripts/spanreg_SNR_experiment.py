@@ -40,7 +40,7 @@
 # import timeit
 # import unittest
 # from scipy.integrate import simpson
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 
 # print("setting license path")
 # mosek_license_path = r"/home/kimjosy/mosek/mosek.lic"

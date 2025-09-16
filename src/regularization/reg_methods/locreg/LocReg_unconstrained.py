@@ -1,7 +1,7 @@
-from regularization.subfunc.csvd import csvd
+from src.regularization.subfunc.csvd import csvd
 import numpy as np
 import matplotlib.pyplot as plt
-from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
+from src.regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
 from numpy.linalg import norm
 from scipy.special import airy,gamma,itairy, gammaln, entr,tklmbda,expit
 

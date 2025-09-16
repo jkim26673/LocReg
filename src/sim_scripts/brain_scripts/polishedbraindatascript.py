@@ -43,7 +43,7 @@
 # import unittest
 # from scipy.integrate import simpson
 # from Simulations.upenzama import UPEN_Zama
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 # import matlab.engine
 
 # Ensure log directory exists

@@ -40,7 +40,7 @@
 # import scipy
 # import timeit
 # import unittest
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 
 print("setting license path")
 logging.info("setting license path")
