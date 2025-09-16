@@ -1,5 +1,6 @@
-import numpy as np
-import matplotlib.pyplot as plt
+# import numpy as np
+# import matplotlib.pyplot as plt
+from utils.load_imports.loading import *
 
 # Setting up kernel matrix
 n = 150

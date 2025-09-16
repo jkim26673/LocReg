@@ -1,23 +1,25 @@
-import numpy as np
-import os
-import pickle
-import sys
-# sys.path.append(r'/home/kimjosy/LocReg_Regularization-1')  # Replace this path with the actual path to the parent directory of Utilities_functions
-sys.path.append(".")
-from Utilities_functions.generate_gaussian_regs_L2_old import generate_gaussian_regs_L2_old
-# from Simulations.heatmap_unequal_width_All import heatmap_unequal_width_All
-from Simulations.gen_spanreg_heatmap_copyreference import heatmap_unequal_width_All
-import pickle
-import scipy.io
-from tqdm import tqdm
-import pandas as pd
-import multiprocess as mp
-from multiprocessing import Pool, freeze_support
-from multiprocessing import set_start_method
-from datetime import date
-import sys
-import os
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+# import numpy as np
+# import os
+# import pickle
+# import sys
+# # sys.path.append(r'/home/kimjosy/LocReg_Regularization-1')  # Replace this path with the actual path to the parent directory of Utilities_functions
+# sys.path.append(".")
+# from regularization.reg_methods.spanreg.generate_gaussian_regs_L2_old import generate_gaussian_regs_L2_old
+# from sim_scripts.fivebyfiveMRR_script.gen_spanreg_heatmap_copyreference import heatmap_unequal_width_All 
+# # from Simulations.heatmap_unequal_width_All import heatmap_unequal_width_All
+# import pickle
+# import scipy.io
+# from tqdm import tqdm
+# import pandas as pd
+# import multiprocess as mp
+# from multiprocessing import Pool, freeze_support
+# from multiprocessing import set_start_method
+# from datetime import date
+# import sys
+# import os
+# os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+from utils.load_imports.loading import *
+
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)
 import functools

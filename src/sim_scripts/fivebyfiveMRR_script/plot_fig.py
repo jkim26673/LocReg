@@ -1,17 +1,18 @@
-import matplotlib.pyplot as plt
-import numpy as np
-import sys
-sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-from numpy.linalg import norm
-from regu.csvd import csvd
-from regu.tikhonov import tikhonov
-from regu.discrep import discrep
-from regu.l_curve import l_curve
-from Utilities_functions.discrep_L2 import discrep_L2
-from scipy.optimize import nnls
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from regu.gcv import gcv
-from Simulations.l_curve_corner import l_curve_corner
+# import matplotlib.pyplot as plt
+# import numpy as np
+# import sys
+# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# from numpy.linalg import norm
+# from regu.csvd import csvd
+# from regu.tikhonov import tikhonov
+# from regu.discrep import discrep
+# from regu.l_curve import l_curve
+# from Utilities_functions.discrep_L2 import discrep_L2
+# from scipy.optimize import nnls
+# from Utilities_functions.GCV_NNLS import GCV_NNLS
+# from regu.gcv import gcv
+# from Simulations.l_curve_corner import l_curve_corner
+from utils.load_imports.loading import *
 
 #Get Example Voxel (same size)
 #Animated Regularization Two Peak

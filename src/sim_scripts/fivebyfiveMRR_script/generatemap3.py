@@ -12,19 +12,19 @@
 # from regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
 # from regularization.reg_methods.lcurve.Lcurve import Lcurve
 # import pandas as pd
+# import matplotlib.ticker as ticker  # Add this import
 # import cvxpy as cp
 # from scipy.linalg import svd
-# from regularization.subfunc.csvd import csvd
-# from regularization.reg_methods.dp.discrep import discrep
-# from regularization.reg_methods.locreg.LRalgo import LocReg_Ito_mod, LocReg_Ito_mod_deriv, LocReg_Ito_mod_deriv2
-# from tools.trips_py.pasha_gcv import Tikhonov
-# from regularization.reg_methods.lcurve import l_curve
-
+# from regu.csvd import csvd
+# from regu.discrep import discrep
+# from Simulations.LRalgo import LocReg_Ito_mod
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from regu.l_curve import l_curve
 # from tqdm import tqdm
-# from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
 # import mosek
 # import seaborn as sns
-# from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
+# from regu.nonnegtik_hnorm import nonnegtik_hnorm
 # import multiprocess as mp
 # from multiprocessing import Pool, freeze_support
 # from multiprocessing import set_start_method
@@ -33,13 +33,13 @@
 # import random
 # import cProfile
 # import pstats
-# from sim_scripts.peak_resolution_scripts.resolutionanalysis import find_min_between_peaks, check_resolution
+# from Simulations.resolutionanalysis import find_min_between_peaks, check_resolution
 # import logging
 # import time
 # from scipy.stats import wasserstein_distance
 # import matplotlib.ticker as ticker  # Add this import
-
 from utils.load_imports.loading import *
+
 
 # Configure logging
 logging.basicConfig(
@@ -47,10 +47,10 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
-print("setting license path")
-mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+# print("setting license path")
+# mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+# os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)
@@ -68,8 +68,7 @@ cwd_full = cwd_cut + simulation_save_folder
 
 #Number of simulations and SNR:
 n_sim = 50
-#n_sim 50-100
-SNR_value = 1000
+SNR_value = 50
 
 #Hyperparameters and Global Parameters
 ###Plotting hyperparameters
@@ -77,9 +76,12 @@ npeaks = 2
 nsigma = 5
 f_coef = np.ones(npeaks)
 rps = np.linspace(1.1, 4, 5).T
-# rps = np.array([1.30])
 nrps = len(rps)
 
+reg_param_lb = -6
+reg_param_ub = 0
+N_reg = 50
+Lambda = np.logspace(reg_param_lb, reg_param_ub, N_reg).reshape(-1,1)
 ####Showing Plots
 show = 1
 
@@ -116,22 +118,10 @@ gamma_init = 0.5
 #Load Data File
 file_path = "/home/kimjosy/LocReg_Regularization-1/Simulations/num_of_basis_functions/lambda_16_SNR_1000_nrun_20_sigma_min_2_sigma_max_6_basis2_40110lmbda_min-6lmbda_max008Oct24.pkl"
 Gaus_info = np.load(file_path, allow_pickle=True)
-TEtest = Gaus_info["TE"]
-T2test = Gaus_info["T2"]
-# print("TE", TEtest[0])
-# print("TE", TEtest[-1])
-# print("T2", T2test[0])
-# print("T2", T2test[-1])
 print(f"File loaded from: {file_path}")
 A = Gaus_info["A"]
 n, m = Gaus_info['A'].shape
 print("Gaus_info['A'].shape", Gaus_info['A'].shape)
-
-reg_param_lb = -6
-reg_param_ub = 0
-N_reg = 50
-#Increase from 20-40
-Lambda = np.logspace(reg_param_lb, reg_param_ub, N_reg).reshape(-1,1)
 
 ###Number of noisy realizations; 20 NR is enough to until they ask for more noise realizations
 #Naming for Data Folder
@@ -148,7 +138,6 @@ os.makedirs(data_folder, exist_ok = True)
 
 #Number of tasks to execute
 target_iterator = [(a,b,c) for a in range(n_sim) for b in range(nsigma) for c in range(nrps)]
-print("target_iterator", len(target_iterator))
 # num_cpus_avail = np.min([len(target_iterator),40])
 # Get the number of CPUs available
 num_cpus_avail = os.cpu_count()
@@ -157,9 +146,7 @@ preset_noise = False
 # noise_file_path = "SimulationsSets/MRR/SpanRegFig/est_table_SNR1000_iter1_lamini_LCurve_dist_narrowL_broadR_testing3_10Oct24noise_arr.npy"
 # noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-11_SNR_1000_lamini_LCurve_dist_narrowL_broadR_testing_parallel_nsim2/est_table_SNR1000_iter2_lamini_LCurve_dist_narrowL_broadR_testing_parallel_nsim2_11Oct24noise_arr.npy"
 # noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-11_SNR_1000_lamini_LCurve_dist_narrowL_broadR_testing_new_noisearr_noparallel_nsim2/est_table_SNR1000_iter2_lamini_LCurve_dist_narrowL_broadR_testing_new_noisearr_noparallel_nsim2_11Oct24noise_arr.npy"
-# noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-14_SNR_1000_lamini_LCurve_dist_narrowL_broadR_parallel_nsim5_SNR_1000/est_table_SNR1000_iter5_lamini_LCurve_dist_narrowL_broadR_parallel_nsim5_SNR_1000_14Oct24noise_arr.npy"
-# noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-14_SNR_1000_lamini_LCurve_dist_narrowL_broadR_parallel_nsim1_SNR_1000testing/est_table_SNR1000_iter1_lamini_LCurve_dist_narrowL_broadR_parallel_nsim1_SNR_1000testing_14Oct24noise_arr.npy"
-noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-22_SNR_1000_lamini_LCurve_dist_narrowL_broadR_parallel_nsim10_SNR_1000_errtype_Wass. Score/est_table_SNR1000_iter10_lamini_LCurve_dist_narrowL_broadR_parallel_nsim10_SNR_1000_errtype_Wass. Score_22Oct24noise_arr.npy"
+noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-11_SNR_1000_lamini_LCurve_dist_narrowL_broadR_parallel_nsim1_testheatmap/est_table_SNR1000_iter1_lamini_LCurve_dist_narrowL_broadR_parallel_nsim1_testheatmap_11Oct24noise_arr.npy"
 noisy_data = np.zeros((n_sim, nsigma, nrps, n))
 noiseless_data = np.zeros((n_sim, nsigma, nrps, n))
 
@@ -180,7 +167,40 @@ def create_result_folder(string, SNR, lam_ini_val, dist_type):
         os.makedirs(folder_name)
     return folder_name
 
-#run for 5x5;
+# def minimize_OP(Alpha_vec, L, data_noisy, G, nT2, g):
+#     OP_x_lc_vec = np.zeros((nT2, len(Alpha_vec)))
+#     OP_rhos = np.zeros((len(Alpha_vec)))
+#     for j in (range(len(Alpha_vec))):
+#         try:
+#             # Fallback to nonnegtik_hnorm
+#             sol, rho, trash = nonnegtik_hnorm(G, data_noisy, Alpha_vec[j], '0', nargin=4)
+#         except Exception as e:
+#             print(f"Error in nonnegtik_hnorm: {e}")
+#             # If both methods fail, solve using cvxpy
+#             lam_vec = Alpha_vec[j] * np.ones(G.shape[1])
+#             A = (G.T @ G + np.diag(lam_vec))
+#             eps = 1e-2
+#             ep4 = np.ones(A.shape[1]) * eps
+#             b = (G.T @ data_noisy) + (G.T @ G @ ep4) + ep4 * lam_vec
+#             y = cp.Variable(G.shape[1])
+#             cost = cp.norm(A @ y - b, 2)**2
+#             constraints = [y >= 0]
+#             problem = cp.Problem(cp.Minimize(cost), constraints)
+#             problem.solve(solver=cp.MOSEK, verbose=False)
+#             sol = y.value
+#             sol = sol - eps
+#             sol = np.maximum(sol, 0)
+#         OP_x_lc_vec[:, j] = sol
+#         OP_rhos[j] = np.linalg.norm(OP_x_lc_vec[:,j] - g, 2)**2
+#     OP_log_err_norm = np.log10(OP_rhos)
+#     min_index = np.unravel_index(np.argmin(OP_log_err_norm), OP_log_err_norm.shape)
+#     min_x = Alpha_vec[min_index[0]]
+#     min_z = np.min(OP_log_err_norm)
+#     OP_min_alpha1 = min_x
+#     OP_min_alpha1_ind = min_index[0]
+#     f_rec_OP_grid = OP_x_lc_vec[:, OP_min_alpha1_ind]
+#     return f_rec_OP_grid, OP_min_alpha1
+
 def minimize_OP(Alpha_vec, data_noisy, G, nT2, g):
     OP_x_lc_vec = np.zeros((nT2, len(Alpha_vec)))
     OP_rhos = np.zeros((len(Alpha_vec)))
@@ -277,6 +297,15 @@ def calc_diff_sigma(nsigma):
     diff_sigma = np.column_stack((unif_sigma, 3 *unif_sigma))
     return unif_sigma, diff_sigma
 
+# def load_Gaus(Gaus_info):
+#     T2 = Gaus_info['T2'].flatten()
+#     TE = Gaus_info['TE'].flatten()
+#     A = Gaus_info['A']
+#     # Lambda = Gaus_info['Lambda'].reshape(-1,1)
+#     n, m = Gaus_info['A'].shape
+#     SNR = SNR_value
+#     return T2, TE, A, m,  SNR
+
 def load_Gaus(Gaus_info):
     n, m = Gaus_info['A'].shape
     # T2 = Gaus_info['T2'].flatten()
@@ -289,24 +318,15 @@ def load_Gaus(Gaus_info):
     SNR = SNR_value
     return T2, TE, A, m,  SNR
 
-# def calc_dat_noisy(A, TE, IdealModel_weighted, SNR):
-#     dat_noiseless = A @ IdealModel_weighted
-#     # noise = np.column_stack([np.max(np.abs(dat_noiseless)) / SNR * np.random.randn(len(TE), 1)]) 
-#     SD_noise =  np.max(np.abs(dat_noiseless)) / SNR 
-#     noise = np.random.normal(0, SD_noise, size=dat_noiseless.shape)
-#     # print("noise", noise)
-#     # noise = np.max(np.abs(dat_noiseless)) / SNR
-#     # stdnoise = np.max(np.abs(dat_noiseless)) / SNR 
-#     # noise  = np.ravel(noise)
-#     dat_noisy = dat_noiseless + noise
-#     return dat_noisy, noise, SD_noise
-
-def calc_dat_noisy(A, TE, IdealModel_weighted, SNR, seed=None):
-    if seed is not None:
-        np.random.seed(seed)
-    dat_noiseless = A @ IdealModel_weighted  # Compute noiseless data
-    SD_noise = np.max(np.abs(dat_noiseless)) / SNR  # Standard deviation of noise
-    noise = np.random.normal(0, SD_noise, size=dat_noiseless.shape)  # Add noise
+def calc_dat_noisy(A, TE, IdealModel_weighted, SNR):
+    dat_noiseless = A @ IdealModel_weighted
+    # noise = np.column_stack([np.max(np.abs(dat_noiseless)) / SNR * np.random.randn(len(TE), 1)]) 
+    SD_noise =  np.max(np.abs(dat_noiseless)) / SNR 
+    noise = np.random.normal(0, SD_noise, size=dat_noiseless.shape)
+    # print("noise", noise)
+    # noise = np.max(np.abs(dat_noiseless)) / SNR
+    # stdnoise = np.max(np.abs(dat_noiseless)) / SNR 
+    # noise  = np.ravel(noise)
     dat_noisy = dat_noiseless + noise
     return dat_noisy, noise, SD_noise
 
@@ -314,7 +334,7 @@ def get_IdealModel_weighted(iter_j, m, npeaks, T2, T2mu, sigma_i):
     p = np.zeros((npeaks, m))
     T2mu_sim = T2mu[iter_j, :]
     p = np.array([normsci.pdf(T2, mu, sigma) for mu, sigma in zip(T2mu_sim, sigma_i)])
-    IdealModel_weighted = (p.T @ f_coef) / npeaks
+    IdealModel_weighted = p.T @ f_coef / npeaks
     return IdealModel_weighted
 
 def l2_error(IdealModel,reconstr):
@@ -323,13 +343,10 @@ def l2_error(IdealModel,reconstr):
     return err
 
 def wass_error(IdealModel,reconstr):
-    true_norm = linalg_norm(IdealModel)
-    #check the absolute errors pattern vs SNRs.
-    # err = wasserstein_distance(IdealModel,reconstr)/true_norm
     err = wasserstein_distance(IdealModel,reconstr)
     return err
 
-def generate_estimates(i_param_combo, seed=None):
+def generate_estimates(i_param_combo):
     def plot(iter_sim, iter_sigma, iter_rps):
         plt.figure(figsize=(12.06, 4.2))
         # Plotting the first subplot
@@ -412,7 +429,7 @@ def generate_estimates(i_param_combo, seed=None):
     # sum_x = np.sum(IdealModel_weighted) * dT
     # IdealModel_weighted = IdealModel_weighted / sum_x
     if preset_noise == False:
-        dat_noisy,noise, stdnoise = calc_dat_noisy(A, TE, IdealModel_weighted, SNR, seed)
+        dat_noisy,noise, stdnoise = calc_dat_noisy(A, TE, IdealModel_weighted, SNR)
     else:
         dat_noiseless = A @ IdealModel_weighted
         try:
@@ -425,7 +442,6 @@ def generate_estimates(i_param_combo, seed=None):
         stdnoise = stdnoise_data[iter_sim,iter_sigma,iter_rps,:]
         stdnoise = stdnoise[0]
 
-    # print("noise", noise)
     # area = np.trapz(IdealModel_weighted, T2)
     # if np.isclose(area, 1.0):
     #     print("The curve is normalized.")
@@ -463,6 +479,7 @@ def generate_estimates(i_param_combo, seed=None):
     # f_rec_LC = f_rec_LC / sum_LC
     # sum_DP = np.sum(f_rec_DP) * dT
     # f_rec_DP = f_rec_DP / sum_DP
+
     sum_x = np.trapz(f_rec_LocReg_LC, T2)
     f_rec_LocReg_LC = f_rec_LocReg_LC / sum_x
     sum_oracle = np.trapz(f_rec_oracle, T2)
@@ -477,31 +494,26 @@ def generate_estimates(i_param_combo, seed=None):
     # if np.isclose(np.sum(f_rec_LocReg_LC) * dT, 1.0):
     #     pass
     # else:
-    #     print("(np.sum(f_rec_LocReg_LC) * dT", (np.sum(f_rec_LocReg_LC) * dT))
     #     print("f_rec_LocReg_LC is not normalized.")
 
     # if np.isclose(np.sum(f_rec_oracle) * dT, 1.0):
     #     pass
     # else:
-    #     print("(np.sum(f_rec_oracle) * dT", (np.sum(f_rec_oracle) * dT))
     #     print("f_rec_oracle is not normalized.")
 
     # if np.isclose(np.sum(f_rec_GCV) * dT, 1.0):
     #     pass
     # else:
-    #     print("(np.sum(f_rec_GCV) * dT", (np.sum(f_rec_GCV) * dT))
     #     print("f_rec_GCV is not normalized.")
 
     # if np.isclose(np.sum(f_rec_LC) * dT, 1.0):
     #     pass
     # else:
-    #     print("(np.sum(f_rec_LC) * dT", (np.sum(f_rec_LC) * dT))
     #     print("f_rec_LC is not normalized.")
 
     # if np.isclose(np.sum(f_rec_DP) * dT, 1.0):
     #     pass
     # else:
-    #     print("(np.sum(f_rec_DP) * dT", (np.sum(f_rec_DP) * dT))
     #     print("f_rec_DP is not normalized.")
     # Flatten results
     f_rec_GCV = f_rec_GCV.flatten()
@@ -524,7 +536,6 @@ def generate_estimates(i_param_combo, seed=None):
         err_oracle = l2_error( IdealModel_weighted, f_rec_oracle)
         err_LR = l2_error( IdealModel_weighted, f_rec_LocReg_LC)
 
-    realresult = 1
     # Assuming you are inside a loop or block where you want to check these conditions
     if not(err_oracle <= err_LC and err_oracle <= err_GCV and err_oracle <= err_DP):
         print("err oracle", err_oracle)
@@ -537,7 +548,9 @@ def generate_estimates(i_param_combo, seed=None):
         print("min_index", min_index)
         realresult = 0
         print("Oracle Error should not be larger than other single parameter methods")
-
+    else:
+        realresult = 1
+        pass
     # Plot a set of 25 reconstructions for simulation 0
     if iter_sim == 0:
         plot(iter_sim, iter_sigma, iter_rps)
@@ -580,95 +593,37 @@ def generate_estimates(i_param_combo, seed=None):
         feature_df["GCV_vect"] = [None]
     return feature_df, iter_sim, iter_sigma, iter_rps, noise, stdnoise
 
-# def generate_random_numbers(seed, size):
-#     rng = np.random.default_rng(seed)
-#     return rng.random(size)
-
-# def parallel_processed(func, target_iterator, num_cpus_avail, shift=True):
-#     # Create a SeedSequence to generate unique seeds for each process
-#     seed_seq = np.random.SeedSequence(12345)  # You can set any base seed here
-#     child_seeds = seed_seq.spawn(num_cpus_avail)  # Generate `num_cpus_avail` child seeds
-    
-#     # Placeholder for results
-#     # estimates_dataframe = []
-#     # noise_arr = np.zeros((len(target_iterator), len(target_iterator), len(target_iterator), 100))  # Adjust size as needed
-#     # stdnoise_data = np.zeros_like(noise_arr)
-
-#     # Function to parallelize
-#     def worker(index, seed):
-#         # Generate random numbers for the current task using the seed
-#         random_numbers = generate_random_numbers(seed, 1000)  # Adjust size as needed
-#         estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal = func(index, random_numbers)
-        
-#         return estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal
-
-#     # Parallel processing using multiprocessing pool
-#     with mp.Pool(processes=num_cpus_avail) as pool:
-#         with tqdm(total=len(target_iterator)) as pbar:
-#             for result in pool.starmap(worker, zip(range(len(target_iterator)), child_seeds)):
-#                 estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal = result
-#                 noise_arr[iter_sim, iter_sigma, iter_rps, :] = noisereal
-#                 stdnoise_data[iter_sim, iter_sigma, iter_rps, :] = std_noisereal
-#                 estimates_dataframe.append(estimates_dataframe)
-#                 pbar.update()
-#     return estimates_dataframe, noise_arr, stdnoise_data
-
-# def parallel_processed(generate_estimates):
-#     # Create a SeedSequence to generate unique seeds for each process
-#     seed_seq = np.random.SeedSequence(12345)  # You can set any base seed here
-#     child_seeds = seed_seq.spawn(num_cpus_avail)  # Generate `num_cpus_avail` child seeds
-#     # Function to parallelize
-#     def worker(index, seed):
-#         # Call generate_estimates with the appropriate parameters and unique seed
-#         estimates_dataframe, noise, SD_noise = generate_estimates(seed)
-#         return estimates_dataframe, noise, SD_noise
-#     # Parallel processing using multiprocessing pool
-#     with mp.Pool(processes=num_cpus_avail) as pool:
-#         with tqdm(total=len(target_iterator)) as pbar:
-#             for result in pool.starmap(worker, zip(range(len(target_iterator)), child_seeds)):
-#                 estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal = result
-#                 noise_arr[iter_sim, iter_sigma, iter_rps, :] = noisereal
-#                 stdnoise_data[iter_sim, iter_sigma, iter_rps, :] = std_noisereal
-#                 estimates_dataframe.append(estimates_dataframe)
-#                 pbar.update()
-#     return estimates_dataframe, noise_arr, stdnoise_data
-
 # def parallel_processed(func, shift = True):
-#     # Create a SeedSequence to generate unique seeds for each process
-#     seed_seq = np.random.SeedSequence(12345)  # You can set any base seed here
-#     child_seeds = seed_seq.spawn(num_cpus_avail)  # Generate `num_cpus_avail` child seeds
-
-#     # Function to parallelize
-#     def worker(index, seed, target_iter_item):
-#         # Unpack the target iterator item (index, iter_sim, iter_sigma, iter_rps)
-#         # iter_sim, iter_sigma, iter_rps = target_iter_item
-        
-#         # Call generate_estimates with the appropriate parameters and unique seed
-#         estimates_dataframe, iter_sim, iter_sigma, iter_rps, noise, SD_noise = generate_estimates(target_iter_item, seed)
-        
-#         # Return all the necessary data: estimates, noise, stdnoise
-#         return estimates_dataframe, iter_sim, iter_sigma, iter_rps, noise, SD_noise
-    
-#     # Parallel processing using multiprocessing pool
-#     with mp.Pool(processes=num_cpus_avail) as pool:
-#         # Use tqdm for progress bar and iterate through the target_iterator
-#         with tqdm(total=len(target_iterator)) as pbar:
-#             # Mapping target_iterator to workers with the seed and target parameters
-#             # results = pool.starmap(worker, [(i, child_seeds[i], target_iterator[i]) for i in range(len(target_iterator))])
-#             results = pool.starmap(worker, [(i, child_seeds[i], target_iterator[i]) for i in range(len(target_iterator))])
-
-#             for result in results:
-#                 estimates_dataframe, iter_sim, iter_sigma, iter_rps, noise, SD_noise = result
-#                 # Store the noise and standard deviation of the noise in the respective arrays
-#                 noise_arr[iter_sim, iter_sigma, iter_rps, :] = noise
-#                 stdnoise_data[iter_sim, iter_sigma, iter_rps, :] = SD_noise
-                
-#                 # Append the result DataFrame from the worker
-#                 estimates_dataframe.append(estimates_dataframe)
-                
-#                 # Update progress bar
+#     with mp.Pool(processes = num_cpus_avail) as pool:
+#         with tqdm(total = len(target_iterator)) as pbar:
+#             for estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal in pool.imap_unordered(func, range(len(target_iterator))):
+#                 lis.append(estimates_dataframe)
+#                 noise_arr[iter_sim, iter_sigma, iter_rps,:] = noisereal
+#                 stdnoise_data[iter_sim, iter_sigma, iter_rps,:] = std_noisereal
 #                 pbar.update()
+#         pool.close()
+#         pool.join()
 #     return estimates_dataframe, noise_arr, stdnoise_data
+
+
+def worker_init():
+    # Use current_process()._identity to get a unique worker ID for each worker
+    worker_id = mp.current_process()._identity[0] if mp.current_process()._identity else 0
+    np.random.seed(worker_id)  # Set a random seed for each worker
+
+
+def parallel_processed(func, shift = True):
+    with mp.Pool(processes = num_cpus_avail, initializer=worker_init) as pool:
+        with tqdm(total = len(target_iterator)) as pbar:
+            for estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal in pool.imap_unordered(func, range(len(target_iterator))):
+                lis.append(estimates_dataframe)
+                noise_arr[iter_sim, iter_sigma, iter_rps,:] = noisereal
+                stdnoise_data[iter_sim, iter_sigma, iter_rps,:] = std_noisereal
+                pbar.update()
+        pool.close()
+        pool.join()
+    return estimates_dataframe, noise_arr, stdnoise_data
+
 # def compare_heatmap():
 #     fig, axs = plt.subplots(2, 2, sharey=True, figsize=(12, 10))
 #     plt.subplots_adjust(wspace=0.3, hspace=0.3)
@@ -996,25 +951,6 @@ def indiv_heatmap():
     print("Saved Individual Heatmap")
     plt.close()
 
-
-def worker_init():
-    # Use current_process()._identity to get a unique worker ID for each worker
-    worker_id = mp.current_process()._identity[0] if mp.current_process()._identity else 0
-    np.random.seed(worker_id)  # Set a random seed for each worker
-
-
-def parallel_processed(func, shift = True):
-    with mp.Pool(processes = num_cpus_avail, initializer=worker_init) as pool:
-        with tqdm(total = len(target_iterator)) as pbar:
-            for estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal in pool.imap_unordered(func, range(len(target_iterator))):
-                lis.append(estimates_dataframe)
-                noise_arr[iter_sim, iter_sigma, iter_rps,:] = noisereal
-                stdnoise_data[iter_sim, iter_sigma, iter_rps,:] = std_noisereal
-                pbar.update()
-        pool.close()
-        pool.join()
-    return estimates_dataframe, noise_arr, stdnoise_data
-
 if __name__ == '__main__':
     if 'TERM_PROGRAM' in os.environ and os.environ['TERM_PROGRAM'] == 'vscode':
         print("Running in VS Code")
@@ -1022,7 +958,6 @@ if __name__ == '__main__':
     freeze_support()
     unif_sigma, diff_sigma = calc_diff_sigma(nsigma)
     T2, TE, A, m,  SNR = load_Gaus(Gaus_info)
-    print("TE",TE)
     T2mu = calc_T2mu(rps)
     string = "MRR_1D_LocReg_Comparison"
     file_path_final = create_result_folder(string, SNR, lam_ini_val, dist_type)
@@ -1034,7 +969,7 @@ if __name__ == '__main__':
     sigma_rps_labels = []
  
     if parallel == True:
-        estimates_dataframe, noise_arr, stdnoise_data = parallel_processed(generate_estimates, shift = True)
+        estimates_dataframe, noise_arr, stdnoise_data = parallel_processed(generate_estimates, shift = False)
         # lis.append(estimates_dataframe)
     else:
         for i in range(n_sim):

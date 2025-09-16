@@ -1,5 +1,7 @@
-import numpy as np
-from scipy.stats import wasserstein_distance, entropy
+# import numpy as np
+# from scipy.stats import wasserstein_distance, entropy
+from utils.load_imports.loading import *
+
 def l2_rms(T2, gamma, data, g):
     """
     Calculate the normalized root-mean-square (RMS) errors for Loc-Reg (Iterative Regularization),

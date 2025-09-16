@@ -1,54 +1,56 @@
-import sys
-import os
-print("Setting system path")
-sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
-import numpy as np
-from scipy.stats import norm as normsci
-from scipy.linalg import norm as linalg_norm
-from scipy.optimize import nnls
-import matplotlib.pyplot as plt
-import pickle
-from Utilities_functions.discrep_L2 import discrep_L2
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.Lcurve import Lcurve
-import pandas as pd
-import matplotlib.ticker as ticker  # Add this import
-import cvxpy as cp
-from scipy.linalg import svd
-from regu.csvd import csvd
-from regu.discrep import discrep
-from Simulations.LRalgo import LocReg_Ito_mod
-from Utilities_functions.pasha_gcv import Tikhonov
-from regu.l_curve import l_curve
-from tqdm import tqdm
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-import mosek
-import seaborn as sns
-from regu.nonnegtik_hnorm import nonnegtik_hnorm
-import multiprocess as mp
-from multiprocessing import Pool, freeze_support
-from multiprocessing import set_start_method
-import functools
-from datetime import date
-import random
-import cProfile
-import pstats
-from Simulations.resolutionanalysis import find_min_between_peaks, check_resolution
-import logging
-import time
-from scipy.stats import wasserstein_distance
-import matplotlib.ticker as ticker  # Add this import
+# import sys
+# import os
+# print("Setting system path")
+# sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
+# import numpy as np
+# from scipy.stats import norm as normsci
+# from scipy.linalg import norm as linalg_norm
+# from scipy.optimize import nnls
+# import matplotlib.pyplot as plt
+# import pickle
+# from Utilities_functions.discrep_L2 import discrep_L2
+# from Utilities_functions.GCV_NNLS import GCV_NNLS
+# from Utilities_functions.Lcurve import Lcurve
+# import pandas as pd
+# import cvxpy as cp
+# from scipy.linalg import svd
+# from regu.csvd import csvd
+# from regu.discrep import discrep
+# from Simulations.LRalgo import LocReg_Ito_mod
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from regu.l_curve import l_curve
+# from tqdm import tqdm
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
+# import mosek
+# import seaborn as sns
+# from regu.nonnegtik_hnorm import nonnegtik_hnorm
+# import multiprocess as mp
+# from multiprocessing import Pool, freeze_support
+# from multiprocessing import set_start_method
+# import functools
+# from datetime import date
+# import random
+# import cProfile
+# import pstats
+# from Simulations.resolutionanalysis import find_min_between_peaks, check_resolution
+# import logging
+# import time
+# from scipy.stats import wasserstein_distance
+# import matplotlib.ticker as ticker  # Add this import
 
+# print("setting license path")
+# mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+# os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 # Configure logging
+from utils.load_imports.loading import *
+
 logging.basicConfig(
     filename='my_script.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
-print("setting license path")
-mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
 
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)
@@ -65,21 +67,18 @@ simulation_save_folder = f"SimulationSets/{pat_tag}/{series_tag}"
 cwd_full = cwd_cut + simulation_save_folder 
 
 #Number of simulations and SNR:
-n_sim = 50
+n_sim = 100
 SNR_value = 1000
 
 #Hyperparameters and Global Parameters
 ###Plotting hyperparameters
 npeaks = 2
-nsigma = 5
+nsigma = 3
 f_coef = np.ones(npeaks)
-rps = np.linspace(1.1, 4, 5).T
+rps = np.linspace(1.1, 3, 3).T
+# rps = np.array([1.30])
 nrps = len(rps)
 
-reg_param_lb = -6
-reg_param_ub = 0
-N_reg = 50
-Lambda = np.logspace(reg_param_lb, reg_param_ub, N_reg).reshape(-1,1)
 ####Showing Plots
 show = 1
 
@@ -110,7 +109,7 @@ exp = 0.5
 feedback = True
 lam_ini_val = "LCurve"
 # dist_type = f"narrowL_broadR_testing_new_noisearr_parallel_nsim{n_sim}"
-dist_type = f"broadL_narrowR_parallel_nsim{n_sim}_SNR_{SNR_value}_errtype_{err_type}"
+dist_type = f"narrowL_broadR_parallel_nsim{n_sim}_SNR_{SNR_value}_errtype_{err_type}"
 gamma_init = 0.5
 
 #Load Data File
@@ -120,6 +119,11 @@ print(f"File loaded from: {file_path}")
 A = Gaus_info["A"]
 n, m = Gaus_info['A'].shape
 print("Gaus_info['A'].shape", Gaus_info['A'].shape)
+
+reg_param_lb = -6
+reg_param_ub = 0
+N_reg = 20
+Lambda = np.logspace(reg_param_lb, reg_param_ub, N_reg).reshape(-1,1)
 
 ###Number of noisy realizations; 20 NR is enough to until they ask for more noise realizations
 #Naming for Data Folder
@@ -144,7 +148,9 @@ preset_noise = False
 # noise_file_path = "SimulationsSets/MRR/SpanRegFig/est_table_SNR1000_iter1_lamini_LCurve_dist_narrowL_broadR_testing3_10Oct24noise_arr.npy"
 # noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-11_SNR_1000_lamini_LCurve_dist_narrowL_broadR_testing_parallel_nsim2/est_table_SNR1000_iter2_lamini_LCurve_dist_narrowL_broadR_testing_parallel_nsim2_11Oct24noise_arr.npy"
 # noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-11_SNR_1000_lamini_LCurve_dist_narrowL_broadR_testing_new_noisearr_noparallel_nsim2/est_table_SNR1000_iter2_lamini_LCurve_dist_narrowL_broadR_testing_new_noisearr_noparallel_nsim2_11Oct24noise_arr.npy"
-noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-11_SNR_1000_lamini_LCurve_dist_narrowL_broadR_parallel_nsim1_testheatmap/est_table_SNR1000_iter1_lamini_LCurve_dist_narrowL_broadR_parallel_nsim1_testheatmap_11Oct24noise_arr.npy"
+# noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-14_SNR_1000_lamini_LCurve_dist_narrowL_broadR_parallel_nsim5_SNR_1000/est_table_SNR1000_iter5_lamini_LCurve_dist_narrowL_broadR_parallel_nsim5_SNR_1000_14Oct24noise_arr.npy"
+# noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-14_SNR_1000_lamini_LCurve_dist_narrowL_broadR_parallel_nsim1_SNR_1000testing/est_table_SNR1000_iter1_lamini_LCurve_dist_narrowL_broadR_parallel_nsim1_SNR_1000testing_14Oct24noise_arr.npy"
+noise_file_path = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/MRR_1D_LocReg_Comparison_2024-10-22_SNR_1000_lamini_LCurve_dist_narrowL_broadR_parallel_nsim10_SNR_1000_errtype_Wass. Score/est_table_SNR1000_iter10_lamini_LCurve_dist_narrowL_broadR_parallel_nsim10_SNR_1000_errtype_Wass. Score_22Oct24noise_arr.npy"
 noisy_data = np.zeros((n_sim, nsigma, nrps, n))
 noiseless_data = np.zeros((n_sim, nsigma, nrps, n))
 
@@ -165,39 +171,6 @@ def create_result_folder(string, SNR, lam_ini_val, dist_type):
         os.makedirs(folder_name)
     return folder_name
 
-# def minimize_OP(Alpha_vec, L, data_noisy, G, nT2, g):
-#     OP_x_lc_vec = np.zeros((nT2, len(Alpha_vec)))
-#     OP_rhos = np.zeros((len(Alpha_vec)))
-#     for j in (range(len(Alpha_vec))):
-#         try:
-#             # Fallback to nonnegtik_hnorm
-#             sol, rho, trash = nonnegtik_hnorm(G, data_noisy, Alpha_vec[j], '0', nargin=4)
-#         except Exception as e:
-#             print(f"Error in nonnegtik_hnorm: {e}")
-#             # If both methods fail, solve using cvxpy
-#             lam_vec = Alpha_vec[j] * np.ones(G.shape[1])
-#             A = (G.T @ G + np.diag(lam_vec))
-#             eps = 1e-2
-#             ep4 = np.ones(A.shape[1]) * eps
-#             b = (G.T @ data_noisy) + (G.T @ G @ ep4) + ep4 * lam_vec
-#             y = cp.Variable(G.shape[1])
-#             cost = cp.norm(A @ y - b, 2)**2
-#             constraints = [y >= 0]
-#             problem = cp.Problem(cp.Minimize(cost), constraints)
-#             problem.solve(solver=cp.MOSEK, verbose=False)
-#             sol = y.value
-#             sol = sol - eps
-#             sol = np.maximum(sol, 0)
-#         OP_x_lc_vec[:, j] = sol
-#         OP_rhos[j] = np.linalg.norm(OP_x_lc_vec[:,j] - g, 2)**2
-#     OP_log_err_norm = np.log10(OP_rhos)
-#     min_index = np.unravel_index(np.argmin(OP_log_err_norm), OP_log_err_norm.shape)
-#     min_x = Alpha_vec[min_index[0]]
-#     min_z = np.min(OP_log_err_norm)
-#     OP_min_alpha1 = min_x
-#     OP_min_alpha1_ind = min_index[0]
-#     f_rec_OP_grid = OP_x_lc_vec[:, OP_min_alpha1_ind]
-#     return f_rec_OP_grid, OP_min_alpha1
 def minimize_OP(Alpha_vec, data_noisy, G, nT2, g):
     OP_x_lc_vec = np.zeros((nT2, len(Alpha_vec)))
     OP_rhos = np.zeros((len(Alpha_vec)))
@@ -291,26 +264,17 @@ def calc_rps_val(iter_j, rps):
 
 def calc_diff_sigma(nsigma):
     unif_sigma = np.linspace(2, 5, nsigma).T
-    diff_sigma = np.column_stack((3 * unif_sigma, unif_sigma))
+    diff_sigma = np.column_stack((unif_sigma, 3 *unif_sigma))
     return unif_sigma, diff_sigma
 
-# def load_Gaus(Gaus_info):
-#     T2 = Gaus_info['T2'].flatten()
-#     TE = Gaus_info['TE'].flatten()
-#     A = Gaus_info['A']
-#     # Lambda = Gaus_info['Lambda'].reshape(-1,1)
-#     n, m = Gaus_info['A'].shape
-#     SNR = SNR_value
-#     return T2, TE, A, m,  SNR
 def load_Gaus(Gaus_info):
-    n, m = Gaus_info['A'].shape
-    # T2 = Gaus_info['T2'].flatten()
-    T2 = np.linspace(10,200,m)
+    T2 = Gaus_info['T2'].flatten()
     TE = Gaus_info['TE'].flatten()
     A = Gaus_info['A']
     # Lambda = Gaus_info['Lambda'].reshape(-1,1)
     # Lambda = np.append(0, Lambda)
     # Lambda = np.append(0, np.logspace(-6,-1,20)).reshape(-1,1)
+    n, m = Gaus_info['A'].shape
     SNR = SNR_value
     return T2, TE, A, m,  SNR
 
@@ -330,7 +294,7 @@ def get_IdealModel_weighted(iter_j, m, npeaks, T2, T2mu, sigma_i):
     p = np.zeros((npeaks, m))
     T2mu_sim = T2mu[iter_j, :]
     p = np.array([normsci.pdf(T2, mu, sigma) for mu, sigma in zip(T2mu_sim, sigma_i)])
-    IdealModel_weighted = p.T @ f_coef / npeaks
+    IdealModel_weighted = (p.T @ f_coef) / npeaks
     return IdealModel_weighted
 
 def l2_error(IdealModel,reconstr):
@@ -339,7 +303,8 @@ def l2_error(IdealModel,reconstr):
     return err
 
 def wass_error(IdealModel,reconstr):
-    err = wasserstein_distance(IdealModel,reconstr)
+    true_norm = linalg_norm(IdealModel)
+    err = wasserstein_distance(IdealModel,reconstr)/true_norm
     return err
 
 def generate_estimates(i_param_combo):
@@ -465,50 +430,41 @@ def generate_estimates(i_param_combo):
     f_rec_LocReg_LC, lambda_locreg_LC, test_frec1, test_lam1, numiterate = LocReg_Ito_mod(dat_noisy, A, LRIto_ini_lam, gamma_init, maxiter)
 
     #normalization
-    # sum_x = np.sum(f_rec_LocReg_LC) * dT
-    # f_rec_LocReg_LC = f_rec_LocReg_LC / sum_x
-    # sum_oracle = np.sum(f_rec_oracle) * dT
-    # f_rec_oracle = f_rec_oracle / sum_oracle
-    # sum_GCV = np.sum(f_rec_GCV) * dT
-    # f_rec_GCV = f_rec_GCV / sum_GCV
-    # sum_LC = np.sum(f_rec_LC) * dT
-    # f_rec_LC = f_rec_LC / sum_LC
-    # sum_DP = np.sum(f_rec_DP) * dT
-    # f_rec_DP = f_rec_DP / sum_DP
-    sum_x = np.trapz(f_rec_LocReg_LC, T2)
+    sum_x = np.sum(f_rec_LocReg_LC) * dT
     f_rec_LocReg_LC = f_rec_LocReg_LC / sum_x
-    sum_oracle = np.trapz(f_rec_oracle, T2)
+    sum_oracle = np.sum(f_rec_oracle) * dT
     f_rec_oracle = f_rec_oracle / sum_oracle
-    sum_GCV = np.trapz(f_rec_GCV, T2)
+    sum_GCV = np.sum(f_rec_GCV) * dT
     f_rec_GCV = f_rec_GCV / sum_GCV
-    sum_LC = np.trapz(f_rec_LC, T2)
+    sum_LC = np.sum(f_rec_LC) * dT
     f_rec_LC = f_rec_LC / sum_LC
-    sum_DP = np.trapz(f_rec_DP, T2)
+    sum_DP = np.sum(f_rec_DP) * dT
     f_rec_DP = f_rec_DP / sum_DP
-    # if np.isclose(np.sum(f_rec_LocReg_LC) * dT, 1.0):
-    #     pass
-    # else:
-    #     print("f_rec_LocReg_LC is not normalized.")
 
-    # if np.isclose(np.sum(f_rec_oracle) * dT, 1.0):
-    #     pass
-    # else:
-    #     print("f_rec_oracle is not normalized.")
+    if np.isclose(np.sum(f_rec_LocReg_LC) * dT, 1.0):
+        pass
+    else:
+        print("f_rec_LocReg_LC is not normalized.")
 
-    # if np.isclose(np.sum(f_rec_GCV) * dT, 1.0):
-    #     pass
-    # else:
-    #     print("f_rec_GCV is not normalized.")
+    if np.isclose(np.sum(f_rec_oracle) * dT, 1.0):
+        pass
+    else:
+        print("f_rec_oracle is not normalized.")
 
-    # if np.isclose(np.sum(f_rec_LC) * dT, 1.0):
-    #     pass
-    # else:
-    #     print("f_rec_LC is not normalized.")
+    if np.isclose(np.sum(f_rec_GCV) * dT, 1.0):
+        pass
+    else:
+        print("f_rec_GCV is not normalized.")
 
-    # if np.isclose(np.sum(f_rec_DP) * dT, 1.0):
-    #     pass
-    # else:
-    #     print("f_rec_DP is not normalized.")
+    if np.isclose(np.sum(f_rec_LC) * dT, 1.0):
+        pass
+    else:
+        print("f_rec_LC is not normalized.")
+
+    if np.isclose(np.sum(f_rec_DP) * dT, 1.0):
+        pass
+    else:
+        print("f_rec_DP is not normalized.")
     # Flatten results
     f_rec_GCV = f_rec_GCV.flatten()
     f_rec_DP = f_rec_DP.flatten()
@@ -580,34 +536,15 @@ def generate_estimates(i_param_combo):
         feature_df["err_LR"] = [None]
         feature_df["err_GCV"] = [None]
         feature_df["err_oracle"] = [None]
-        feature_df["LR_vect"] = [None]
-        feature_df["oracle_vect"] = [None]
-        feature_df["DP_vect"] = [None]
-        feature_df["LC_vect"] = [None]
-        feature_df["GCV_vect"] = [None]
+        feature_df["LR_vect"] = [f_rec_LocReg_LC]
+        feature_df["oracle_vect"] = [f_rec_oracle]
+        feature_df["DP_vect"] = [f_rec_DP]
+        feature_df["LC_vect"] = [f_rec_LC]
+        feature_df["GCV_vect"] = [f_rec_GCV]
     return feature_df, iter_sim, iter_sigma, iter_rps, noise, stdnoise
 
-# def parallel_processed(func, shift = True):
-#     with mp.Pool(processes = num_cpus_avail) as pool:
-#         with tqdm(total = len(target_iterator)) as pbar:
-#             for estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal in pool.imap_unordered(func, range(len(target_iterator))):
-#                 lis.append(estimates_dataframe)
-#                 noise_arr[iter_sim, iter_sigma, iter_rps,:] = noisereal
-#                 stdnoise_data[iter_sim, iter_sigma, iter_rps,:] = std_noisereal
-#                 pbar.update()
-#         pool.close()
-#         pool.join()
-#     return estimates_dataframe, noise_arr, stdnoise_data
-
-
-def worker_init():
-    # Use current_process()._identity to get a unique worker ID for each worker
-    worker_id = mp.current_process()._identity[0] if mp.current_process()._identity else 0
-    np.random.seed(worker_id)  # Set a random seed for each worker
-
-
 def parallel_processed(func, shift = True):
-    with mp.Pool(processes = num_cpus_avail, initializer=worker_init) as pool:
+    with mp.Pool(processes = num_cpus_avail) as pool:
         with tqdm(total = len(target_iterator)) as pbar:
             for estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal in pool.imap_unordered(func, range(len(target_iterator))):
                 lis.append(estimates_dataframe)
@@ -759,7 +696,6 @@ def parallel_processed(func, shift = True):
 #     print("Saved Comparison Heatmap")
 #     plt.close()
 
-
 def compare_heatmap():
     fig, axs = plt.subplots(2, 2, sharey=True, figsize=(14, 12))
     plt.subplots_adjust(wspace=0.3, hspace=0.4)
@@ -772,8 +708,8 @@ def compare_heatmap():
         ['LocReg is better', 'Neutral', 'Oracle is better']
     ]
     axs = axs.flatten()
-    x_ticksval = rps
-    y_ticksval = unif_sigma
+    x_ticks = rps
+    y_ticks = unif_sigma
 
     if err_type == "Wass. Score":
         maxLR = np.max(errs_LR)
@@ -794,7 +730,7 @@ def compare_heatmap():
     else:
         fmt1 = ".3e"  # Change format to scientific notation
 
-    def add_heatmap(ax, data, tick_labels, title,  x_ticks, y_ticks):
+    def add_heatmap(ax, data, tick_labels, title, x_ticks, y_ticks):
         im = sns.heatmap(data, cmap='jet', ax=ax, cbar=True, vmin=vmin1, vmax=vmax1,
                           annot=True, fmt=fmt1, annot_kws={"size": 12, "weight": "bold"},  
                           linewidths=0.5, linecolor='black', 
@@ -803,7 +739,6 @@ def compare_heatmap():
         ax.set_xlabel('Peak Separation', fontsize=20)
         ax.set_ylabel('Peak Width', fontsize=20)
         ax.set_title(title, fontsize=20, pad=20)
-
         x_ticks = np.round(x_ticks, 4)
         y_ticks = np.round(y_ticks, 4)
         # Set x and y ticks
@@ -822,21 +757,11 @@ def compare_heatmap():
         cbar.ax.yaxis.set_major_formatter(ticker.ScalarFormatter())
         cbar.ax.yaxis.set_major_formatter(ticker.FormatStrFormatter('%.1e'))
 
-    avg_GCV = f"{np.mean(compare_GCV):.2e}"
-    avg_DP = f"{np.mean(compare_DP):.2e}"
-    avg_LC = f"{np.mean(compare_LC):.2e}"
-    avg_oracle = f"{np.mean(compare_oracle):.2e}"
-
     # Add heatmaps for each method
-    add_heatmap(axs[0], compare_GCV, tick_labels[0], title = f'LocReg Error - GCV Error ({err_type})\n'+ f'Average GCV Comparison Score: {avg_GCV}',  x_ticks = x_ticksval, y_ticks = y_ticksval)
-    add_heatmap(axs[1], compare_DP, tick_labels[1], title = f'LocReg Error - DP Error ({err_type})\n' + f'Average DP Comparison Score: {avg_DP}', x_ticks = x_ticksval, y_ticks = y_ticksval)
-    add_heatmap(axs[2], compare_LC, tick_labels[2], title = f'LocReg Error - L-Curve Error ({err_type})\n' +  f'Average LCurve Comparison Score: {avg_LC}', x_ticks = x_ticksval, y_ticks = y_ticksval)
-    add_heatmap(axs[3], compare_oracle, tick_labels[3], title = f'LocReg Error - Oracle Error ({err_type})\n' + f'Average Oracle Comparison Score: {avg_oracle}',  x_ticks = x_ticksval, y_ticks = y_ticksval)
-    # add_heatmap(axs[0], compare_GCV, tick_labels[0], title = f'LocReg Error - GCV Error (Rel. {err_type})',  x_ticks = x_ticksval, y_ticks = y_ticksval)
-    # add_heatmap(axs[1], compare_DP, tick_labels[1], title = f'LocReg Error - DP Error (Rel. {err_type})',  x_ticks = x_ticksval, y_ticks = y_ticksval)
-    # add_heatmap(axs[2], compare_LC, tick_labels[2], title = f'LocReg Error - L-Curve Error (Rel. {err_type})', x_ticks = x_ticksval, y_ticks = y_ticksval)
-    # add_heatmap(axs[3], compare_oracle, tick_labels[3], title = f'LocReg Error - Oracle Error (Rel.{err_type})',  x_ticks = x_ticksval, y_ticks = y_ticksval)
-
+    add_heatmap(axs[0], compare_GCV, tick_labels[0], f'LocReg Error - GCV Error (Rel.{err_type})', x_ticks, y_ticks)
+    add_heatmap(axs[1], compare_DP, tick_labels[1], f'LocReg Error - DP Error (Rel.{err_type})', x_ticks, y_ticks)
+    add_heatmap(axs[2], compare_LC, tick_labels[2], f'LocReg Error - L-Curve Error (Rel.{err_type})', x_ticks, y_ticks)
+    add_heatmap(axs[3], compare_oracle, tick_labels[3], f'LocReg Error - Oracle Error (Rel.{err_type})', x_ticks, y_ticks)
 
     # Ensure y-axis labels show for all plots
     for ax in axs:
@@ -915,18 +840,12 @@ def indiv_heatmap():
         cbar.ax.yaxis.set_major_formatter(ticker.ScalarFormatter())
         cbar.ax.yaxis.set_major_formatter(ticker.FormatStrFormatter('%.1e'))
 
-    avg_GCV = f"{np.mean(errs_GCV):.2e}"
-    avg_DP = f"{np.mean(errs_DP):.2e}"
-    avg_LC = f"{np.mean(errs_LC):.2e}"
-    avg_oracle = f"{np.mean(errs_oracle):.2e}"
-    avg_LR = f"{np.mean(errs_LR):.2e}"
-
     # Add heatmaps and colorbars for each method
-    add_heatmap(axs[0], errs_LR, tick_labels[0], f'LocReg Error ({err_type})\n'+ f'Average Score: {avg_LR}', x_ticks, y_ticks)
-    add_heatmap(axs[1], errs_DP, tick_labels[1], f'DP Error ({err_type})\n'+ f'Average Score: {avg_DP}', x_ticks, y_ticks)
-    add_heatmap(axs[2], errs_LC, tick_labels[2], f'L-Curve Error ({err_type})\n'+ f'Average Score: {avg_LC}', x_ticks, y_ticks)
-    add_heatmap(axs[3], errs_oracle, tick_labels[3], f'Oracle Error ({err_type})\n'+ f'Average Score: {avg_oracle}', x_ticks, y_ticks)
-    add_heatmap(axs[4], errs_GCV, tick_labels[4], f'GCV Error ({err_type})\n'+ f'Average Score: {avg_GCV}', x_ticks, y_ticks)
+    add_heatmap(axs[0], errs_LR, tick_labels[0], f'LocReg Error (Rel.{err_type})', x_ticks, y_ticks)
+    add_heatmap(axs[1], errs_DP, tick_labels[1], f'DP Error (Rel.{err_type})', x_ticks, y_ticks)
+    add_heatmap(axs[2], errs_LC, tick_labels[2], f'L-Curve Error (Rel.{err_type})', x_ticks, y_ticks)
+    add_heatmap(axs[3], errs_oracle, tick_labels[3], f'Oracle Error (Rel.{err_type})', x_ticks, y_ticks)
+    add_heatmap(axs[4], errs_GCV, tick_labels[4], f'GCV Error (Rel.{err_type})', x_ticks, y_ticks)
     
     # The 6th subplot is not needed, hide it
     axs[5].axis('off')
@@ -964,7 +883,7 @@ if __name__ == '__main__':
  
     if parallel == True:
         estimates_dataframe, noise_arr, stdnoise_data = parallel_processed(generate_estimates, shift = False)
-        # lis.append(estimates_dataframe)
+        lis.append(estimates_dataframe)
     else:
         for i in range(n_sim):
             for j in range(nsigma):
@@ -988,25 +907,13 @@ if __name__ == '__main__':
 
     print(f"Completed {len(lis)} of {len(target_iterator)} voxels")
     df = pd.concat(lis, ignore_index= True)
+    df = df.dropna()
     df.to_pickle(file_path_final + f'/' + data_tag +'.pkl')
 
     df['Sigma'] = df['Sigma'].apply(tuple)
     df_sorted = df.sort_values(by=['NR','Sigma', 'RPS_val'], ascending=[True, True, True])
     print("df_sorted", df_sorted)
-    num_NRs = df_sorted['NR'].nunique()
 
-    na_count = df_sorted.isna().sum().sum()
-    print(f"Total number of NA values in the DataFrame: {na_count}")
-
-    if num_NRs == 1:
-        df_sorted.fillna(0)
-    else:
-        df_sorted.dropna()
-
-    na_count = df_sorted.isna().sum().sum()
-    print(f"Total number of NA values in the DataFrame: {na_count}")
-
-    print("df_sorted.shape", df_sorted.shape)
     grouped = df_sorted.groupby(['Sigma', 'RPS_val']).agg({
         'err_DP': 'sum',
         'err_LC': 'sum',
@@ -1014,6 +921,7 @@ if __name__ == '__main__':
         'err_GCV': 'sum',
         'err_oracle': 'sum',
     })
+    num_NRs = df_sorted['NR'].nunique()
     # Average the errors
     average_errors = grouped / num_NRs
     print("num_NRs", num_NRs)

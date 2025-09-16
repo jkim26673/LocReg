@@ -1,55 +1,57 @@
-import sys
-import os
-print("Setting system path")
-sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
-import numpy as np
-from scipy.stats import norm as normsci
-from scipy.linalg import norm as linalg_norm
-from scipy.optimize import nnls
-import matplotlib.pyplot as plt
-import pickle
-import matplotlib.ticker as ticker  # Add this import
-from Utilities_functions.discrep_L2 import discrep_L2
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.Lcurve import Lcurve
-import pandas as pd
-import cvxpy as cp
-from scipy.linalg import svd
-from regu.csvd import csvd
-from regu.discrep import discrep
-from Simulations.LRalgo import LocReg_Ito_mod
-from Utilities_functions.pasha_gcv import Tikhonov
-from regu.l_curve import l_curve
-from tqdm import tqdm
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-import mosek
-import seaborn as sns
-from regu.nonnegtik_hnorm import nonnegtik_hnorm
-import multiprocess as mp
-from multiprocessing import Pool, freeze_support
-from multiprocessing import set_start_method
-import functools
-from datetime import date
-import random
-import cProfile
-import pstats
-from Simulations.resolutionanalysis import find_min_between_peaks, check_resolution
-import logging
-import time
-from scipy.stats import wasserstein_distance
-import matplotlib.ticker as ticker  # Add this import
+# import sys
+# import os
+# print("Setting system path")
+# sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
+# import numpy as np
+# from scipy.stats import norm as normsci
+# from scipy.linalg import norm as linalg_norm
+# from scipy.optimize import nnls
+# import matplotlib.pyplot as plt
+# import pickle
+# from Utilities_functions.discrep_L2 import discrep_L2
+# from Utilities_functions.GCV_NNLS import GCV_NNLS
+# from Utilities_functions.Lcurve import Lcurve
+# import pandas as pd
+# import matplotlib.ticker as ticker  # Add this import
+# import cvxpy as cp
+# from scipy.linalg import svd
+# from regu.csvd import csvd
+# from regu.discrep import discrep
+# from Simulations.LRalgo import LocReg_Ito_mod
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from regu.l_curve import l_curve
+# from tqdm import tqdm
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
+# import mosek
+# import seaborn as sns
+# from regu.nonnegtik_hnorm import nonnegtik_hnorm
+# import multiprocess as mp
+# from multiprocessing import Pool, freeze_support
+# from multiprocessing import set_start_method
+# import functools
+# from datetime import date
+# import random
+# import cProfile
+# import pstats
+# from Simulations.resolutionanalysis import find_min_between_peaks, check_resolution
+# import logging
+# import time
+# from scipy.stats import wasserstein_distance
+# import matplotlib.ticker as ticker  # Add this import
 
-# Configure logging
+# # Configure logging
+
+# print("setting license path")
+# mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+# os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
+from utils.load_imports.loading import *
 logging.basicConfig(
     filename='my_script.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
-print("setting license path")
-mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)
 cwd = os.getcwd()
@@ -66,7 +68,7 @@ cwd_full = cwd_cut + simulation_save_folder
 
 #Number of simulations and SNR:
 n_sim = 50
-SNR_value = 300
+SNR_value = 1000
 
 #Hyperparameters and Global Parameters
 ###Plotting hyperparameters
@@ -198,7 +200,6 @@ def create_result_folder(string, SNR, lam_ini_val, dist_type):
 #     OP_min_alpha1_ind = min_index[0]
 #     f_rec_OP_grid = OP_x_lc_vec[:, OP_min_alpha1_ind]
 #     return f_rec_OP_grid, OP_min_alpha1
-
 def minimize_OP(Alpha_vec, data_noisy, G, nT2, g):
     OP_x_lc_vec = np.zeros((nT2, len(Alpha_vec)))
     OP_rhos = np.zeros((len(Alpha_vec)))
@@ -303,7 +304,6 @@ def calc_diff_sigma(nsigma):
 #     n, m = Gaus_info['A'].shape
 #     SNR = SNR_value
 #     return T2, TE, A, m,  SNR
-
 def load_Gaus(Gaus_info):
     n, m = Gaus_info['A'].shape
     # T2 = Gaus_info['T2'].flatten()
@@ -477,7 +477,6 @@ def generate_estimates(i_param_combo):
     # f_rec_LC = f_rec_LC / sum_LC
     # sum_DP = np.sum(f_rec_DP) * dT
     # f_rec_DP = f_rec_DP / sum_DP
-
     sum_x = np.trapz(f_rec_LocReg_LC, T2)
     f_rec_LocReg_LC = f_rec_LocReg_LC / sum_x
     sum_oracle = np.trapz(f_rec_oracle, T2)
@@ -488,7 +487,6 @@ def generate_estimates(i_param_combo):
     f_rec_LC = f_rec_LC / sum_LC
     sum_DP = np.trapz(f_rec_DP, T2)
     f_rec_DP = f_rec_DP / sum_DP
-
     # if np.isclose(np.sum(f_rec_LocReg_LC) * dT, 1.0):
     #     pass
     # else:
@@ -621,7 +619,6 @@ def parallel_processed(func, shift = True):
         pool.close()
         pool.join()
     return estimates_dataframe, noise_arr, stdnoise_data
-
 
 # def compare_heatmap():
 #     fig, axs = plt.subplots(2, 2, sharey=True, figsize=(12, 10))
