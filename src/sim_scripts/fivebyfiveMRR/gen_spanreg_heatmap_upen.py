@@ -32,7 +32,7 @@ from datetime import date
 import random
 import cProfile
 import pstats
-from sim_scripts.peak_resolution_scripts.resolutionanalysis import find_min_between_peaks, check_resolution
+from sim_scripts.peak_resolution.resolutionanalysis import find_min_between_peaks, check_resolution
 import logging
 import time
 from scipy.stats import wasserstein_distance

@@ -4,7 +4,7 @@ import pickle
 import sys
 sys.path.append('.')  # Replace this path with the actual path to the parent directory of Utilities_functions
 from regularization.reg_methods.spanreg.generate_gaussian_regs_L2_old import generate_gaussian_regs_L2_old
-from sim_scripts.spanreg_scripts.heatmap_unequal_width_All import heatmap_unequal_width_All
+from sim_scripts.spanreg.heatmap_unequal_width_All import heatmap_unequal_width_All
 import pickle
 import scipy.io
 # Setting up kernel matrix
