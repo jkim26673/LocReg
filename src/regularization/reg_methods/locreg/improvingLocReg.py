@@ -1,15 +1,15 @@
 import numpy as np
-from regularization.classical.hansen_test_prob.baart import baart
-from regularization.classical.hansen_test_prob.blur import blur
-from regularization.classical.hansen_test_prob.deriv2 import deriv2
-from regularization.classical.hansen_test_prob.foxgood import foxgood
-from regularization.classical.hansen_test_prob.gravity import gravity
-from regularization.classical.hansen_test_prob.heat import heat
-from regularization.classical.hansen_test_prob.i_laplace import i_laplace
-from regularization.classical.hansen_test_prob.ilaplace import i_laplace as i_laplace2
-from regularization.classical.hansen_test_prob.phillips import phillips
-from regularization.classical.hansen_test_prob.shaw import shaw 
-from regularization.classical.hansen_test_prob.wing import wing 
+from regularization.classical.hansen.baart import baart
+from regularization.classical.hansen.blur import blur
+from regularization.classical.hansen.deriv2 import deriv2
+from regularization.classical.hansen.foxgood import foxgood
+from regularization.classical.hansen.gravity import gravity
+from regularization.classical.hansen.heat import heat
+from regularization.classical.hansen.i_laplace import i_laplace
+from regularization.classical.hansen.ilaplace import i_laplace as i_laplace2
+from regularization.classical.hansen.phillips import phillips
+from regularization.classical.hansen.shaw import shaw 
+from regularization.classical.hansen.wing import wing 
 
 from regularization.reg_methods.lcurve.l_curve import l_curve
 from numpy.linalg import norm

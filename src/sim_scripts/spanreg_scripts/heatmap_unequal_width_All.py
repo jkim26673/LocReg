@@ -1,50 +1,52 @@
-import numpy as np
-from scipy.stats import norm as normsci
-from scipy.linalg import norm as linalg_norm
-from scipy.optimize import nnls
-import matplotlib.pyplot as plt
-from scipy.stats import wasserstein_distance, entropy
-import pickle
-from tqdm import tqdm
-from Utilities_functions.LocReg import LocReg
-from Utilities_functions.LocReg_unconstrainedB import LocReg_unconstrainedB
-from Utilities_functions.discrep_L2 import discrep_L2
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.Lcurve import Lcurve
-from Utilities_functions.Multi_Reg_Gaussian_Sum1 import Multi_Reg_Gaussian_Sum1
-from Utilities_functions.LocReg_NEW_NNLS import LocReg_NEW_NNLS
-import os
-from datetime import datetime
-import pandas as pd
-import sys
-# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-import cvxpy as cp
-import os
-import scipy
-from scipy.linalg import svd
-# from lsqnonneg import lsqnonneg
-from Simulations.lcurve_functions import l_cuve,csvd,l_corner
-from Simulations.l_curve_corner import l_curve_corner
-from regu.csvd import csvd
-from regu.discrep import discrep
-from Simulations.Ito_LocReg import Ito_LocReg
-# from Simulations.Ito_LocReg import blur_ito, grav_ito
-from Simulations.Ito_LocReg import *
-from Utilities_functions.LocReg import LocReg as Chuan_LR
-# from regu.ito_blur import blur
-# from regu.ito_gravity import gravity
-from Utilities_functions.discrep_L2 import discrep_L2
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.pasha_gcv import Tikhonov
-# from regu.tikhonov import tikhonov
-from regu.l_curve import l_curve
-from Utilities_functions.Lcurve import Lcurve
-from datetime import datetime
-from tqdm import tqdm
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-import sys
-import os
-import mosek
+# import numpy as np
+# from scipy.stats import norm as normsci
+# from scipy.linalg import norm as linalg_norm
+# from scipy.optimize import nnls
+# import matplotlib.pyplot as plt
+# from scipy.stats import wasserstein_distance, entropy
+# import pickle
+# from tqdm import tqdm
+# from Utilities_functions.LocReg import LocReg
+# from Utilities_functions.LocReg_unconstrainedB import LocReg_unconstrainedB
+# from Utilities_functions.discrep_L2 import discrep_L2
+# from Utilities_functions.GCV_NNLS import GCV_NNLS
+# from Utilities_functions.Lcurve import Lcurve
+# from Utilities_functions.Multi_Reg_Gaussian_Sum1 import Multi_Reg_Gaussian_Sum1
+# from Utilities_functions.LocReg_NEW_NNLS import LocReg_NEW_NNLS
+# import os
+# from datetime import datetime
+# import pandas as pd
+# import sys
+# # sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# import cvxpy as cp
+# import os
+# import scipy
+# from scipy.linalg import svd
+# # from lsqnonneg import lsqnonneg
+# from Simulations.lcurve_functions import l_cuve,csvd,l_corner
+# from Simulations.l_curve_corner import l_curve_corner
+# from regu.csvd import csvd
+# from regu.discrep import discrep
+# from Simulations.Ito_LocReg import Ito_LocReg
+# # from Simulations.Ito_LocReg import blur_ito, grav_ito
+# from Simulations.Ito_LocReg import *
+# from Utilities_functions.LocReg import LocReg as Chuan_LR
+# # from regu.ito_blur import blur
+# # from regu.ito_gravity import gravity
+# from Utilities_functions.discrep_L2 import discrep_L2
+# from Utilities_functions.GCV_NNLS import GCV_NNLS
+# from Utilities_functions.pasha_gcv import Tikhonov
+# # from regu.tikhonov import tikhonov
+# from regu.l_curve import l_curve
+# from Utilities_functions.Lcurve import Lcurve
+# from datetime import datetime
+# from tqdm import tqdm
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
+# import sys
+# import os
+# import mosek
+from utils.load_imports.loading import *
+
 # print("setting license path")
 mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
 os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
