@@ -7,6 +7,8 @@ from src.utils.load_imports.loading import *
 # 🔬 Regularization Methods
 # -----------------------------
 from src.regularization.reg_methods.dp.discrep import discrep
+from src.regularization.reg_methods.dp.discrep_L2 import discrep_L2
+from src.regularization.reg_methods.dp.discrep_L2 import discrep_L2_brain
 from src.regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
 from src.regularization.reg_methods.gcv.gcv import gcv
 from src.regularization.reg_methods.lcurve.Lcurve import Lcurve
@@ -32,7 +34,8 @@ from src.regularization.reg_methods.nnls_multiparameter.tikhonov_multi_param imp
 # -----------------------------
 # 🧩 Subfunctions
 # -----------------------------
-from src.regularization.subfunc.lcurve_functions import l_cuve, csvd, l_corner
+from src.regularization.subfunc.lcurve_functions import l_cuve, l_corner
+from src.regularization.subfunc.csvd import csvd
 from src.regularization.subfunc.l_curve_corner import l_curve_corner
 
 # -----------------------------
@@ -47,7 +50,7 @@ from src.sim_scripts.peak_resolution_scripts.resolutionanalysis import (
 # 🧠 Expose Regularization Names
 # -----------------------------
 __all__ = [
-    'discrep', 'GCV_NNLS', 'gcv',
+    'discrep', 'discrep_L2','GCV_NNLS', 'gcv',
     'Lcurve', 'l_curve',
     'LocReg', 'LocReg_unconstrainedB', 'LocReg_NEW_NNLS',
     'LocReg_unconstrained', 'LocReg_Ito_mod', 'LocReg_Ito_mod_deriv', 'LocReg_Ito_mod_deriv2',
