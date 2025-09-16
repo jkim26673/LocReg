@@ -1,52 +1,54 @@
-import numpy as np
-from scipy.stats import norm as normsci
-from scipy.linalg import norm as linalg_norm
-from scipy.optimize import nnls
-import matplotlib.pyplot as plt
-from scipy.stats import wasserstein_distance, entropy
-import pickle
-from tqdm import tqdm
-from regularization.reg_methods.locreg.LocReg import LocReg
-from regularization.reg_methods.locreg.LocReg_unconstrainedB import LocReg_unconstrainedB
-from regularization.reg_methods.locreg.LocReg_NEW_NNLS import LocReg_NEW_NNLS
-from regularization.reg_methods.dp.discrep_L2 import discrep_L2
-from regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
-from regularization.reg_methods.lcurve.Lcurve import Lcurve
-from regularization.reg_methods.spanreg.Multi_Reg_Gaussian_Sum1 import Multi_Reg_Gaussian_Sum1
+# import numpy as np
+# from scipy.stats import norm as normsci
+# from scipy.linalg import norm as linalg_norm
+# from scipy.optimize import nnls
+# import matplotlib.pyplot as plt
+# from scipy.stats import wasserstein_distance, entropy
+# import pickle
+# from tqdm import tqdm
+# from regularization.reg_methods.locreg.LocReg import LocReg
+# from regularization.reg_methods.locreg.LocReg_unconstrainedB import LocReg_unconstrainedB
+# from regularization.reg_methods.locreg.LocReg_NEW_NNLS import LocReg_NEW_NNLS
+# from regularization.reg_methods.dp.discrep_L2 import discrep_L2
+# from regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
+# from regularization.reg_methods.lcurve.Lcurve import Lcurve
+# from regularization.reg_methods.spanreg.Multi_Reg_Gaussian_Sum1 import Multi_Reg_Gaussian_Sum1
 
-import os
-from datetime import datetime
-import pandas as pd
-import sys
-# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-import cvxpy as cp
-import os
-import scipy
-from scipy.linalg import svd
-# from lsqnonneg import lsqnonneg
-from regularization.subfunc.lcurve_functions import l_cuve,csvd,l_corner
-from regularization.subfunc.l_curve_corner import l_curve_corner
-from regularization.subfunc.csvd import csvd
-from regularization.reg_methods.dp.discrep import discrep
-# from Simulations.Ito_LocReg import blur_ito, grav_ito
-from regularization.reg_methods.locreg.Ito_LocReg import *
-from regularization.reg_methods.locreg.LocReg import LocReg as Chuan_LR
-# from regu.ito_blur import blur
-# from regu.ito_gravity import gravity
-from tools.trips_py.pasha_gcv import Tikhonov
-# from regu.tikhonov import tikhonov
-from regularization.reg_methods.lcurve import l_curve
-from datetime import datetime
-from tqdm import tqdm
-from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
-import sys
-import os
-import mosek
-# from ItoLocRegConst import LocReg_Ito_C,LocReg_Ito_C_2,LocReg_Ito_C_4
+# import os
+# from datetime import datetime
+# import pandas as pd
+# import sys
+# # sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# import cvxpy as cp
+# import os
+# import scipy
+# from scipy.linalg import svd
+# # from lsqnonneg import lsqnonneg
+# from regularization.subfunc.lcurve_functions import l_cuve,csvd,l_corner
+# from regularization.subfunc.l_curve_corner import l_curve_corner
+# from regularization.subfunc.csvd import csvd
+# from regularization.reg_methods.dp.discrep import discrep
+# # from Simulations.Ito_LocReg import blur_ito, grav_ito
+# from regularization.reg_methods.locreg.Ito_LocReg import *
+# from regularization.reg_methods.locreg.LocReg import LocReg as Chuan_LR
+# # from regu.ito_blur import blur
+# # from regu.ito_gravity import gravity
+# from tools.trips_py.pasha_gcv import Tikhonov
+# # from regu.tikhonov import tikhonov
+# from regularization.reg_methods.lcurve import l_curve
+# from datetime import datetime
+# from tqdm import tqdm
+# from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
+# import sys
+# import os
+# import mosek
+# # from ItoLocRegConst import LocReg_Ito_C,LocReg_Ito_C_2,LocReg_Ito_C_4
 
-# print("setting license path")
-mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+# # print("setting license path")
+# mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+
+from utils.load_imports.loading import *
 
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)

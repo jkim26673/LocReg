@@ -1,43 +1,49 @@
-import sys
-import os
-print("Setting system path")
-sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
-import numpy as np
-from scipy.stats import norm as normsci
-from scipy.linalg import norm as linalg_norm
-from scipy.optimize import nnls
-import matplotlib.pyplot as plt
-import pickle
-from regularization.reg_methods.dp.discrep_L2 import discrep_L2
-from regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
-from regularization.reg_methods.lcurve.Lcurve import Lcurve
-import pandas as pd
-import matplotlib.ticker as ticker  # Add this import
-import cvxpy as cp
-from scipy.linalg import svd
-from regularization.subfunc.csvd import csvd
-from regularization.reg_methods.dp.discrep import discrep
-from regularization.reg_methods.locreg.LRalgo import LocReg_Ito_mod, LocReg_Ito_mod_deriv, LocReg_Ito_mod_deriv2
-from tools.trips_py.pasha_gcv import Tikhonov
-from regularization.reg_methods.lcurve import l_curve
-from tqdm import tqdm
-from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
-import mosek
-import seaborn as sns
-from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
-import multiprocess as mp
-from multiprocessing import Pool, freeze_support
-from multiprocessing import set_start_method
-import functools
-from datetime import date
-import random
-import cProfile
-import pstats
-from sim_scripts.peak_resolution_scripts.resolutionanalysis import find_min_between_peaks, check_resolution
-import logging
-import time
-from scipy.stats import wasserstein_distance
-import matplotlib.ticker as ticker  # Add this import
+# import sys
+# import os
+# print("Setting system path")
+# sys.path.append(".")  # Replace this path with the actual path to the parent directory of Utilities_functions
+# import numpy as np
+# from scipy.stats import norm as normsci
+# from scipy.linalg import norm as linalg_norm
+# from scipy.optimize import nnls
+# import matplotlib.pyplot as plt
+# import pickle
+# import matplotlib.ticker as ticker  # Add this import
+# from Utilities_functions.discrep_L2 import discrep_L2
+# from Utilities_functions.GCV_NNLS import GCV_NNLS
+# from Utilities_functions.Lcurve import Lcurve
+# import pandas as pd
+# import cvxpy as cp
+# from scipy.linalg import svd
+# from regu.csvd import csvd
+# from regu.discrep import discrep
+# from Simulations.LRalgo import LocReg_Ito_mod
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from regu.l_curve import l_curve
+# from tqdm import tqdm
+# from Utilities_functions.tikhonov_vec import tikhonov_vec
+# import mosek
+# import seaborn as sns
+# from regu.nonnegtik_hnorm import nonnegtik_hnorm
+# import multiprocess as mp
+# from multiprocessing import Pool, freeze_support
+# from multiprocessing import set_start_method
+# import functools
+# from datetime import date
+# import random
+# import cProfile
+# import pstats
+# from Simulations.resolutionanalysis import find_min_between_peaks, check_resolution
+# import logging
+# import time
+# from scipy.stats import wasserstein_distance
+# import matplotlib.ticker as ticker  # Add this import
+
+# print("setting license path")
+# mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+# os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+from utils.load_imports.loading import *
 
 # Configure logging
 logging.basicConfig(
@@ -45,10 +51,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
-print("setting license path")
-mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
 
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)
@@ -110,7 +113,7 @@ exp = 0.5
 feedback = True
 lam_ini_val = "LCurve"
 # dist_type = f"narrowL_broadR_testing_new_noisearr_parallel_nsim{n_sim}"
-dist_type = f"narrowL_broadR_parallel_nsim{n_sim}_SNR_{SNR_value}_errtype_{err_type}"
+dist_type = f"broadL_narrowR_parallel_nsim{n_sim}_SNR_{SNR_value}_errtype_{err_type}"
 gamma_init = 0.5
 
 #Load Data File
@@ -120,7 +123,6 @@ print(f"File loaded from: {file_path}")
 A = Gaus_info["A"]
 n, m = Gaus_info['A'].shape
 print("Gaus_info['A'].shape", Gaus_info['A'].shape)
-
 
 ###Number of noisy realizations; 20 NR is enough to until they ask for more noise realizations
 #Naming for Data Folder
@@ -293,7 +295,7 @@ def calc_rps_val(iter_j, rps):
 
 def calc_diff_sigma(nsigma):
     unif_sigma = np.linspace(2, 5, nsigma).T
-    diff_sigma = np.column_stack((unif_sigma, 3 *unif_sigma))
+    diff_sigma = np.column_stack((3 * unif_sigma, unif_sigma))
     return unif_sigma, diff_sigma
 
 # def load_Gaus(Gaus_info):
@@ -303,7 +305,7 @@ def calc_diff_sigma(nsigma):
 #     # Lambda = Gaus_info['Lambda'].reshape(-1,1)
 #     n, m = Gaus_info['A'].shape
 #     SNR = SNR_value
-#     return T2, TE, A, m, SNR
+#     return T2, TE, A, m,  SNR
 
 def load_Gaus(Gaus_info):
     n, m = Gaus_info['A'].shape
@@ -478,6 +480,7 @@ def generate_estimates(i_param_combo):
     # f_rec_LC = f_rec_LC / sum_LC
     # sum_DP = np.sum(f_rec_DP) * dT
     # f_rec_DP = f_rec_DP / sum_DP
+
     sum_x = np.trapz(f_rec_LocReg_LC, T2)
     f_rec_LocReg_LC = f_rec_LocReg_LC / sum_x
     sum_oracle = np.trapz(f_rec_oracle, T2)
@@ -602,6 +605,25 @@ def generate_estimates(i_param_combo):
 #         pool.close()
 #         pool.join()
 #     return estimates_dataframe, noise_arr, stdnoise_data
+
+
+def worker_init():
+    # Use current_process()._identity to get a unique worker ID for each worker
+    worker_id = mp.current_process()._identity[0] if mp.current_process()._identity else 0
+    np.random.seed(worker_id)  # Set a random seed for each worker
+
+
+def parallel_processed(func, shift = True):
+    with mp.Pool(processes = num_cpus_avail, initializer=worker_init) as pool:
+        with tqdm(total = len(target_iterator)) as pbar:
+            for estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal in pool.imap_unordered(func, range(len(target_iterator))):
+                lis.append(estimates_dataframe)
+                noise_arr[iter_sim, iter_sigma, iter_rps,:] = noisereal
+                stdnoise_data[iter_sim, iter_sigma, iter_rps,:] = std_noisereal
+                pbar.update()
+        pool.close()
+        pool.join()
+    return estimates_dataframe, noise_arr, stdnoise_data
 
 
 # def compare_heatmap():
@@ -930,24 +952,6 @@ def indiv_heatmap():
     plt.savefig(os.path.join(file_path_final, f"indiv_heatmap.png"))
     print("Saved Individual Heatmap")
     plt.close()
-
-
-def worker_init():
-    # Use current_process()._identity to get a unique worker ID for each worker
-    worker_id = mp.current_process()._identity[0] if mp.current_process()._identity else 0
-    np.random.seed(worker_id)  # Set a random seed for each worker
-
-def parallel_processed(func, shift = True):
-    with mp.Pool(processes = num_cpus_avail, initializer=worker_init) as pool:
-        with tqdm(total = len(target_iterator)) as pbar:
-            for estimates_dataframe, iter_sim, iter_sigma, iter_rps, noisereal, std_noisereal in pool.imap_unordered(func, range(len(target_iterator))):
-                lis.append(estimates_dataframe)
-                noise_arr[iter_sim, iter_sigma, iter_rps,:] = noisereal
-                stdnoise_data[iter_sim, iter_sigma, iter_rps,:] = std_noisereal
-                pbar.update()
-        pool.close()
-        pool.join()
-    return estimates_dataframe, noise_arr, stdnoise_data
 
 if __name__ == '__main__':
     if 'TERM_PROGRAM' in os.environ and os.environ['TERM_PROGRAM'] == 'vscode':

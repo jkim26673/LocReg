@@ -1,30 +1,31 @@
-#Packages
-import sys
-sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-import numpy as np
-import cvxpy as cp
-import os
-import scipy
-import matplotlib.pyplot as plt
-from scipy.linalg import svd
-from scipy.optimize import nnls
-# from lsqnonneg import lsqnonneg
-#from Simulations.lcurve_functions import l_cuve,csvd,l_corner
-from Simulations.l_curve_corner import l_curve_corner
-from regu.csvd import csvd
-from regu.discrep import discrep
-from Simulations.Ito_LocReg import Ito_LocReg
-from Simulations.Ito_LocReg import blur_ito, grav_ito
-from Simulations.Ito_LocReg import LocReg_Ito_mod
-from Utilities_functions.LocReg import LocReg as Chuan_LR
-from regu.ito_blur import blur
-from regu.ito_gravity import gravity
+# #Packages
+# import sys
+# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# import numpy as np
+# import cvxpy as cp
+# import os
+# import scipy
+# import matplotlib.pyplot as plt
+# from scipy.linalg import svd
+# from scipy.optimize import nnls
+# # from lsqnonneg import lsqnonneg
+# #from Simulations.lcurve_functions import l_cuve,csvd,l_corner
+# from Simulations.l_curve_corner import l_curve_corner
+# from regu.csvd import csvd
+# from regu.discrep import discrep
+# from Simulations.Ito_LocReg import Ito_LocReg
+# from Simulations.Ito_LocReg import blur_ito, grav_ito
+# from Simulations.Ito_LocReg import LocReg_Ito_mod
+# from Utilities_functions.LocReg import LocReg as Chuan_LR
+# from regu.ito_blur import blur
+# from regu.ito_gravity import gravity
 
 
-from regu.tikhonov import tikhonov
-from regu.l_curve import l_curve
-from Utilities_functions.Lcurve import Lcurve
-from datetime import datetime
+# from regu.tikhonov import tikhonov
+# from regu.l_curve import l_curve
+# from Utilities_functions.Lcurve import Lcurve
+# from datetime import datetime
+from utils.load_imports.loading import *
 
 def create_result_folder(string):
     # Create a folder based on the current date and time
