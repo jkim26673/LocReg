@@ -6,7 +6,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from scipy.linalg import svd
 from scipy.optimize import nnls
-from regularization.subfunc.l_curve_corner import l_curve_corner
+from src.regularization.subfunc.l_curve_corner import l_curve_corner
 from scipy.stats import wasserstein_distance, entropy
 from matplotlib.backends.backend_pdf import PdfPages
 from tqdm.auto import trange, tqdm

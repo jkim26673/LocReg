@@ -25,7 +25,8 @@
 # from regu.l_curve import l_curve
 # from Utilities_functions.Lcurve import Lcurve
 # from datetime import datetime
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 def create_result_folder(string):
     # Create a folder based on the current date and time

@@ -17,7 +17,7 @@
 # from tqdm import tqdm
 # from Utilities_functions.LocReg_v2 import LocReg_v2
 # from Utilities_functions.LocReg_NE import LocReg_unconstrained_NE
-from utils.load_imports.load_classical import *
+from src.utils.load_imports.load_classical import *
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 import scipy.io

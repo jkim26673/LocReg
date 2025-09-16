@@ -14,7 +14,7 @@
 # from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
 # from Utilities_functions.LocReg_NE import LocReg_unconstrained_NE
 # from regu.blur import blur
-from utils.load_imports.load_classical import *
+from src.utils.load_imports.load_classical import *
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 

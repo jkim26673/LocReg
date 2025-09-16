@@ -29,7 +29,7 @@
 # from regu.baart import baart
 # import sys
 # import os
-from utils.load_imports.load_classical import *
+from src.utils.load_imports.load_classical import *
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 

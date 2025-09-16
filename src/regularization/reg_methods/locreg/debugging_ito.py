@@ -2,7 +2,7 @@
 # import os
 # import cvxpy as cp
 # import matplotlib.pyplot as plt
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
 os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
 # N Parameter Ito problem

@@ -58,7 +58,8 @@ from pylops import LinearOperator, Identity
 # import scipy
 # import matplotlib.pyplot as plt
 # import time
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 import math
 from mpl_toolkits.mplot3d import Axes3D
 import h5py

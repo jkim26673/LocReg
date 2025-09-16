@@ -11,7 +11,7 @@
 # from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
 # from regu.ilaplace import i_laplace
 # from Simulations.Ito_LocReg import *
-from utils.load_imports.load_classical import *
+from src.utils.load_imports.load_classical import *
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 n = 100

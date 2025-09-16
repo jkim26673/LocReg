@@ -41,9 +41,8 @@
 # os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
 # os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
-from utils.load_imports.loading import *
-from utils.load_imports.load_regmethods import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 # os.environ["MSK_IPAR_OPTIMIZER"] = 'MSK_OPTIMIZER_INTPNT'
 # os.environ["MSK_IPAR_BI_MAX_ITERATIONS "] = "1000"
 

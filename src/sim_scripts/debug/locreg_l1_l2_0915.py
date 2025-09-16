@@ -14,8 +14,8 @@
 # from regu.csvd import csvd
 # from regu.discrep import discrep
 # # np.random.seed(34)
-from utils.load_imports.loading import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 print("import complete")
 
 #Generate the TE values/ time

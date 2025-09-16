@@ -40,3 +40,5 @@ fnnls
 cv2
 oct2py
 statsmodel
+plotly
+autograd

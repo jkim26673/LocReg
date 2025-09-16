@@ -12,8 +12,8 @@
 # from Utilities_functions.GCV_NNLS import GCV_NNLS
 # from regu.gcv import gcv
 # from Simulations.l_curve_corner import l_curve_corner
-from utils.load_imports.loading import *
-
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 #Get Example Voxel (same size)
 #Animated Regularization Two Peak
 #Better

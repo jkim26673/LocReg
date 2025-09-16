@@ -15,7 +15,7 @@
 # from Utilities_functions.GCV_NNLS import GCV_NNLS
 # from Utilities_functions.Lcurve import Lcurve
 # from datetime import datetime
-from utils.load_imports.load_classical import *
+from src.utils.load_imports.load_classical import *
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 

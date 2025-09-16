@@ -18,7 +18,8 @@
 # import sys
 # import os
 # os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)

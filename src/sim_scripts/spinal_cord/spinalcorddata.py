@@ -41,7 +41,8 @@
 # import timeit
 # import unittest
 # import xlrd
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 #Hyperparameters LocReg
 eps1 = 1e-2

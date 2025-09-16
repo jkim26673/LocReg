@@ -4,7 +4,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sim_scripts.peak_resolution.resolutionpeakanalysisfinal import detect_peaks
+from src.sim_scripts.peak_resolution.resolutionpeakanalysisfinal import detect_peaks
 import os
 # modfile = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/iterationval1801e5/MRR_1D_LocReg_Comparison_2024-10-15_SNR_1000_lamini_LCurve_dist_narrowL_broadR_parallel_nsim50_SNR_1000_new/est_table_SNR1000_iter50_lamini_LCurve_dist_narrowL_broadR_parallel_nsim50_SNR_1000_new_15Oct24.pkl" #Percentage of Resolved Peaks: 79.9%
 # modfile = "/home/kimjosy/LocReg_Regularization-1/SimulationSets/MRR/SpanRegFig/iterationval1801e5/MRR_1D_LocReg_Comparison_2024-10-15_SNR_1000_lamini_LCurve_dist_broadL_narrowR_parallel_nsim50_SNR_1000/est_table_SNR1000_iter50_lamini_LCurve_dist_broadL_narrowR_parallel_nsim50_SNR_1000_15Oct24.pkl" #Percentage of Resolved Peaks: 85.60%
