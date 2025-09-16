@@ -95,9 +95,10 @@ from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 from regularization.reg_methods.nnls.lsqnonneg import lsqnonneg
 from regularization.reg_methods.spanreg.generate_gaussian_regs_L2_old import generate_gaussian_regs_L2_old
 from sim_scripts.fivebyfiveMRR_script.gen_spanreg_heatmap_copyreference import heatmap_unequal_width_All
-
+from regularization.reg_methods.locreg.TwoParam_LR import Multi_Param_LR
+from regularization.reg_methods.nnls_multiparameter.tikhonov_multi_param import tikhonov_multi_param
 # -----------------------------
-# 🧩 Subfunctions
+# 🧩 
 # -----------------------------
 from regularization.subfunc.lcurve_functions import l_cuve, csvd, l_corner
 from regularization.subfunc.l_curve_corner import l_curve_corner
@@ -139,7 +140,7 @@ __all__ = [
     'Multi_Reg_Gaussian_Sum1', 'tikhonov_vec', 'nonnegtik_hnorm',
     'upen_param_setup', 'upen_setup', 'UPEN_Zama', 'UPEN_Zama0th', 'UPEN_Zama1st',
     'lsqnonneg', 'generate_gaussian_regs_L2_old',
-    'heatmap_unequal_width_All',
+    'heatmap_unequal_width_All','Multi_Param_LR', 'tikhonov_multi_param',
 
     #Regularization
     'baart', 'blur', 'deriv2', 'foxgood', 'gravity', 'heat', 'i_laplace', 'phillips',

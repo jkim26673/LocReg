@@ -36,4 +36,5 @@ tqdm
 kneed
 plotly
 autograd
+fnnls
 #octave
