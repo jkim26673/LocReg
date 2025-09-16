@@ -6,13 +6,14 @@ import matplotlib.pyplot as plt
 from scipy.stats import wasserstein_distance, entropy
 import pickle
 from tqdm import tqdm
-from Utilities_functions.LocReg import LocReg
-from Utilities_functions.LocReg_unconstrainedB import LocReg_unconstrainedB
-from Utilities_functions.discrep_L2 import discrep_L2
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.Lcurve import Lcurve
-from Utilities_functions.Multi_Reg_Gaussian_Sum1 import Multi_Reg_Gaussian_Sum1
-from Utilities_functions.LocReg_NEW_NNLS import LocReg_NEW_NNLS
+from regularization.reg_methods.locreg.LocReg import LocReg
+from regularization.reg_methods.locreg.LocReg_unconstrainedB import LocReg_unconstrainedB
+from regularization.reg_methods.locreg.LocReg_NEW_NNLS import LocReg_NEW_NNLS
+from regularization.reg_methods.dp.discrep_L2 import discrep_L2
+from regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
+from regularization.reg_methods.lcurve.Lcurve import Lcurve
+from regularization.reg_methods.spanreg.Multi_Reg_Gaussian_Sum1 import Multi_Reg_Gaussian_Sum1
+
 import os
 from datetime import datetime
 import pandas as pd
@@ -23,29 +24,25 @@ import os
 import scipy
 from scipy.linalg import svd
 # from lsqnonneg import lsqnonneg
-from Simulations.lcurve_functions import l_cuve,csvd,l_corner
-from Simulations.l_curve_corner import l_curve_corner
-from regu.csvd import csvd
-from regu.discrep import discrep
-from Simulations.Ito_LocReg import Ito_LocReg
+from regularization.subfunc.lcurve_functions import l_cuve,csvd,l_corner
+from regularization.subfunc.l_curve_corner import l_curve_corner
+from regularization.subfunc.csvd import csvd
+from regularization.reg_methods.dp.discrep import discrep
 # from Simulations.Ito_LocReg import blur_ito, grav_ito
-from Simulations.Ito_LocReg import *
-from Utilities_functions.LocReg import LocReg as Chuan_LR
+from regularization.reg_methods.locreg.Ito_LocReg import *
+from regularization.reg_methods.locreg.LocReg import LocReg as Chuan_LR
 # from regu.ito_blur import blur
 # from regu.ito_gravity import gravity
-from Utilities_functions.discrep_L2 import discrep_L2
-from Utilities_functions.GCV_NNLS import GCV_NNLS
-from Utilities_functions.pasha_gcv import Tikhonov
+from tools.trips_py.pasha_gcv import Tikhonov
 # from regu.tikhonov import tikhonov
-from regu.l_curve import l_curve
-from Utilities_functions.Lcurve import Lcurve
+from regularization.reg_methods.lcurve import l_curve
 from datetime import datetime
 from tqdm import tqdm
-from Utilities_functions.tikhonov_vec import tikhonov_vec
+from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
 import sys
 import os
 import mosek
-from ItoLocRegConst import LocReg_Ito_C,LocReg_Ito_C_2,LocReg_Ito_C_4
+# from ItoLocRegConst import LocReg_Ito_C,LocReg_Ito_C_2,LocReg_Ito_C_4
 
 # print("setting license path")
 mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
