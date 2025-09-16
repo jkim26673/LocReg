@@ -739,10 +739,8 @@ from regularization.reg_methods.dp.discrep_L2 import discrep_L2
 from regularization.reg_methods.gcv.GCV_NNLS import GCV_NNLS
 from regularization.reg_methods.lcurve.Lcurve import Lcurve
 from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
-
-
 from regularization.reg_methods.locreg.LRalgo import LocReg_Ito_mod, LocReg_Ito_mod_deriv, LocReg_Ito_mod_deriv2
-from Simulations.upenzama import UPEN_Zama, UPEN_Zama0th, UPEN_Zama1st
+from regularization.reg_methods.upen.upenzama import UPEN_Zama, UPEN_Zama0th, UPEN_Zama1st
 
 @dataclass
 class SimulationConfig:
