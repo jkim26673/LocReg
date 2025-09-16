@@ -50,8 +50,10 @@
 from utils.load_imports.loading import *
 import scipy.io
 from scipy.ndimage import rotate
-from Simulations.LRalgo import LocReg_Ito_mod as oLocReg_Ito_mod
-from Simulations.brainLRalgo import LocReg_Ito_mod as bLocReg_Ito_mod
+import pickle
+from src.utils.load_imports.loading import *
+from src.regularization.reg_methods.locreg.LRalgo import LocReg_Ito_mod as oLocReg_Ito_mod
+from src.regularization.reg_methods.locreg.brainLRalgo import LocReg_Ito_mod as bLocReg_Ito_mod
 
 
 brain_data = scipy.io.loadmat("/home/kimjosy/LocReg_Regularization/cleaned_brain_data.mat")["final_data_2"]

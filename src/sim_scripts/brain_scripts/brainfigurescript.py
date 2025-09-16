@@ -460,7 +460,7 @@ filepath = "/home/kimjosy/LocReg_Regularization-1/data/Brain/results_29Jan25/fil
 # import matplotlib.pyplot as plt
 # from scipy.stats import wasserstein_distance
 
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 class OrigBrainAnalysis:
     def __init__(self, brain_data_filepath, mask_filepath, estimates_filepath):
         # Load the brain data

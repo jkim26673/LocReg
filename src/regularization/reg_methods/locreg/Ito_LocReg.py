@@ -10,15 +10,15 @@ import os
 import mosek
 import cvxpy as cp
 from scipy.signal import savgol_filter
-from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
-from regularization.subfunc.csvd import csvd
+from src.regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
+from src.regularization.subfunc.csvd import csvd
 import pylops
 from scipy import sparse
 import scipy
 from scipy import linalg as la
 from tools.trips_py.pasha_gcv import Tikhonov
-from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
-from utils.load_imports.loading import *
+from src.regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
+from src.utils.load_imports.loading import *
 
 # mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
 # os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
@@ -1582,15 +1582,6 @@ def LocReg_Ito_UC_4(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, e
 
 
 ### N Parameter Ito problem
-import numpy as np
-from scipy.linalg import solve
-from scipy.sparse.linalg import spsolve
-from scipy.sparse import csr_matrix, csc_matrix
-from regu.nonnegtik_hnorm import nonnegtik_hnormLR
-import numpy as np
-import cvxpy as cp
-from scipy.sparse import csr_matrix
-from scipy.sparse.linalg import spsolve
 
 # #working version of mod for publication; don't delete:
 
@@ -1867,11 +1858,20 @@ def matrix_rank(A):
 def eigenvalues(A):
     return np.linalg.eigvals(A)
 
-from numba import jit
+import numpy as np
+from scipy.linalg import solve
+from scipy.sparse.linalg import spsolve
+from scipy.sparse import csr_matrix, csc_matrix
+# from regu.nonnegtik_hnorm import nonnegtik_hnormLR
+import numpy as np
+import cvxpy as cp
+from scipy.sparse import csr_matrix
+from scipy.sparse.linalg import spsolve
+# from numba import jit
 from scipy.linalg import solve, cho_solve
 
 from scipy.sparse.linalg import cg, splu
-from Simulations.sparse_solver import solvesparse
+# from Simulations.sparse_solver import solvesparse
 from scipy.sparse.linalg import gmres  # GMRES
 from concurrent.futures import ProcessPoolExecutor, as_completed
 #9/13/24

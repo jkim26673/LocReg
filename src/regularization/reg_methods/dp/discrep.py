@@ -22,7 +22,7 @@
 # % Per Christian Hansen, IMM, August 6, 2007.
 import numpy as np
 from numpy.linalg import norm
-from regularization.subfunc.newton import newton
+from src.regularization.subfunc.newton import newton
 
 def discrep(U,s,V,b,delta,x_0, nargin):
     m = U.shape[0]

@@ -1,4 +1,4 @@
-from regularization.reg_methods.nnls.lsqnonneg import lsqnonneg
+from src.regularization.reg_methods.nnls.lsqnonneg import lsqnonneg
 from scipy.optimize import nnls
 import numpy as np
 

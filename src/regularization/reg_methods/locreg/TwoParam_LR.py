@@ -1,12 +1,12 @@
 # import sys
 # sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-from regularization.subfunc.csvd import csvd
+from src.regularization.subfunc.csvd import csvd
 import numpy as np
 import matplotlib.pyplot as plt
-from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
+from src.regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
 from numpy.linalg import norm
 from scipy.special import airy,gamma,itairy, gammaln, entr,tklmbda,expit
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 
 def Multi_Param_LR(data_noisy, G, g,  B_1, B_2, alpha_1, alpha_2, beta, omega, ep, c, delta):
     #initialization

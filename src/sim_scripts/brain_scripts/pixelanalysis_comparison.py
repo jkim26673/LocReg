@@ -47,7 +47,7 @@
 # import scipy
 # import timeit
 from scipy.ndimage import rotate
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 
 
 brain_data = scipy.io.loadmat("/home/kimjosy/LocReg_Regularization/cleaned_brain_data.mat")["final_data_2"]

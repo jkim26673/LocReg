@@ -1,16 +1,17 @@
 import numpy as np
 from scipy.sparse import kron
 from scipy.optimize import nnls, linprog, minimize
-from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
+from src.regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 import matplotlib.pyplot as plt
 import piqp
 import os
 import mosek
 import nlopt
+from src.utils.load_imports.loading import *
 
-import cvxpy as cp
-mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
+# import cvxpy as cp
+# mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
 import os
 os.environ['ARPACK_OPTIONS'] = 'tol=1e-6'
 

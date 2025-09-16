@@ -45,7 +45,7 @@
 
 # import matlab.engine
 # print("successfully")
-from utils.load_imports.loading import *
+from src.utils.load_imports.loading import *
 logging.basicConfig(
     filename='braindatascript.log',
     level=logging.DEBUG,

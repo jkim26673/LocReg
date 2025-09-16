@@ -1,6 +1,6 @@
 import numpy as np
-from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
-from regularization.subfunc.l_corner import l_corner
+from src.regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
+from src.regularization.subfunc.l_corner import l_corner
 def Lcurve(dat_noisy, A, Lambda):
     nLambda = len(Lambda)
     m = A.shape[1]
