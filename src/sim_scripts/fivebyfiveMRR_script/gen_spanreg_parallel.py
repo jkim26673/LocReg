@@ -49,6 +49,7 @@
 # os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
 
 from utils.load_imports.loading import *
+from utils.load_imports.load_regmethods import *
 
 parent = os.path.dirname(os.path.abspath(''))
 sys.path.append(parent)
@@ -126,17 +127,17 @@ eps_floor = 1e-4
 exp = 0.5
 feedback = False
 
-nsigma
-diff_sigma
-rps
-npeaks
-m
-T2mu
-T2
-f_coef
-A
-SNR
-TE
+# nsigma
+# diff_sigma
+# rps
+# npeaks
+# m
+# T2mu
+# T2
+# f_coef
+# A
+# SNR
+# TE
 def run():
 
 

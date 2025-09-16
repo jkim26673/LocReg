@@ -40,6 +40,7 @@
 # import matplotlib.ticker as ticker  # Add this import
 
 from utils.load_imports.loading import *
+from utils.load_imports.load_regmethods import *
 
 # Configure logging
 logging.basicConfig(
