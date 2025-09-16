@@ -12,31 +12,32 @@
 #Approximates are generated for f(t) at Gauss_Laguerra abscissae(t_j)^n
 
 import numpy as np
-import sys
-import scipy.linalg
-sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-from regu.i_laplace import i_laplace
-#Replicating the results from Lu and Pereverzev
-import numpy as np
-import sys
-sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-import matplotlib.pyplot as plt
-from regu.Lcurve import Lcurve
-from regu.gravity import gravity
-from regu.baart import baart
-from regu.heat import heat
-from regu.csvd import csvd
-from regu.l_curve import l_curve
-from regu.tikhonov import tikhonov
-from regu.gcv import gcv
-from regu.discrep import discrep
-from numpy.linalg import norm
-from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
-from Utilities_functions.TwoParam_LR import Multi_Param_LR
-from regu.shaw import shaw
-from regu.tikhonov_multi_param import tikhonov_multi_param
-from tqdm import tqdm
-from regu.i_laplace import i_laplace
+# import sys
+# import scipy.linalg
+# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# from regu.i_laplace import i_laplace
+# #Replicating the results from Lu and Pereverzev
+# import numpy as np
+# import sys
+# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# import matplotlib.pyplot as plt
+# from regu.Lcurve import Lcurve
+# from regu.gravity import gravity
+# from regu.baart import baart
+# from regu.heat import heat
+# from regu.csvd import csvd
+# from regu.l_curve import l_curve
+# from regu.tikhonov import tikhonov
+# from regu.gcv import gcv
+# from regu.discrep import discrep
+# from numpy.linalg import norm
+# from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
+# from Utilities_functions.TwoParam_LR import Multi_Param_LR
+# from regu.shaw import shaw
+# from regu.tikhonov_multi_param import tikhonov_multi_param
+# from tqdm import tqdm
+# from regu.i_laplace import i_laplace
+from utils.load_imports.load_classical import *
 
 #n is the number of discretization
 #Error in residual ||Kf -g||

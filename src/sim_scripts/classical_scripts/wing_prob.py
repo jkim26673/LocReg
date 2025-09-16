@@ -1,21 +1,22 @@
-import sys
-sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-import numpy as np
-import matplotlib.pyplot as plt
-from regu.Lcurve import Lcurve
-from regu.baart import baart
-from regu.csvd import csvd
-from regu.l_curve import l_curve
-from regu.tikhonov import tikhonov
-from regu.gcv import gcv
-from regu.discrep import discrep
-from numpy.linalg import norm
-from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
-from regu.wing import wing
-from Utilities_functions.pasha_gcv import Tikhonov
-from Simulations.Ito_LocReg import *
-from tqdm import tqdm
-from datetime import datetime
+# import sys
+# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
+# import numpy as np
+# import matplotlib.pyplot as plt
+# from regu.Lcurve import Lcurve
+# from regu.baart import baart
+# from regu.csvd import csvd
+# from regu.l_curve import l_curve
+# from regu.tikhonov import tikhonov
+# from regu.gcv import gcv
+# from regu.discrep import discrep
+# from numpy.linalg import norm
+# from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
+# from regu.wing import wing
+# from Utilities_functions.pasha_gcv import Tikhonov
+# from Simulations.Ito_LocReg import *
+# from tqdm import tqdm
+# from datetime import datetime
+from utils.load_imports.load_classical import *
 # import scipy.io
 # noise = scipy.io.loadmat('/Users/steveh/Downloads/NIH 23-24/LocReg_Python/Matlab NRs/wing_NR.mat')
 # #/Users/steveh/Downloads/noisearr1000for10diffnoisereal3.mat
