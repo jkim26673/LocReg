@@ -1,5 +1,3 @@
-import sys
-sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
 from regularization.subfunc.csvd import csvd
 import numpy as np
 import matplotlib.pyplot as plt

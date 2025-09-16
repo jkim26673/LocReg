@@ -1,22 +1,22 @@
-import numpy as np
-from regularization.classical.hansen.baart import baart
-from regularization.classical.hansen.blur import blur
-from regularization.classical.hansen.deriv2 import deriv2
-from regularization.classical.hansen.foxgood import foxgood
-from regularization.classical.hansen.gravity import gravity
-from regularization.classical.hansen.heat import heat
-from regularization.classical.hansen.i_laplace import i_laplace
-from regularization.classical.hansen.ilaplace import i_laplace as i_laplace2
-from regularization.classical.hansen.phillips import phillips
-from regularization.classical.hansen.shaw import shaw 
-from regularization.classical.hansen.wing import wing 
-
-from regularization.reg_methods.lcurve.l_curve import l_curve
+# import numpy as np
+# from regularization.classical.hansen.baart import baart
+# from regularization.classical.hansen.blur import blur
+# from regularization.classical.hansen.deriv2 import deriv2
+# from regularization.classical.hansen.foxgood import foxgood
+# from regularization.classical.hansen.gravity import gravity
+# from regularization.classical.hansen.heat import heat
+# from regularization.classical.hansen.i_laplace import i_laplace
+# from regularization.classical.hansen.ilaplace import i_laplace as i_laplace2
+# from regularization.classical.hansen.phillips import phillips
+# from regularization.classical.hansen.shaw import shaw 
+# from regularization.classical.hansen.wing import wing 
+from src.utils.load_imports.load_classical import *
+from src.regularization.reg_methods.lcurve.l_curve import l_curve
 from numpy.linalg import norm
 import matplotlib.pyplot as plt
 import numpy as np
 from math import factorial
-from regularization.reg_methods.dp.discrep import discrep
+from src.regularization.reg_methods.dp.discrep import discrep
 import numpy as np
 from scipy.interpolate import lagrange
 # from pykalman import KalmanFilter, UnscentedKalmanFilter
@@ -27,6 +27,7 @@ from sklearn.mixture import GaussianMixture
 from scipy.signal import gaussian
 from scipy.ndimage import convolve1d
 
+from src.utils.load_imports.loading import *
 
 
 def savitzky_golay(y, window_size, order, deriv=0, rate=1):
