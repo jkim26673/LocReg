@@ -9,13 +9,13 @@ import os
 import mosek
 import cvxpy as cp
 from scipy.signal import savgol_filter
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-from regu.csvd import csvd
+from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
+from regularization.subfunc.csvd import csvd
 from scipy.ndimage import convolve
 from scipy import sparse
 import scipy
 from scipy import linalg as la
-from regu.nonnegtik_hnorm import nonnegtik_hnorm
+from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 import mosek
 mosek_license_path = r"/home/kimjosy/mosek/mosek.lic"
 os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path

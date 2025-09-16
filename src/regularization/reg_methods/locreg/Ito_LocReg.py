@@ -10,15 +10,15 @@ import os
 import mosek
 import cvxpy as cp
 from scipy.signal import savgol_filter
-from Utilities_functions.tikhonov_vec import tikhonov_vec
-from regu.csvd import csvd
+from regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
+from regularization.subfunc.csvd import csvd
 import pylops
 from scipy.ndimage import convolve
 from scipy import sparse
 import scipy
 from scipy import linalg as la
-from Utilities_functions.pasha_gcv import Tikhonov
-from regu.nonnegtik_hnorm import nonnegtik_hnorm
+from tools.trips_py.pasha_gcv import Tikhonov
+from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 
 mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
 os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
