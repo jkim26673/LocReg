@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.sparse import kron
 from scipy.optimize import nnls, linprog, minimize
-from regu.nonnegtik_hnorm import nonnegtik_hnorm
+from regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 import matplotlib.pyplot as plt
 import piqp
 import os
