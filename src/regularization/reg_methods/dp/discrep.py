@@ -20,6 +20,7 @@
 # % Problems", Springer, 1984; Chapter 26.
 
 # % Per Christian Hansen, IMM, August 6, 2007.
+
 import numpy as np
 from numpy.linalg import norm
 from src.regularization.subfunc.newton import newton
