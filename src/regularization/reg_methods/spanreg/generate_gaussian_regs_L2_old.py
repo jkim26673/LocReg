@@ -1,15 +1,8 @@
 import numpy as np
 from src.regularization.reg_methods.spanreg.Gaussian_basis import Gaussian_basis
 from src.regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
-# import cvxpy as cp
-# from cvxopt import matrix, solvers
 import os
 from scipy.optimize import minimize, LinearConstraint
-
-
-# mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
-# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
-
 import scipy.io
 
 def generate_gaussian_regs_L2_old(A, T2, TE, SNR, n_run, reg_param_lb, reg_param_ub, N_reg, Nc, cmin, cmax, sigma_min, sigma_max):
@@ -27,28 +20,16 @@ def generate_gaussian_regs_L2_old(A, T2, TE, SNR, n_run, reg_param_lb, reg_param
     beta_L2 = np.zeros((nc, nLambda))
     L2_store = np.zeros((nc, m, nLambda))
     err_gaus_l2 = np.zeros((n_run, nc))
-    #noise_arr = np.zeros((n_run, n,nc))
 
     for k in range(n_run):
         new_L2_store = np.zeros((nc, m, nLambda))
         new_beta_store = np.zeros((nc, nLambda))
-        #new_noise_arr = np.zeros((n,nc))
         
         for i in range(nc):
             dat_noiseless = A @ LGBs[:, i]
-            # print("dat_noiseless shape:", dat_noiseless.shape)
-            # print("dat_noiseless:", dat_noiseless[0:9])
-
-            #noise =  np.column_stack([(np.max(dat_noiseless) / (SNR * np.random.randn(n, 1)))])
             noise = np.max(dat_noiseless)/(SNR * np.random.randn(n,1))
-            #noise = noise_arr[:,i,k] 
             # add noise
             dat_noisy_ = dat_noiseless + noise.flatten()
-            #dat_noisy_ = dat_noiseless + np.max(dat_noiseless) / SNR * np.random.randn(n, 1)
-            #convert to 1D array only.
-
-            # print("dat_noisy_ shape:", dat_noisy_.shape)
-            # print("dat_noisy_:", dat_noisy_[0:9])
 
             X_L2 = np.zeros((m, nLambda))
             rho_temp = np.zeros(nLambda)
