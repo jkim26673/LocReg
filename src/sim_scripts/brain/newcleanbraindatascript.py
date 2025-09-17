@@ -1,46 +1,11 @@
-#!/usr/bin/env python3
 """
 Optimized Brain Data Processing Script
 Performs T2 relaxometry analysis using multiple regularization methods.
 """
-import os
-import sys
-sys.path.append(".")
-import logging
-import pickle
-import time
-from datetime import date
-from pathlib import Path
-from dataclasses import dataclass
-from typing import Tuple, List, Optional, Dict, Any
-import warnings
-warnings.filterwarnings('ignore')
-import numpy as np
-import pandas as pd
-import scipy.io
-import matplotlib.pyplot as plt
-from scipy.stats import wasserstein_distance
-from scipy.linalg import norm as linalg_norm
-from scipy.optimize import nnls
-from tqdm import tqdm
-from multiprocessing import Pool, cpu_count, Manager
-from functools import partial
-import threading
-from concurrent.futures import ProcessPoolExecutor, as_completed
-# from regu.nonnegtik_hnorm import nonnegtik_hnorm
-# from Utilities_functions.GCV_NNLS import GCV_NNLS
-# from Simulations.LRalgo import LocReg_Ito_mod, LocReg_Ito_mod_deriv, LocReg_Ito_mod_deriv2
-# from Simulations.upenzama import UPEN_Zama
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
-
-# import matlab.engine
-# import mosek
-# mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
-# os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-# logging.info(f'MOSEK License Set from {mosek_license_path}')
-
+from dataclasses import dataclass
+from typing import Tuple, List, Optional, Dict, Any
 @dataclass
 class Config:
     """Configuration parameters for the analysis."""
