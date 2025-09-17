@@ -15,55 +15,8 @@
 #We compare with One Parameter (OP) Grid Search representing the best conventional tikhonov regularization parameter.
 
 #Packages
-# import numpy as np
-# import sys
-# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-# from numpy.linalg import norm
-# from itertools import product
-# import cvxpy as cp
-# from tqdm import tqdm
-# import scipy
-# import matplotlib.pyplot as plt
-# import math
-# import time
-# import matplotlib.pyplot as plt
-# from mpl_toolkits.mplot3d import Axes3D
-# import h5py
-# from datetime import datetime
-# import plotly.graph_objects as go
-# import plotly.io as pio
-# from regu.csvd import csvd
-# from regu.discrep import discrep
-# from regu.l_curve import l_curve
-# from regu.gcv import gcv
-# from Utilities_functions.discrep_L2 import discrep_L2
-# from Utilities_functions.GCV_NNLS import GCV_NNLS
-# from Utilities_functions.Lcurve import Lcurve
-# from regu.nonnegtik_hnorm import nonnegtik_hnorm
-# import mosek
-# import os
-# mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
-# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
 from tools.trips_py.new_gcv_pasha import generalized_crossvalidation
 from pylops import LinearOperator, Identity
-# from numpy.linalg import norm
-# from regu.csvd import csvd
-# from regu.tikhonov import tikhonov
-# from regu.discrep import discrep
-# from regu.l_curve import l_curve
-# from fnnls import fnnls
-# from regu.gcv import gcv
-# from Utilities_functions.discrep_L2 import discrep_L2
-# from Utilities_functions.GCV_NNLS import GCV_NNLS
-# from Utilities_functions.Lcurve import Lcurve
-# from regu.nonnegtik_hnorm import nonnegtik_hnorm
-# from scipy.optimize import nnls
-# from itertools import product
-# import cvxpy as cp
-# from tqdm import tqdm
-# import scipy
-# import matplotlib.pyplot as plt
-# import time
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 import math
@@ -73,10 +26,9 @@ import seaborn as sns
 import plotly.graph_objects as go
 import plotly.io as pio
 import sympy as sp
-# import fnnlsEigen as fe 
-# import numdifftools.nd_statsmodels as nd
 from autograd import grad, elementwise_grad, jacobian, hessian, holomorphic_grad
 from mpl_toolkits import mplot3d
+
 ########################################################################
 #Define functions and classes
 class three_dim_MRR_grid_search():
