@@ -6,3 +6,5 @@ Credit: Code and initial manuscripts was graciously provided by the Zama group b
 Credit: Mosek optimization tool: https://www.mosek.com/downloads/10.2.11/ 
 
 Credit: Python Translations were based on Hansen's Regularization Toolbox https://www.imm.dtu.dk/~pcha/Regutools/
+
+Credit: NNLS algorithm from MATLAB based on https://gist.github.com/jdelafon/b7fdc7a0bae42af56366fc7786cc5d54
