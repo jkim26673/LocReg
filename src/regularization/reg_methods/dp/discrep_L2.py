@@ -7,12 +7,24 @@
 #Data types: 
 #Lambda -- int | dat_noisy
 
+
 import numpy as np
 from src.regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 from scipy.optimize import nnls
 import cvxpy as cp
 
 def discrep_L2(dat_noisy, A, SNR, Lambda, noise):
+
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
+
     # This function performs conventional L2 regularization with positivity constraints
     # on 'f' based on the model: y = argmin{ || y - Af ||_2^2 + lambda^2 || f ||_2^2 } such that f >= 0
     
@@ -44,6 +56,15 @@ def discrep_L2(dat_noisy, A, SNR, Lambda, noise):
     return f_rec_dp, lam
 
 def discrep_L2_sp(dat_noisy, A, SNR, Lambda, noise):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # This function performs conventional L2 regularization with positivity constraints
     # on 'f' based on the model: y = argmin{ || y - Af ||_2^2 + lambda^2 || f ||_2^2 } such that f >= 0
     
@@ -107,6 +128,15 @@ def discrep_L2_sp(dat_noisy, A, SNR, Lambda, noise):
 
 
 def discrep_L2_brain(dat_noisy, A, SNR, Lambda, noise):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # This function performs conventional L2 regularization with positivity constraints
     # on 'f' based on the model: y = argmin{ || y - Af ||_2^2 + lambda^2 || f ||_2^2 } such that f >= 0
     

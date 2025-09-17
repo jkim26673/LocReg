@@ -1,6 +1,15 @@
 import numpy as np
 
 def find_corner(eta):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # Transform eta into log-log space
     x = np.linspace(0, max(eta) - min(eta), len(eta))
     y = eta

@@ -1,8 +1,16 @@
 import numpy as np
 from scipy.optimize import nnls
-#from Utilities_functions.lsqnonneg import lsqnonneg
 
 def tikh_norm(A, b, lamb_da, nm, nargin,  R=None):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """  
     n = A.shape[1]
 
     L0 = np.eye(n)

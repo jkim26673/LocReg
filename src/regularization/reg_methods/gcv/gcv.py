@@ -5,6 +5,15 @@ from src.regularization.subfunc.gcvfun import gcvfun
 import matplotlib.pyplot as plt
 
 def gcv(U, s, b, method, nargin, nargout):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     if (nargin == 3):
         method = 'Tikh'
     npoints = 200

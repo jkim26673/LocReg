@@ -1,6 +1,15 @@
 import numpy as np
 
 def l_curve_corner(rho, eta, reg_param):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     #seems to take in reg_param as single value not reg_param**2
     #inputs:
     #rho is vector of residual norm for multiple lambdas

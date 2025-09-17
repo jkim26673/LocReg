@@ -2,6 +2,15 @@ import numpy as np
 from scipy.optimize import minimize
 
 def tikhonov_multi_param(x,A,b,L1,L2,lambda1,lambda2):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """  
 # Define the objective function
     def objective_function(x, A, b, L1, L2, x_0, lambda1,lambda2):
         term1 = np.linalg.norm(np.dot(A, x) - b)**2

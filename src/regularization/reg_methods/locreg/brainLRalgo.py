@@ -2,7 +2,25 @@ from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 
 def LocReg_Ito_mod(data_noisy, G, lam_ini, gamma_init, maxiter):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     def minimize(lam_vec):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """
         try:
             eps = 1e-2
             A = G.T @ G + np.diag((lam_vec))        
@@ -22,9 +40,27 @@ def LocReg_Ito_mod(data_noisy, G, lam_ini, gamma_init, maxiter):
         return sol, A, b
 
     def phi_resid(G, param_vec, data_noisy):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """    
         return np.linalg.norm(G @ param_vec - data_noisy, 2) ** 2
 
     def fixed_point_algo(gamma, lam_vec,tol):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """    
         lam_curr = lam_vec
         ep = 1e-2
         ep_min = 1e-2

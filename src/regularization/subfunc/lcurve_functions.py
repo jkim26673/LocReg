@@ -5,6 +5,15 @@ from scipy import linalg # for svd
 from scipy import optimize
 
 def curvature(lambd, sig, beta, xi):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     '''
     computes the NEGATIVE of the curvature. Adapted from Per Christian Hansen, DTU Compute, October 27, 2010.
     '''

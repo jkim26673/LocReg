@@ -6,6 +6,15 @@ eng = matlab.engine.start_matlab()
 eng.addpath(r'C:\Users\kimjosy\Downloads\LocReg_Regularization-1\ZamaUPEN\1D_test', nargout=0)
 
 def UPEN_Zama(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # Call the MATLAB function UPenMMmL2nn and only get the first and last output (xpwL2_nn and Lam)
     A = matlab.double(A.tolist())
     b = matlab.double(b.tolist())
@@ -22,6 +31,15 @@ def UPEN_Zama(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
     return xpwL2_nn, Lam
 
 def UPEN_Zama1st(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # Call the MATLAB function UPenMMmL2nn and only get the first and last output (xpwL2_nn and Lam)
     A = matlab.double(A.tolist())
     b = matlab.double(b.tolist())
@@ -38,6 +56,15 @@ def UPEN_Zama1st(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
     return xpwL2_nn, Lam
 
 def UPEN_Zama0th(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # Call the MATLAB function UPenMMmL2nn and only get the first and last output (xpwL2_nn and Lam)
     A = matlab.double(A.tolist())
     b = matlab.double(b.tolist())

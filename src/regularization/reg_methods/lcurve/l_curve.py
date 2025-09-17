@@ -37,6 +37,15 @@ from src.regularization.subfunc.l_curve_corner import l_curve_corner
 from numpy.linalg import norm
 
 def l_curve(U,sm,b,method,L,V, nargin, nargout):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     if (nargin == 3):
         method = 'Tikh'
     npoints = 200

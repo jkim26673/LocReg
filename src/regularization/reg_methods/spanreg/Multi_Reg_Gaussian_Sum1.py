@@ -53,6 +53,15 @@ def quadprog(H, f, initial, L=None, k=None, Aeq=None, beq=None, lb=None, ub=None
 
 
 def Multi_Reg_Gaussian_Sum1(dat_noisy, Gaus_info):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # Load information
     Lambda = Gaus_info['Lambda'].reshape(-1,1)
     nLambda = len(Lambda)

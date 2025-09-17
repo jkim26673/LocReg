@@ -8,9 +8,27 @@ from src.utils.load_imports.load_regmethods import *
 
 ### N Parameter Unconstrained Ito problem
 def LocReg_Ito_UC(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, eps_cut, eps_floor, exp, feedback):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """  
     lam_first = lam_ini * np.ones(G.shape[1])
     # U,s,V = csvd(G,tst = None, nargin = 1, nargout = 3)
-    def first_deriv(n):
+    def first_deriv(n):    
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """  
         D = scipy.sparse.diags(diagonals=np.ones(n-1), offsets=1, shape=None, format=None, dtype=None)
         L = sparse.identity(n)-D
         Lx = L[0:-1, :]
@@ -18,6 +36,15 @@ def LocReg_Ito_UC(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, eps
         return Lx
     
     def minimize(lam_vector):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """  
         machine_eps = np.finfo(float).eps
 
         # eps = 1e-2
@@ -49,9 +76,28 @@ def LocReg_Ito_UC(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, eps
         return sol, A, b
 
     def phi_resid(G, param_vec, data_noisy):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """  
         return np.linalg.norm(G @ param_vec - data_noisy, 2)**2
 
     def fixed_point_algo(gamma, lam_vec, eps1, ep_min, eps_cut, eps_floor, check):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """  
+
         """
         gamma: gamma val
         lam_vec: vector of lambdas
@@ -395,9 +441,27 @@ def LocReg_Ito_UC(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, eps
 
 ### N Parameter Unconstrained Ito problem
 def LocReg_Ito_UC_2(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, eps_cut, eps_floor, exp, feedback):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """  
     lam_first = lam_ini * np.ones(G.shape[1])
     U,s,V = csvd(G,tst = None, nargin = 1, nargout = 3)
     def first_deriv(n):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """  
         D = scipy.sparse.diags(diagonals=np.ones(n-1), offsets=1, shape=None, format=None, dtype=None)
         L = sparse.identity(n)-D
         Lx = L[0:-1, :]
@@ -405,6 +469,15 @@ def LocReg_Ito_UC_2(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, e
         return Lx
     
     def minimize(lam_vector):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """  
         machine_eps = np.finfo(float).eps
 
         # eps = 1e-2
@@ -437,9 +510,27 @@ def LocReg_Ito_UC_2(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, e
         return sol, A, b
 
     def phi_resid(G, param_vec, data_noisy):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """  
         return np.linalg.norm(G @ param_vec - data_noisy, 2)**2
 
     def fixed_point_algo(gamma, lam_vec, eps1, ep_min, eps_cut, eps_floor, check):
+        """
+        Description: Oracle selection method for regularization:
+
+        :param power_pellet_active: bool - does the player have an active power pellet?
+        :param touching_ghost: bool - is the player touching a ghost?
+        :return: bool - can a ghost be eaten?
+
+        Test Example:
+        """  
         """
         gamma: gamma val
         lam_vec: vector of lambdas
@@ -781,6 +872,15 @@ def LocReg_Ito_UC_2(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, e
 
 
 def LocReg_Ito_UC_3(data_noisy, G, lam_ini, gamma_init, maxiter, eps1, ep_min, eps_cut, eps_floor, exp, feedback):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """  
     lam_first = lam_ini * np.ones(G.shape[1])
     U,s,V = csvd(G,tst = None, nargin = 1, nargout = 3)
     def first_deriv(n):

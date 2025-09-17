@@ -3,6 +3,15 @@ from scipy.optimize import nnls
 import numpy as np
 
 def LocReg(data_noisy, G, x0_ini, maxiter):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """  
     # x0_LS = lsqnonneg(G, data_noisy)[0]
     # x0_LS_nnls = nnls(G, data_noisy)[0]
     # estimated_noise = lsqnonneg(G, data_noisy)[2] 
