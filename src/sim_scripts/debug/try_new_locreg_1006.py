@@ -1,7 +1,7 @@
-import numpy as np
-import sys
-sys.path.append('.')
-import matplotlib.pyplot as plt
+# import numpy as np
+# import sys
+# sys.path.append('.')
+# import matplotlib.pyplot as plt
 # from regu.baart import baart
 # from regu.foxgood import foxgood
 # from regu.heat import heat
