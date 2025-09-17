@@ -46,26 +46,26 @@ def decompose_Gmat(G):
 
   Test Example:
   """
-   G_matlab = matlab.double(G.tolist())
-   U,sig,V= eng.svd(G_matlab, "econ", nargout = 3)
-   U = np.array(U)
-   sig = np.array(sig)
-   V = np.array(V)
-   s = np.linalg.matrix_rank(sig)
-   Ur = U[:,:s]
-   Ar = sig[:s,:s] @ (V[:,:s].T)
-   return G, Ur, Ar
+  G_matlab = matlab.double(G.tolist())
+  U,sig,V= eng.svd(G_matlab, "econ", nargout = 3)
+  U = np.array(U)
+  sig = np.array(sig)
+  V = np.array(V)
+  s = np.linalg.matrix_rank(sig)
+  Ur = U[:,:s]
+  Ar = sig[:s,:s] @ (V[:,:s].T)
+  return G, Ur, Ar
 
 def upen_iter(param_setup, lam, S, R ,Dm, Dx):
-  """
-  Description: Oracle selection method for regularization:
+    """
+    Description: Oracle selection method for regularization:
 
-  :param power_pellet_active: bool - does the player have an active power pellet?
-  :param touching_ghost: bool - is the player touching a ghost?
-  :return: bool - can a ghost be eaten?
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
 
-  Test Example:
-  """
+    Test Example:
+    """
     # Define betaL, beta0, betaP, and betaC
     betaL = [1e-5, 0.6, 0.3]
     beta0, betaP, betaC = betaL[0], betaL[1], betaL[2]
