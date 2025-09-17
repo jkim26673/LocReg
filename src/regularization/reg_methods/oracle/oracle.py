@@ -1,6 +1,7 @@
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
-def minimize_OP(Alpha_vec, L, data_noisy, G, nT2, g):
+
+def oracle(Alpha_vec, L, data_noisy, G, nT2, g):
     OP_x_lc_vec = np.zeros((nT2, len(Alpha_vec)))
     OP_rhos = np.zeros((len(Alpha_vec)))
     for j in (range(len(Alpha_vec))):
