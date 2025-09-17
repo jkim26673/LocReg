@@ -1,5 +1,3 @@
-import numpy as np
-import math
 # %GRAVITY Test problem: 1-D gravity surveying model problem
 # %
 # % [A,b,x] = gravity(n,example,a,b,d)
@@ -31,6 +29,9 @@ import math
 # % of the First Kind", SIAM, Philadelphia, 1991; p. 17.
 
 # % Per Christian Hansen, IMM, November 18, 2001.
+
+import numpy as np
+import math
 
 def gravity(n, nargin, example=1, a=0, b=1, d=0.25):
     if (nargin < 2):

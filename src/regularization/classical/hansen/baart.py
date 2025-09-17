@@ -1,6 +1,31 @@
 import numpy as np
 import math
 
+# Purpose:
+# Test problem: Fredholm integral equation of the first kind.
+# Synopsis:
+# [A,b,x] = baart (n)
+# Description:
+# Discretization of an artificial Fredholm integral equation of the first kind (2.1)
+# with kernel K and right-hand side g given by
+# K(s, t) = exp(s cos t) , g(s) = 2 sin s
+# ,
+# s
+# and with integration intervals s ∈ [0,
+# π
+# 2 ] and t ∈ [0, π]. The solution is given by
+# f (t) = sin t .
+# The size of the matrix A is n × n.
+# Examples:
+# Generate a “noisy” problem of size n = 32:
+# [A,b,x] = baart (32); b = b + 1e-3∗randn (size(b));
+# Limitations:
+# The order n must be even.
+# References:
+# 1. M. L. Baart, The use of auto-correlation for pseudo-rank determination in noisy
+# ill-condition
+# % Per Christian Hansen, IMM, 11/11/97.
+
 def baart(n, nargout = 3):
     if (n % 2) != 0:
         raise ValueError("The order n must be even")
