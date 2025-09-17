@@ -25,7 +25,9 @@
 # import matplotlib.pyplot as plt
 # from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
 # from regu.tikhonov import tikhonov
-from utils.load_imports.load_classical import *
+from src.utils.load_imports.load_classical import *
+from src.utils.load_imports.loadingimport *
+from src.utils.load_imports.load_regmethods import *
 
 #Try L1 method
 
