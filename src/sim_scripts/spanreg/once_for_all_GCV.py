@@ -1,6 +1,6 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import os
+from src.utils.load_imports.loading import *
+from src.regularization.reg_methods.spanreg.generate_gaussian_regs_L2_old import generate_gaussian_regs_L2_old
+from src.sim_scripts.spanreg.heatmap_unequal_width_All import heatmap_unequal_width_All
 
 # Setting up kernel matrix
 n = 150

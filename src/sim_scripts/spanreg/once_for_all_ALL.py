@@ -1,12 +1,7 @@
-import numpy as np
-import os
-import pickle
-import sys
-sys.path.append('.')  # Replace this path with the actual path to the parent directory of Utilities_functions
+from src.utils.load_imports.loading import *
 from src.regularization.reg_methods.spanreg.generate_gaussian_regs_L2_old import generate_gaussian_regs_L2_old
 from src.sim_scripts.spanreg.heatmap_unequal_width_All import heatmap_unequal_width_All
-import pickle
-import scipy.io
+
 # Setting up kernel matrix
 n = 150
 m = 200

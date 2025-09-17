@@ -1,21 +1,5 @@
-import numpy as np
-import cvxpy as cp
-import matplotlib
-#matplotlib.use('agg')  # Set the backend to 'agg' before importing pyplot
-#matplotlib.use('TkAgg') to change back
-import matplotlib.pyplot as plt
-from scipy.linalg import svd
-from scipy.optimize import nnls
-from src.regularization.subfunc.l_curve_corner import l_curve_corner
-from scipy.stats import wasserstein_distance, entropy
-from matplotlib.backends.backend_pdf import PdfPages
-from tqdm.auto import trange, tqdm
-from scipy.special import rel_entr
-import os
-import mosek
-
-mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
+from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
 
 def regularized_deconvolution(G, T2, data_noisy, Jacobian, Lambda_vec_l1, Lambda_vec, ep=1e-3):
     """
