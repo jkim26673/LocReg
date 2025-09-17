@@ -1,25 +1,7 @@
 # #Ito LocReg Constrainted
-# import sys
-# import os
-# parent = os.path.dirname(os.path.abspath(''))
-# sys.path.append(parent)
-# # sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-# from Utilities_functions.lsqnonneg import lsqnonneg
-# from scipy.optimize import nnls
-# import numpy as np
-# # import cvxpy as cp
-# # import mosek
-# # import cvxpy as cp
-# from scipy.signal import savgol_filter
-# from Utilities_functions.tikhonov_vec import tikhonov_vec
-# from regu.csvd import csvd
-# import pylops
-# from scipy.ndimage import convolve
-# from scipy import sparse
-# import scipy
-# from scipy import linalg as la
-# from Utilities_functions.pasha_gcv import Tikhonov
 from src.utils.load_imports.loading import *
+from src.utils.load_imports.load_regmethods import *
+
 ### N Parameter Ito problem
 def LocReg_Ito_mod(data_noisy, G, lam_ini, gamma_init, maxiter):
     #Initialize the MRR Problem
