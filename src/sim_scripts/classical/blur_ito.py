@@ -1,53 +1,8 @@
 # #This is a translation of blur_prob.m
-# import sys
-# # sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-# import numpy as np
-# import os
-# import pickle
-# import matplotlib.pyplot as plt
-# from regu.Lcurve import Lcurve
-# from regu.blur import blur
-# from regu.csvd import csvd
-# from regu.l_curve import l_curve
-# from regu.tikhonov import tikhonov
-# from regu.gcv import gcv
-# from regu.discrep import discrep
-# from numpy.linalg import norm
-# from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
-# from tqdm import tqdm
-# # from Utilities_functions.LocReg_v2 import LocReg_v2
-# from Utilities_functions.LocReg_NE import LocReg_unconstrained_NE
-# import numpy as np
-# from concurrent.futures import ThreadPoolExecutor
-# from functools import partial
-# from numpy.linalg import norm
-# from Utilities_functions.pasha_gcv import Tikhonov
-# from Ito_LocReg import *
-# from tqdm import tqdm
-# from datetime import datetime
-# from Utilities_functions.pasha_gcv import Tikhonov
-# from Utilities_functions.tikhonov_vec import tikhonov_vec
-# from regu.blur import blur
-
-# import sys
-# import os
 from src.utils.load_imports.load_classical import *
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 
-# parent = os.path.dirname(os.path.abspath(''))
-# sys.path.append(parent)
-# cwd = os.getcwd()
-
-# cwd_temp = os.getcwd()
-# base_file = 'LocReg_Regularization-1'
-# cwd_cut = f'{cwd_temp.split(base_file, 1)[0]}{base_file}/'
-
-# pat_tag = "classical_prob"#"BLSA_1742_04_MCIAD_m41"#"BLSA_1935_06_MCIAD_m79"
-# series_tag = "blur"
-# output_folder = f"SimulationSets/{pat_tag}/{series_tag}"
-
-# cwd_full = cwd_cut + output_folder + lam_ini
 cwd_full = cwd_cut + output_folder 
 def create_result_folder(string, SNR):
     # Create a folder based on the current date and time

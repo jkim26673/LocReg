@@ -1,29 +1,7 @@
-# import sys
-# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-# import numpy as np
-# import matplotlib.pyplot as plt
-# from regu.Lcurve import Lcurve
-# from regu.baart import baart
-# from regu.csvd import csvd
-# from regu.l_curve import l_curve
-# from regu.tikhonov import tikhonov
-# from regu.gcv import gcv
-# from regu.discrep import discrep
-# from numpy.linalg import norm
-# from Utilities_functions.LocReg_unconstrained import LocReg_unconstrained
-# from regu.phillips import phillips
-# from tqdm import tqdm
-# from Utilities_functions.pasha_gcv import Tikhonov
-# from Simulations.Ito_LocReg import *
-# from tqdm import tqdm
-# from datetime import datetime
 from src.utils.load_imports.load_classical import *
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
-# import scipy.io
-# noise = scipy.io.loadmat('/Users/steveh/Downloads/NIH 23-24/LocReg_Python/Matlab NRs/phillips_NR.mat')
-# #/Users/steveh/Downloads/noisearr1000for10diffnoisereal3.mat
-# noise = noise['noise_arr']
+
 def create_result_folder(string, SNR):
     # Create a folder based on the current date and time
     date = datetime.now().strftime("%Y%m%d")
