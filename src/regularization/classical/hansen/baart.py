@@ -1,6 +1,3 @@
-import numpy as np
-import math
-
 # Purpose:
 # Test problem: Fredholm integral equation of the first kind.
 # Synopsis:
@@ -25,6 +22,9 @@ import math
 # 1. M. L. Baart, The use of auto-correlation for pseudo-rank determination in noisy
 # ill-condition
 # % Per Christian Hansen, IMM, 11/11/97.
+
+import numpy as np
+import math
 
 def baart(n, nargout = 3):
     if (n % 2) != 0:
