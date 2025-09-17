@@ -1,19 +1,4 @@
 #Packages
-# import matplotlib
-# import numpy as np
-# import cvxpy as cp
-# import scipy
-# import matplotlib.pyplot as plt
-# from scipy.linalg import svd
-# from scipy.optimize import nnls
-# from lsqnonneg import lsqnonneg
-# #from Simulations.lcurve_functions import l_cuve,csvd,l_corner
-# from Simulations.l_curve_corner import l_curve_corner
-# import os
-# import mosek
-
-# mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
-# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 
