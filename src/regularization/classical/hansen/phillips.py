@@ -1,6 +1,3 @@
-import numpy as np
-from scipy.linalg import toeplitz
-
 # %PHILLIPS Test problem: Phillips' "famous" problem.
 # %
 # % [A,b,x] = phillips(n)
@@ -28,6 +25,9 @@ from scipy.linalg import toeplitz
 
 import math
 import sympy as sp
+import numpy as np
+from scipy.linalg import toeplitz
+
 def scos(x): return sp.N(sp.cos(x))
 
 
