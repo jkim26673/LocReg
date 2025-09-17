@@ -1,5 +1,3 @@
-# import numpy as np
-# import matplotlib.pyplot as plt
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 
