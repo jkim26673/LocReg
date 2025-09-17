@@ -2,6 +2,15 @@ from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 
 def oracle(Alpha_vec, L, data_noisy, G, nT2, g):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     OP_x_lc_vec = np.zeros((nT2, len(Alpha_vec)))
     OP_rhos = np.zeros((len(Alpha_vec)))
     for j in (range(len(Alpha_vec))):

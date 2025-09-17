@@ -2,6 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def corner(rho, eta, fig=0):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     n = len(rho)
     if n != len(eta):
         raise ValueError('Vectors rho and eta must have the same length')
@@ -119,6 +128,15 @@ def corner(rho, eta, fig=0):
 
 
 def Angles(W, kv):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     delta = W[:-1, 0] * W[1:, 1] - W[1:, 0] * W[:-1, 1]
     mm, kk = np.min(delta), np.argmin(delta)
     if mm < 0:
@@ -129,6 +147,15 @@ def Angles(W, kv):
 
 
 def Global_Behavior(P, vects, elmts):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     hwedge = np.abs(vects[:, 1])
     An, In = np.sort(hwedge), np.argsort(hwedge)
     

@@ -9,6 +9,15 @@ from src.regularization.subfunc.spmak import spmak
 from src.regularization.subfunc.ppbrk import ppbrk
 
 def l_corner(rho, eta, reg_param, nargin, U=None, s=None, b=None, method=None, M=None):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # Ensure that rho and eta are column vectors.
     rho = rho.flatten()
     eta = eta.flatten()
@@ -232,6 +241,15 @@ import numpy as np
 from scipy.optimize import fminbound
 
 def l_corner(rho, eta, reg_param, U=None, s=None, b=None, method='none', M=None):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # Ensure that rho and eta are column vectors.
     rho = rho.reshape(-1, 1)
     eta = eta.reshape(-1, 1)

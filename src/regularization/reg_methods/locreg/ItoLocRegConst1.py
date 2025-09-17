@@ -4,6 +4,15 @@ from src.utils.load_imports.load_regmethods import *
 
 ### N Parameter Ito problem
 def LocReg_Ito_mod(data_noisy, G, lam_ini, gamma_init, maxiter):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """  
     #Initialize the MRR Problem
     TE = np.arange(1,512,4).T
     #Generate the T2 values

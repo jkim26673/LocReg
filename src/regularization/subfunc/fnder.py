@@ -2,6 +2,7 @@ import numpy as np
 from scipy.interpolate import PPoly
 
 def fnder(pp, m=1):
+
     """
     Differentiate a piecewise polynomial (pp) object.
     

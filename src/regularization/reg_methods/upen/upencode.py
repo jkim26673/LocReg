@@ -20,6 +20,15 @@ eng.addpath(r'C:\Users\kimjosy\Downloads\LocReg_Regularization-1\MERA', nargout=
 #     return result
 
 def H_mat(K1):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     #import H
     H = -2 * np.eye(K1) + np.diag(np.ones(K1 - 1), k=1) + np.diag(np.ones(K1 - 1), k=-1)
     # Step 2: Set the first and last rows to zero
@@ -28,6 +37,15 @@ def H_mat(K1):
     return H
 
 def decompose_Gmat(G):
+  """
+  Description: Oracle selection method for regularization:
+
+  :param power_pellet_active: bool - does the player have an active power pellet?
+  :param touching_ghost: bool - is the player touching a ghost?
+  :return: bool - can a ghost be eaten?
+
+  Test Example:
+  """
    G_matlab = matlab.double(G.tolist())
    U,sig,V= eng.svd(G_matlab, "econ", nargout = 3)
    U = np.array(U)
@@ -39,6 +57,15 @@ def decompose_Gmat(G):
    return G, Ur, Ar
 
 def upen_iter(param_setup, lam, S, R ,Dm, Dx):
+  """
+  Description: Oracle selection method for regularization:
+
+  :param power_pellet_active: bool - does the player have an active power pellet?
+  :param touching_ghost: bool - is the player touching a ghost?
+  :return: bool - can a ghost be eaten?
+
+  Test Example:
+  """
     # Define betaL, beta0, betaP, and betaC
     betaL = [1e-5, 0.6, 0.3]
     beta0, betaP, betaC = betaL[0], betaL[1], betaL[2]
@@ -100,6 +127,15 @@ def upen_iter(param_setup, lam, S, R ,Dm, Dx):
 
 
 def upen_param_setup(TE, T2, G, d):
+  """
+  Description: Oracle selection method for regularization:
+
+  :param power_pellet_active: bool - does the player have an active power pellet?
+  :param touching_ghost: bool - is the player touching a ghost?
+  :return: bool - can a ghost be eaten?
+
+  Test Example:
+  """
   numT2 = len(T2)
   K1 = numT2
   # K1 = numT2 + 1
@@ -122,6 +158,15 @@ def upen_param_setup(TE, T2, G, d):
   return result
 
 def upen_setup(param_setup, D, lambdas, inputlam = True):
+  """
+  Description: Oracle selection method for regularization:
+
+  :param power_pellet_active: bool - does the player have an active power pellet?
+  :param touching_ghost: bool - is the player touching a ghost?
+  :return: bool - can a ghost be eaten?
+
+  Test Example:
+  """
   if inputlam == True:
      lam = lambdas
   else:

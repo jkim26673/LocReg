@@ -6,6 +6,15 @@ from scipy.optimize import minimize, LinearConstraint
 import scipy.io
 
 def generate_gaussian_regs_L2_old(A, T2, TE, SNR, n_run, reg_param_lb, reg_param_ub, N_reg, Nc, cmin, cmax, sigma_min, sigma_max):
+    """
+    Description: Oracle selection method for regularization:
+
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     # Gaussian dictionary set up
     LGBs = Gaussian_basis(T2, cmin, cmax, Nc, sigma_min, sigma_max)
     options = {'disp': False}

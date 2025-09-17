@@ -1,9 +1,18 @@
 import numpy as np
 from src.regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 
+
 def GCV_NNLS(dat_noisy, A, Lambda):
     # This code implements GCV for regularized NNLS method
+    """
+    Description: Oracle selection method for regularization:
 
+    :param power_pellet_active: bool - does the player have an active power pellet?
+    :param touching_ghost: bool - is the player touching a ghost?
+    :return: bool - can a ghost be eaten?
+
+    Test Example:
+    """
     nLambda = len(Lambda)
     m = A.shape[1]
     n = A.shape[0]
