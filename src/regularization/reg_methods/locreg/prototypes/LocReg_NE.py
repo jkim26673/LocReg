@@ -26,16 +26,8 @@ from scipy.special import airy,gamma,itairy, gammaln, entr,tklmbda,expit
 #     lambda_approx[:10] = 1e-2
 #     p1 = W @ (s / (s**2 + lambda_approx))
 
-
-
-
-    
-
 #     return f_rec_logreg, lambda_locreg
-        
-
-
-
+     
 def LocReg_unconstrained_NE(data_noisy, G, x0_ini, lambda_ini, ep1, ep2, ep3):
     U,s,V = csvd(G,tst = None, nargin = 1, nargout = 3)
     

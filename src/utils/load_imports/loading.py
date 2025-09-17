@@ -184,6 +184,7 @@ from scipy.stats import norm as norm, wasserstein_distance, entropy
 from scipy.linalg import norm as linalg_norm, svd
 from scipy.optimize import nnls
 from scipy.integrate import simpson
+from scipy import sparse
 import cvxpy as cp
 import scipy
 

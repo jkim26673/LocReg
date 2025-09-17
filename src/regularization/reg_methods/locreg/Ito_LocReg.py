@@ -1,27 +1,5 @@
-#!/usr/bin/env python3
-# import sys
-# # sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-# sys.path.append(".")
-# from Utilities_functions.lsqnonneg import lsqnonneg
-from scipy.optimize import nnls
-import numpy as np
-import cvxpy as cp
-import os
-import mosek
-import cvxpy as cp
-from scipy.signal import savgol_filter
-from src.regularization.reg_methods.nnls.tikhonov_vec import tikhonov_vec
-from src.regularization.subfunc.csvd import csvd
-import pylops
-from scipy import sparse
-import scipy
-from scipy import linalg as la
-from tools.trips_py.pasha_gcv import Tikhonov
-from src.regularization.reg_methods.nnls.nonnegtik_hnorm import nonnegtik_hnorm
 from src.utils.load_imports.loading import *
-
-# mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
-# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
+from src.utils.load_imports.load_regmethods import *
 # % Select interior-point optimizer... (integer parameter)
 # % ... without basis identification (integer parameter)
 # param.MSK_IPAR_INTPNT_BASIS = 'MSK_BI_NEVER';

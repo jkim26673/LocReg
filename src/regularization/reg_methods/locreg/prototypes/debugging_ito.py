@@ -1,13 +1,5 @@
-# import numpy as np
-# import os
-# import cvxpy as cp
-# import matplotlib.pyplot as plt
 from src.utils.load_imports.loading import *
-mosek_lic_path = "/Users/steveh/Downloads/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_lic_path
 # N Parameter Ito problem
-
-
 def LocReg_Ito_mod(data_noisy, g_mat, lam_ini, gamma_init, maxiter):
     # Initialize the MRR Problem
     te = np.arange(1, 512, 4).T
@@ -62,21 +54,11 @@ def LocReg_Ito_mod(data_noisy, g_mat, lam_ini, gamma_init, maxiter):
         k = 1
 
         ep = 1e-3
-        # ep_min = ep
-        # epscond = False
-        # ini_f_rec = minimize(lam_curr, ep_min, epscond)
         f_old = np.ones(g_mat.shape[1])
 
         c_arr = []
         lam_arr = []
         sol_arr = []
-
-        # fig, axs = plt.subplots(3, 1, figsize=(6, 6))
-        #
-        # # # Show the initial plot
-        # plt.tight_layout()
-        # plt.ion()  # Turn on interactive mode
-
         # Uncomment the code below to run the Fixed Point Algo (FPA) using while loop until convergence
 
         while True:
