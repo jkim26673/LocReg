@@ -1,17 +1,3 @@
-# import sys
-# sys.path.append('/Users/steveh/Downloads/NIH 23-24/LocReg_Python')
-# import numpy as np
-# # from regu.baart import baart
-# # from regu.foxgood import foxgood
-# # from regu.phillips import phillips
-# # from regu.csvd import csvd
-# # from regu.deriv2 import deriv2
-# # from regu.gravity import gravity
-# # from regu.heat import heat
-# # from regu.shaw import shaw
-# from numpy.linalg import norm
-# import matplotlib.pyplot as plt
-# from regu.l_curve import l_curve
 from src.utils.load_imports.load_classical import *
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
