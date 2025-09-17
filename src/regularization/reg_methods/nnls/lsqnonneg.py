@@ -9,74 +9,7 @@ based on MATLAB's lsqnonneg function
 """
 
 import numpy
-
 import numpy as np
-
-# def lsqnonneg(C, d):
-#     '''Linear least squares with nonnegativity constraints.
-
-#     (x, resnorm, residual) = lsqnonneg(C,d) returns the vector x that minimizes norm(d-C*x)
-#     subject to x >= 0, C and d must be real
-#     '''
-
-#     eps = 2.22e-16    # from matlab
-
-#     tol = 10*eps*numpy.linalg.norm(C,1)*(max(C.shape)+1)
-
-#     C = numpy.asarray(C)
-
-#     (m,n) = C.shape
-#     P = []
-#     R = [x for x in range(0,n)]
-
-#     x = numpy.zeros(n)
-
-#     resid = d - numpy.dot(C, x)
-#     w = numpy.dot(C.T, resid)
-
-#     count = 0
-
-#     # outer loop to put variables into set to hold positive coefficients
-#     while numpy.any(R) and numpy.max(w) > tol:
-
-#         j = numpy.argmax(w)
-#         P.append(j)
-#         R.remove(j)
-
-
-#         AP = numpy.zeros(C.shape)
-#         AP[:,P] = C[:,P]
-
-#         s=numpy.dot(numpy.linalg.pinv(AP), d)
-
-#         s[R] = 0
-     
-#         while numpy.min(s) < 0:
-
-
-#             i = [i for i in P if s[i] <= 0]
-
-#             alpha = min(x[i]/(x[i] - s[i]))
-#             x = x + alpha*(s-x)
-
-#             j = [j for j in P if x[j] == 0]
-#             if j:
-#                 R.append(*j)
-#                 P.remove(j)
-            
-#             AP = numpy.zeros(C.shape)
-#             AP[:,P] = C[:,P]
-#             s=numpy.dot(numpy.linalg.pinv(AP), d)
-#             s[R] = 0
-     
-#         x = s
-#         resid = d - numpy.dot(C, x)
-
-#         w = numpy.dot(C.T, resid)
-
-
-
-#     return (x, sum(resid * resid), resid)
 
 def lsqnonneg(C, d, x0=None, tol=None, itmax_factor= 3):
     '''Linear least squares with nonnegativity constraints.
