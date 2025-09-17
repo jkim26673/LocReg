@@ -1,6 +1,9 @@
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 import xlrd
+
+####SETUP PARAMETER INITIALIZATION FOR ALGORITHM
+
 #Hyperparameters LocReg
 eps1 = 1e-2
 ep_min = 1e-2

@@ -1,4 +1,6 @@
 #This is a translation of baart_prob.m
+
+###ADD PACKAGES
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
 from src.utils.load_imports.load_classical import *
@@ -10,6 +12,8 @@ from src.utils.load_imports.load_classical import *
 # lam_ini = 'LC'
 # fignum = 5
 
+
+### SET PATH
 import sys
 import os
 parent = os.path.dirname(os.path.abspath(''))
@@ -26,6 +30,9 @@ output_folder = f"SimulationSets/{pat_tag}/{series_tag}"
 
 # cwd_full = cwd_cut + output_folder + lam_ini
 cwd_full = cwd_cut + output_folder 
+
+### CREATE RESULTS FOLDER PATH
+
 
 def create_result_folder(string, SNR):
     # Create a folder based on the current date and time
@@ -75,6 +82,8 @@ def minimize_OP(Alpha_vec, L, data_noisy, G, nT2, g):
     return f_rec_OP_grid, OP_min_alpha1
 
 
+####SET UP INITAL PARAMETERS
+
 #n = number of discretization
 n = 500
 nT2 = n
@@ -83,6 +92,8 @@ TE = T2
 
 G,data_noiseless,g = baart(n)
 U,s,V = csvd(G,tst = None, nargin = 1, nargout = 3)
+
+####SETUP NOISY GENERATION FUNCTION
 
 # G_arr = []
 # data_noiseless_arr = []
