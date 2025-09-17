@@ -1,18 +1,4 @@
 # #Packages
-# import numpy as np
-# import cvxpy as cp
-# import scipy
-# import matplotlib.pyplot as plt
-# from scipy.linalg import svd
-# from scipy.optimize import nnls
-# import sys
-# # sys.path.append(r'/home/kimjosy/LocReg_Regularization-1')  # Replace this path with the actual path to the parent directory of Utilities_functions
-# sys.path.append(".")
-# # from lsqnonneg import lsqnonneg
-# #from Simulations.lcurve_functions import l_cuve,csvd,l_corner
-# from Simulations.l_curve_corner import l_curve_corner
-# from regu.csvd import csvd
-# from regu.discrep import discrep
 # # np.random.seed(34)
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
