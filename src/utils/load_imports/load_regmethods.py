@@ -4,7 +4,7 @@
 from src.utils.load_imports.loading import *
 
 # -----------------------------
-# 🔬 Regularization Methods
+#Regularization Methods
 # -----------------------------
 from src.regularization.reg_methods.dp.discrep import discrep
 from src.regularization.reg_methods.dp.discrep_L2 import discrep_L2
@@ -36,14 +36,14 @@ from src.regularization.reg_methods.upen.upenzama import UPEN_Zama0th
 from src.regularization.reg_methods.upen.upenzama import UPEN_Zama1st
 
 # -----------------------------
-# 🧩 Subfunctions
+# Subfunctions
 # -----------------------------
 from src.regularization.subfunc.lcurve_functions import l_cuve, l_corner
 from src.regularization.subfunc.csvd import csvd
 from src.regularization.subfunc.l_curve_corner import l_curve_corner
 
 # -----------------------------
-# 🔧 Tools
+#  Tools
 # -----------------------------
 from tools.trips_py.pasha_gcv import Tikhonov
 from src.sim_scripts.peak_resolution.resolutionanalysis import (
@@ -51,7 +51,7 @@ from src.sim_scripts.peak_resolution.resolutionanalysis import (
 )
 
 # -----------------------------
-# 🧠 Expose Regularization Names
+# Regularization Names
 # -----------------------------
 __all__ = [
     'discrep', 'discrep_L2','discrep_L2_brain','GCV_NNLS', 'gcv',
