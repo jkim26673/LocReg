@@ -70,7 +70,7 @@ mosek_license_path = r"/Users/kimjosy/Downloads/LocReg/tools/mosek/mosek.lic"
 __all__ = [
     # Scientific libs
     'np', 'pd', 'plt', 'sns', 'table',
-    'normsci', 'wasserstein_distance', 'entropy',
+    'norm', 'wasserstein_distance', 'entropy',
     'linalg_norm', 'svd', 'nnls', 'simpson',
     'cp', 'scipy',
 
