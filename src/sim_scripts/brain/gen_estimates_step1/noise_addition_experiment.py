@@ -23,7 +23,9 @@ day = date.strftime('%d')
 month = date.strftime('%B')[0:3]
 year = date.strftime('%y')
 # cwd_full = path_funcs.gen_results_dir(paths.ROOT_DIR, "noise_addition_exp",f"{month}{day}{year}")
-data_path = os.path.join(r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+# data_path = os.path.join(r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+data_path = os.path.join(r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+
 add_tag = f"xcoordlen_{p}_ycoordlen_{q}_filtered_noise_addition_uniform_noise_UPEN_LR1D2D"
 data_head = "est_table"
 data_tag = (f"{data_head}_{add_tag}{day}{month}{year}")
@@ -271,6 +273,9 @@ def generate_noisy_estimates(i_param_combo, seed= None):
         passing_y_coord = y_coord
         curr_data = brain_data[passing_x_coord,passing_y_coord,:]
         curr_SNR = SNR_map[passing_x_coord,passing_y_coord]
+        noisy_f_rec_GCV, noisy_lambda_GCV = GCV_NNLS(curr_data, A, Lambda)
+        noisy_f_rec_GCV = noisy_f_rec_GCV[:, 0]
+        noisy_lambda_GCV = np.squeeze(noisy_lambda_GCV)
         if unif_noise == True:
             unnormalized_data = curr_data
             noise = unif_noise_val
@@ -294,13 +299,17 @@ def generate_noisy_estimates(i_param_combo, seed= None):
             plt.close()
         else:
             try:
-                sol1 = nnls(A, curr_data, maxiter=1e6)[0]
+                # sol1 = nnls(A, curr_data, maxiter=1e6)[0]
+                LRIto_ini_lam = noisy_lambda_GCV
+                f_rec_ini = noisy_f_rec_GCV
+                sol1, noisy_lambda_LR, test_frec1, test_lam1, numiterate = LocReg_Ito_mod(curr_data, A, LRIto_ini_lam, gamma_init, maxiter = 50)
+                sol1, noisy_MWF_LR, LR_Flag_Val = filter_and_compute_MWF(noisy_f_rec_LR, tol = 1e-6)
             except:
-                try:
-                    sol1 = nonnegtik_hnorm(A, curr_data, 0, '0', nargin=4)[0]
-                except:
-                    print("need to skip, cannot find solution to LS solutions for normalizaiton")
-                    return feature_df
+                # try:
+                #     sol1 = nonnegtik_hnorm(A, curr_data, 0, '0', nargin=4)[0]
+                # except:
+                print("need to skip, cannot find solution to LS solutions for normalizaiton")
+                return feature_df
             X = sol1
             tolerance = 1e-6  # Adjust tolerance based on what you consider "close to zero"
             all_close_to_zero = np.all(np.abs(X) < tolerance)
@@ -368,33 +377,33 @@ def generate_noisy_estimates(i_param_combo, seed= None):
         feature_df["curr_SNR"] = [curr_SNR]
         # feature_df["LS_estimate"] = [noisy_f_rec_LS]
         # feature_df["MWF_LS"] = [noisy_MWF_LS]
-        # feature_df["DP_estimate"] = [noisy_f_rec_DP]
+        feature_df["DP_estimate"] = [noisy_f_rec_DP]
         # feature_df["LC_estimate"] = [noisy_f_rec_LC]
-        # feature_df["LR_estimate"] = [noisy_f_rec_LR]
-        # feature_df["LR1D_estimate"] = [noisy_f_rec_LR1D]
+        feature_df["LR_estimate"] = [noisy_f_rec_LR]
+        feature_df["LR1D_estimate"] = [noisy_f_rec_LR1D]
         feature_df["LR2D_estimate"] = [noisy_f_rec_LR2D]
         feature_df["GCV_estimate"] = [noisy_f_rec_GCV]
         feature_df["UPEN_estimate"] = [noisy_f_rec_UPEN]
-        # feature_df["MWF_DP"] = [noisy_MWF_DP]
+        feature_df["MWF_DP"] = [noisy_MWF_DP]
         # feature_df["MWF_LC"] = [noisy_MWF_LC]
-        # feature_df["MWF_LR"] = [noisy_MWF_LR]
-        # feature_df["MWF_LR1D"] = [noisy_MWF_LR1D]
+        feature_df["MWF_LR"] = [noisy_MWF_LR]
+        feature_df["MWF_LR1D"] = [noisy_MWF_LR1D]
         feature_df["MWF_LR2D"] = [noisy_MWF_LR2D]
         feature_df["MWF_GCV"] = [noisy_MWF_GCV]
         feature_df["MWF_UPEN"] = [noisy_MWF_UPEN]
-        # feature_df["Lam_DP"] = [noisy_lambda_DP]
+        feature_df["Lam_DP"] = [noisy_lambda_DP]
         # feature_df["Lam_LC"] = [noisy_lambda_LC]
-        # feature_df["Lam_LR"] = [noisy_lambda_LR]
-        # feature_df["Lam_LR1D"] = [noisy_lambda_LR1D]
+        feature_df["Lam_LR"] = [noisy_lambda_LR]
+        feature_df["Lam_LR1D"] = [noisy_lambda_LR1D]
         feature_df["Lam_LR2D"] = [noisy_lambda_LR2D]
         feature_df["Lam_GCV"] = [noisy_lambda_GCV]
         feature_df["Lam_UPEN"] = [noisy_lambda_UPEN]
         # feature_df["LS_Flag_Val"] = [LS_Flag_Val]
         # feature_df["LC_Flag_Val"] = [LC_Flag_Val]
         feature_df["GCV_Flag_Val"] = [GCV_Flag_Val]
-        # feature_df["DP_Flag_Val"] = [DP_Flag_Val]
-        # feature_df["LR_Flag_Val"] = [LR_Flag_Val]
-        # feature_df["LR1D_Flag_Val"] = [LR_Flag_Val1D]
+        feature_df["DP_Flag_Val"] = [DP_Flag_Val]
+        feature_df["LR_Flag_Val"] = [LR_Flag_Val]
+        feature_df["LR1D_Flag_Val"] = [LR_Flag_Val1D]
         feature_df["LR2D_Flag_Val"] = [LR_Flag_Val2D]
         feature_df["UPEN_Flag_Val"] = [UPEN_Flag_Val]
         print(f"completed dataframe for x {passing_x_coord} and y {passing_y_coord}")
