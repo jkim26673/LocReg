@@ -18,6 +18,7 @@ import pickle
 
 #Loading in paths
 import src.utils.paths as paths
+import src.utils.helper_func.paths.paths_funcs as path_funcs
 
 # Add project root to sys.path (if needed)
 print("Setting system path")
@@ -77,7 +78,7 @@ __all__ = [
 
     # # MOSEK
     # 'mosek',
-    'paths',
+    'paths','path_funcs',
 
     # Progress bar
     'tqdm',

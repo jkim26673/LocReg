@@ -1,5 +1,6 @@
 # Helper functions for run-specific paths
 import os
+from glob import glob
 def gen_subdirpath(root_dir: str, *args:str):
     """
     Returns path for subdirectory for given main directory
@@ -21,7 +22,7 @@ def create_dir(path: str):
     os.makedirs(path, exist_ok=True)
     return 
 
-def run_dir(root_dir:str, *args: str):
+def gen_results_dir(root_dir:str, *args: str):
     """
     Returns a results subdirectory for a specific experiment/run.
     Creates the directory if it doesn't exist.
@@ -31,8 +32,8 @@ def run_dir(root_dir:str, *args: str):
     return path
 
 def get_filepath(file_name:str):
-    try:
-        os.path.exists(file_name)
-    except:
-        raise AssertionError("File not found.")
-    return os.path.abspath(file_name)
+    matches = glob(f"**/{file_name}", recursive=True)
+    if not matches:
+        raise AssertionError(f"File not found {file_name}.")
+    return os.path.abspath(matches[0])
+
