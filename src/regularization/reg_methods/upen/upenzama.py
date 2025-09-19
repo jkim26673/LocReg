@@ -1,9 +1,20 @@
-import matlab.engine
+# import matlab.engine
+# import numpy as np
+# import scipy
+# import pandas as pd
+# eng = matlab.engine.start_matlab()
+# eng.addpath(r'C:\Users\kimjosy\Downloads\LocReg_Regularization-1\ZamaUPEN\1D_test', nargout=0)
+
+from oct2py import Oct2Py
 import numpy as np
 import scipy
 import pandas as pd
-eng = matlab.engine.start_matlab()
-eng.addpath(r'C:\Users\kimjosy\Downloads\LocReg_Regularization-1\ZamaUPEN\1D_test', nargout=0)
+
+# Start Octave session
+oc = Oct2Py()
+
+# Add your Octave path (adjust as needed)
+oc.addpath(r'/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/tools/zama_upen/1D_test')
 
 def UPEN_Zama(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
     """
