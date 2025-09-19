@@ -792,17 +792,16 @@ def LocReg_Ito_mod_deriv_feedmod(data_noisy, G, lam_ini, gamma_init, maxiter, fe
     x_normalized = best_f_rec2
     return x_normalized, fin_lam2, best_f_rec1, fin_lam1, iternum
 
-
+from scipy import sparse
 def first_deriv(n):
     # Create the first derivative matrix D using scipy sparse diagonal
     D = scipy.sparse.diags(diagonals=np.ones(n-1), offsets=1, shape=None, format=None, dtype=None)
-    L = sparse.identity(n)-D
-    Lx = L[0:-1, :]
+    L = scipy.sparse.identity(n)- D
+    Lx = (L.toarray())[0:-1, :]
     # Create the last row {1, 0, 0, ..., 0, -1}
     last_row = np.zeros(n)
     last_row[-1] = 1
     # last_row[-1] = 1
-    Lx = Lx.toarray()
     # Append this last row to Lx
     Lx = np.vstack([Lx, last_row])
     return Lx
