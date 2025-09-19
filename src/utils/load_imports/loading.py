@@ -1,3 +1,4 @@
+#Loading libraries and common file paths
 # -----------------------------
 # System & Utility Libraries
 # -----------------------------
@@ -15,6 +16,8 @@ import subprocess
 import unittest
 import pickle
 
+#Loading in paths
+import src.utils.paths as paths
 
 # Add project root to sys.path (if needed)
 print("Setting system path")
@@ -22,11 +25,7 @@ ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
-# -----------------------------
-# Environment Variables
-# -----------------------------
-mosek_license_path = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/tools/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+os.environ["MOSEKLM_LICENSE_FILE"] = paths.MOSEK_LICENSE
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 # -----------------------------
@@ -59,12 +58,6 @@ from multiprocessing import Pool, freeze_support, set_start_method
 from tqdm import tqdm
 
 # -----------------------------
-# MOSEK (after setting license)
-# -----------------------------
-import mosek
-mosek_license_path = r"/Users/kimjosy/Downloads/LocReg/tools/mosek/mosek.lic"
-
-# -----------------------------
 # Common Names
 # -----------------------------
 __all__ = [
@@ -82,8 +75,9 @@ __all__ = [
     # Parallel
     'mp', 'Pool', 'freeze_support', 'set_start_method',
 
-    # MOSEK
-    'mosek',
+    # # MOSEK
+    # 'mosek',
+    'paths',
 
     # Progress bar
     'tqdm',

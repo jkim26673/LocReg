@@ -1,7 +1,8 @@
 import pickle
 import os
+from src.utils.helper_func.paths.paths_funcs import run_dir
 
-def load_est_table(est_filepath):
+def load_est_table(est_filepath:str):
     try:
         os.path.exists(est_filepath)
     except:
