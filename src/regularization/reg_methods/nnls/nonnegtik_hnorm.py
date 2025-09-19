@@ -3,7 +3,6 @@ from scipy.optimize import nnls
 #from Utilities_functions.lsqnonneg import lsqnonneg
 import mosek 
 import cvxpy as cp
-import numpy as np
 from cvxopt import solvers, matrix, spmatrix, mul
 import itertools
 from scipy import sparse
@@ -384,7 +383,7 @@ def nonnegtik_hnorm(A, b, lamb_da, nm, nargin,  R=None):
     #     #             raise ValueError("All solvers failed. Unable to find a solution.")
     #     # # Retrieve the optimized value
     #     x = x.value
-    x = nnls(Aug_A, Aug_b, maxiter=1e4)[0]
+    x = nnls(Aug_A, Aug_b, maxiter=1000)[0]
 
     # If `x` is all zeros, reattempt the optimization process
     # if np.all(x == 0):
@@ -462,7 +461,7 @@ def nonnegtik_hnorm(A, b, lamb_da, nm, nargin,  R=None):
     #x = lsqnonneg(Aug_A, Aug_b)[0]
     try:
         # Attempt Non-Negative Least Squares (NNLS) first
-        x = nnls(Aug_A, Aug_b, maxiter=1e4)[0]
+        x = nnls(Aug_A, Aug_b.astype(float), maxiter=1000)[0]
     except Exception as e:
         print("NNLS failed:", e)
         # # If NNLS fails, fallback to CVXPY solver (MOSEK)

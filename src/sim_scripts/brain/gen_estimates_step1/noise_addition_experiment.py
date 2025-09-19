@@ -23,8 +23,8 @@ day = date.strftime('%d')
 month = date.strftime('%B')[0:3]
 year = date.strftime('%y')
 # cwd_full = path_funcs.gen_results_dir(paths.ROOT_DIR, "noise_addition_exp",f"{month}{day}{year}")
-# data_path = os.path.join(r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
-data_path = os.path.join(r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+data_path = os.path.join(r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+# data_path = os.path.join(r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
 
 add_tag = f"xcoordlen_{p}_ycoordlen_{q}_filtered_noise_addition_uniform_noise_UPEN_LR1D2D"
 data_head = "est_table"
@@ -490,7 +490,7 @@ if __name__ == "__main__":
         plt.ylabel('Noise Standard Deviation')
         plt.title('Noise Standard Deviation Across Signals')
         plt.grid(True)
-        plt.savefig("/Users/kimjosy/Downloads/LocReg/results/brain/debug_figs/brain/testfignoise.png")
+        plt.savefig("/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/debug_figs/brain/testfignoise.png")
         plt.close()
 
         plt.figure()
@@ -499,7 +499,7 @@ if __name__ == "__main__":
         plt.ylabel('Amplitude')
         plt.title('Mean Signal')
         plt.grid(True)
-        plt.savefig("/Users/kimjosy/Downloads/LocReg/results/brain/debug_figs/brain/testfigmeansig.png")
+        plt.savefig("/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/debug_figs/brain/testfigmeansig.png")
         plt.close()
     else:
         pass
