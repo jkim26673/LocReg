@@ -27,13 +27,18 @@ def UPEN_Zama(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
     Test Example:
     """
     # Call the MATLAB function UPenMMmL2nn and only get the first and last output (xpwL2_nn and Lam)
-    A = matlab.double(A.tolist())
-    b = matlab.double(b.tolist())
-    gt = matlab.double(gt.tolist())
-    reshaped_b = eng.reshape(b, [], 1)  # Reshape to a column vector
-    reshaped_gt = eng.reshape(gt, [], 1)  # Reshape to a column vector
+    # A = matlab.double(A.tolist())
+    # b = matlab.double(b.tolist())
     # gt = matlab.double(gt.tolist())
-    result = eng.UPenMMmL2nn(A, reshaped_b, reshaped_gt, noise_norm, beta_0, Kmax, tol_lam, nargout=9)
+    # reshaped_b = eng.reshape(b, [], 1)  # Reshape to a column vector
+    # reshaped_gt = eng.reshape(gt, [], 1)  # Reshape to a column vector
+    # gt = matlab.double(gt.tolist())
+    b_col = b.reshape(-1,1)
+    gt_col= gt.reshape(-1,1)
+
+    # result = eng.UPenMMmL2nn(A, reshaped_b, reshaped_gt, noise_norm, beta_0, Kmax, tol_lam, nargout=9)
+    result = oc.UPenMMmL2nn(A, b_col, gt_col, noise_norm, beta_0, Kmax, tol_lam, nout=9)
+
     # Extract the specific outputs (xpwL2_nn and Lam)
     xpwL2_nn = np.array(result[0]).flatten()  # First output (solution)
     Lam = np.array(result[5]).flatten()  # 5 output (Lambda change)
@@ -52,13 +57,15 @@ def UPEN_Zama1st(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
     Test Example:
     """
     # Call the MATLAB function UPenMMmL2nn and only get the first and last output (xpwL2_nn and Lam)
-    A = matlab.double(A.tolist())
-    b = matlab.double(b.tolist())
-    gt = matlab.double(gt.tolist())
-    reshaped_b = eng.reshape(b, [], 1)  # Reshape to a column vector
-    reshaped_gt = eng.reshape(gt, [], 1)  # Reshape to a column vector
+    # A = matlab.double(A.tolist())
+    # b = matlab.double(b.tolist())
     # gt = matlab.double(gt.tolist())
-    result = eng.UPennn1st(A, reshaped_b, reshaped_gt, noise_norm, beta_0, Kmax, tol_lam, nargout=9)
+    # reshaped_b = eng.reshape(b, [], 1)  # Reshape to a column vector
+    # reshaped_gt = eng.reshape(gt, [], 1)  # Reshape to a column vector
+    # gt = matlab.double(gt.tolist())
+    b_col = b.reshape(-1,1)
+    gt_col= gt.reshape(-1,1)
+    result = oc.UPennn1st(A, b_col, gt_col, noise_norm, beta_0, Kmax, tol_lam, nargout=9)
     # Extract the specific outputs (xpwL2_nn and Lam)
     xpwL2_nn = np.array(result[0]).flatten()  # First output (solution)
     Lam = np.array(result[5]).flatten()  # 5 output (Lambda change)
@@ -77,13 +84,16 @@ def UPEN_Zama0th(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
     Test Example:
     """
     # Call the MATLAB function UPenMMmL2nn and only get the first and last output (xpwL2_nn and Lam)
-    A = matlab.double(A.tolist())
-    b = matlab.double(b.tolist())
-    gt = matlab.double(gt.tolist())
-    reshaped_b = eng.reshape(b, [], 1)  # Reshape to a column vector
-    reshaped_gt = eng.reshape(gt, [], 1)  # Reshape to a column vector
+    # A = matlab.double(A.tolist())
+    # b = matlab.double(b.tolist())
     # gt = matlab.double(gt.tolist())
-    result = eng.UPennn0th(A, reshaped_b, reshaped_gt, noise_norm, beta_0, Kmax, tol_lam, nargout=9)
+    # reshaped_b = eng.reshape(b, [], 1)  # Reshape to a column vector
+    # reshaped_gt = eng.reshape(gt, [], 1)  # Reshape to a column vector
+    # # gt = matlab.double(gt.tolist())
+    b_col = b.reshape(-1,1)
+    gt_col= gt.reshape(-1,1)
+    result = oc.UPennn0th(A, b_col, gt_col, noise_norm, beta_0, Kmax, tol_lam, nargout=9)
+    # result = eng.UPennn0th(A, reshaped_b, reshaped_gt, noise_norm, beta_0, Kmax, tol_lam, nargout=9)
     # Extract the specific outputs (xpwL2_nn and Lam)
     xpwL2_nn = np.array(result[0]).flatten()  # First output (solution)
     Lam = np.array(result[5]).flatten()  # 5 output (Lambda change)
