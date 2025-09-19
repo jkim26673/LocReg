@@ -6,25 +6,19 @@ from src.utils.load_imports.load_classical import *
 # eng = matlab.engine.start_matlab()
 # eng.addpath(r'C:\Users\kimjosy\Downloads\LocReg_Regularization-1\ZamaUPEN\1D_test', nargout=0)
 
+mask = scipy.io.loadmat(paths.MASK_PATH)["new_BW"]
+filt_SNR_map = scipy.io.loadmat(paths.FILT_SNR_MAP_PATH)["SNR_MAP"]
+# unfilt_SNR_map = scipy.io.loadmat(paths.UNFILT_SNR_MAP_PATH)["new_BW"]
+clean_data = scipy.io.loadmat(paths.CLEAN_BR_DATA_PATH)["brain_data"]
+raw_data = scipy.io.loadmat(paths.RAW_BR_DATA_PATH)["brain_data"]
 
-#Reconfigure the path script to all files for respective OS system.
-# mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-mosek_license_path = r"C:\Users\kimjosy\Downloads\mosek\mosek.lic"
-# unfilt_brain_data_path = "/home/kimjosy/LocReg_Regularization-1/data/brain/braindata/mew_cleaned_brain_data_unfiltered.mat"
-# brain_data_path = "/home/kimjosy/LocReg_Regularization-1/data/brain/braindata/mew_cleaned_brain_data_unfiltered.mat"
-# brain_data_path = "/home/kimjosy/LocReg_Regularization/cleaned_brain_data.mat"
-# mask_path = "/home/kimjosy/LocReg_Regularization-1/data/brain/masks/new_mask.mat" 
-# SNR_map_path = "/home/kimjosy/LocReg_Regularization-1/data/brain/SNRmap/new_SNR_Map.mat"
-# unfiltered_SNR_map_path = "/home/kimjosy/LocReg_Regularization-1/data/brain/SNRmap/new_SNR_Map_unfiltered.mat"
-unfilt_brain_data_path = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\brain\braindata\mew_cleaned_brain_data_unfiltered.mat"
-brain_data_path = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\brain\braindata\mew_cleaned_brain_data_unfiltered.mat"
-# brain_data_path = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\brain\braindata\cleaned_brain_data (1).mat"
-mask_path = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\brain\masks\new_mask.mat" 
-SNR_map_path = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\brain\SNRmap\new_SNR_Map.mat"
-unfiltered_SNR_map_path = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\brain\SNRmap\new_SNR_Map_unfiltered.mat"
+_,_,s = brain_data.shape
+ones_array = np.ones(s)
+expanded_mask = mask[:, :, np.newaxis] * ones_array
+brain_data = expanded_mask * brain_data
 
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+# os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
+# os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 #Naming Convention for Save Folder for Images:
 parent = os.path.dirname(os.path.abspath(''))
@@ -549,5 +543,3 @@ if __name__ == "__main__":
         finalpath = os.path.join(data_folder, f"{data_tag}.pkl")
         df.to_pickle(finalpath)
         print(f"Fle saved at {finalpath}")
-
-

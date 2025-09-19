@@ -1,47 +1,47 @@
-#loop used to run in classical problems...
-class classical_prob:
-    #Initialization
+# #loop used to run in classical problems...
+# class classical_prob:
+#     #Initialization
     
-    #Check the path
+#     #Check the path
 
-    #Logging
+#     #Logging
 
-    #which regularizaiton functions
+#     #which regularizaiton functions
 
-    #assign respective hyperparameter
+#     #assign respective hyperparameter
 
-    #Run the loop
+#     #Run the loop
 
-    #Run the plot function from utils
+#     #Run the plot function from utils
 
-    #Save the results 
-    class ResultSaver:
+#     #Save the results 
+#     class ResultSaver:
 
-    #Rank the results
-    class ResultRanker:
+#     #Rank the results
+#     class ResultRanker:
 
-    #hypterparameters same   
+#     #hypterparameters same   
 
-    #Add parallel processing if you want to
+#     #Add parallel processing if you want to
 
-#PathChecker
-class PathChecker:
+# #PathChecker
+# class PathChecker:
 
-#Logging
-class Logging:
-
-
-#which regularizaiton functions
-class RegularizerSelector:
-
-#which Plotter
-class Plotter:
-
-#Save the results 
-class ResultSaver:
-
-#Rank the results
-class ResultRanker:
+# #Logging
+# class Logging:
 
 
-class ClassicalProblem:
+# #which regularizaiton functions
+# class RegularizerSelector:
+
+# #which Plotter
+# class Plotter:
+
+# #Save the results 
+# class ResultSaver:
+
+# #Rank the results
+# class ResultRanker:
+
+
+# class ClassicalProblem:

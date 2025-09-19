@@ -1,6 +1,6 @@
 # Helper functions for run-specific paths
 import os
-def gen_path(root_dir: str, *args:str):
+def gen_subdirpath(root_dir: str, *args:str):
     """
     Returns path for subdirectory for given main directory
     :params: root_dir: root directory
@@ -26,6 +26,13 @@ def run_dir(root_dir:str, *args: str):
     Returns a results subdirectory for a specific experiment/run.
     Creates the directory if it doesn't exist.
     """
-    path = gen_path(root_dir, *args)
+    path = gen_subdirpath(root_dir, *args)
     create_dir(path)
     return path
+
+def get_filepath(file_name:str):
+    try:
+        os.path.exists(file_name)
+    except:
+        raise AssertionError("File not found.")
+    return os.path.abspath(file_name)
