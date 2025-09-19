@@ -479,7 +479,10 @@ if __name__ == "__main__":
         # _, unif_noise_val = add_noise(mean_sig, SNR = SNR_mean)
         print("tail_std", tail_std)
         # _, unif_noise_val = add_noise(mean_sig, SNR = 1)
-        unif_noise_val = np.random.normal(0, tail_std, size=32)  # Add noise
+        SNR = 100
+        SNR_tail_std = np.abs(np.max(mean_sig))/SNR
+        unif_noise_val = np.random.normal(0, SNR_tail_std, size=32)  # Add noise
+        # unif_noise_val = np.random.normal(0, tail_std, size=32)  # Add noise
         plt.figure()
         print("unif_noise_val", unif_noise_val)
         plt.plot(unif_noise_val)
@@ -487,7 +490,7 @@ if __name__ == "__main__":
         plt.ylabel('Noise Standard Deviation')
         plt.title('Noise Standard Deviation Across Signals')
         plt.grid(True)
-        plt.savefig("testfignoise.png")
+        plt.savefig("/Users/kimjosy/Downloads/LocReg/results/brain/debug_figs/brain/testfignoise.png")
         plt.close()
 
         plt.figure()
@@ -496,7 +499,7 @@ if __name__ == "__main__":
         plt.ylabel('Amplitude')
         plt.title('Mean Signal')
         plt.grid(True)
-        plt.savefig("testfigmeansig.png")
+        plt.savefig("/Users/kimjosy/Downloads/LocReg/results/brain/debug_figs/brain/testfigmeansig.png")
         plt.close()
     else:
         pass
