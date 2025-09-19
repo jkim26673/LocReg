@@ -22,7 +22,7 @@ REG_METHODS_DIR = run_dir(ROOT_DIR, "src", "regularization", "reg_methods")
 CLASSICAL_DIR = run_dir(ROOT_DIR, "src", "regularization", "classical")
 
 # MOSEK license
-MOSEK_LICENSE =run_dir(TOOLS_DIR, "mosek", "mosek.lic")
+MOSEK_LICENSE =get_filepath("mosek.lic")
 
 #Common Brain Paths
 RAW_BR_DATA_PATH = get_filepath("mew_cleaned_brain_data_unfiltered.mat")
