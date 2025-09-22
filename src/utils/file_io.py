@@ -1,6 +1,6 @@
 import pickle
 import os
-from src.utils.helper_func.paths.paths_funcs import run_dir
+from src.utils.helper_func.paths.paths_funcs import gen_results_dir
 
 def load_est_table(est_filepath:str):
     try:
