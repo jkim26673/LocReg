@@ -1,9 +1,42 @@
 from src.utils.load_imports.loading import *
 from src.utils.load_imports.load_regmethods import *
+from src.utils.load_imports.load_classical import *
+from src.helper_func.brain.subfunc import *
+
+# import matlab.engine
+# eng = matlab.engine.start_matlab()
+# eng.addpath(r'C:\Users\kimjosy\Downloads\LocReg_Regularization-1\ZamaUPEN\1D_test', nargout=0)
+
+#Load data
+mask = scipy.io.loadmat(paths.MASK_PATH)["new_BW"]
+SNR_map = scipy.io.loadmat(paths.FILT_SNR_MAP_PATH)["SNR_MAP"]
+# unfilt_SNR_map = scipy.io.loadmat(paths.UNFILT_SNR_MAP_PATH)["new_BW"]
+clean_data = scipy.io.loadmat(paths.CLEAN_BR_DATA_PATH)["final_data_2"]
+raw_data = scipy.io.loadmat(paths.RAW_BR_DATA_PATH)["brain_data"]
+
+#Load masked data
+brain_data = gen_maskeddata(brain_data=clean_data, mask = mask)
+p,q,s = brain_data.shape
+#Naming file
+date = date.today()
+day = date.strftime('%d')
+month = date.strftime('%B')[0:3]
+year = date.strftime('%y')
+# cwd_full = path_funcs.gen_results_dir(paths.ROOT_DIR, "noise_addition_exp",f"{month}{day}{year}")
+data_path = os.path.join(r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+# data_path = os.path.join(r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+
+add_tag = f"xcoordlen_{p}_ycoordlen_{q}_NESMA_filtered_NA_GCV_LR012_UPEN"
+data_head = "est_table"
+data_tag = (f"{data_head}_{add_tag}{day}{month}{year}")
+# data_folder = (os.getcwd() + f'/{data_path}')
+data_folder = os.path.join(os.getcwd(), f"{data_path}")
+os.makedirs(data_folder, exist_ok = True)
+logging.info(f"Save Folder for Final Estimates Table {data_folder})")
 # import matlab.engine
 
 # Ensure log directory exists
-log_dir = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1"
+log_dir = data_folder
 try:
     os.makedirs(log_dir, exist_ok=True)
 except Exception as e:
@@ -69,66 +102,14 @@ console_handler.setFormatter(file_format)
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
 
-print("setting license path")
-logging.info("setting license path")
-mosek_license_path = r"/home/kimjosy/LocReg_Regularization-1/mosek/mosek.lic"
-os.environ["MOSEKLM_LICENSE_FILE"] = mosek_license_path
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-logging.info(f'MOSEK License Set from {mosek_license_path}')
-
-#Naming Convention for Save Folder for Images:
-parent = os.path.dirname(os.path.abspath(''))
-sys.path.append(parent)
-cwd_temp = os.getcwd()
-base_file = 'LocReg_Regularization-1'
-cwd_cut = f'{cwd_temp.split(base_file, 1)[0]}{base_file}/'
-
-pat_tag = "MRR"#"BLSA_1742_04_MCIAD_m41"#"BLSA_1935_06_MCIAD_m79"
-series_tag = "BrainData_Images"
-simulation_save_folder = f"SimulationSets/{pat_tag}/{series_tag}"
-# cwd_full = cwd_cut + output_folder + lam_ini
-cwd_full = cwd_cut + simulation_save_folder 
-logging.info(f"Save Folder for Brain Images {cwd_full})")
-
 addingNoise = True
-#Load Brain data and SNR map from Chuan
-brain_data = scipy.io.loadmat(r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\braindata\cleaned_brain_data (1).mat")["final_data_2"]
-SNR_map =scipy.io.loadmat(r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\brain\SNRmap\new_SNR_Map.mat")["SNR_MAP"]
-logging.info(f"brain_data shape {brain_data.shape}")
-logging.info(f"SNR_map shape {SNR_map.shape}")
-logging.info(f"brain_data and SNR_map from Chuan have been successfully loaded")
-print("SNR_map.shape",SNR_map.shape)
 
-#Iterator for Parallel Processing
-p,q,s = brain_data.shape
-
-SNR_map = np.where(SNR_map == 0, 1, SNR_map)
-print("max SNR_map",np.max(SNR_map))
-print("min SNR_map",np.min(SNR_map))
-#set a minimum SNR of <10; keep the pixel and set MWF to 0.
-
-SpanReg_level = 800
 # SpanReg_level = 200
 
 target_iterator = [(a,b) for a in range(p) for b in range(q)]
 # target_iterator = [(80,160)]
 print(target_iterator)
 logging.debug(f'Target Iterator Length len({target_iterator})')
-
-#Naming for Saving Data Collected from Script Folder
-date = date.today()
-day = date.strftime('%d')
-month = date.strftime('%B')[0:3]
-year = date.strftime('%y')
-data_path = f"data/Brain/results_{day}{month}{year}"
-# add_tag = f"xcoordlen_{p}_ycoordlen_{q}_NESMA_filtered_myelinmaps_GCV_LR012_UPEN"
-add_tag = f"xcoordlen_{p}_ycoordlen_{q}_NESMA_filtered_NA_GCV_LR012_UPEN"
-
-data_head = "est_table"
-data_tag = (f"{data_head}_{add_tag}{day}{month}{year}")
-data_folder = (os.getcwd() + f'/{data_path}')
-os.makedirs(data_folder, exist_ok = True)
-logging.info(f"Save Folder for Final Estimates Table {data_folder})")
 
 #Parallelization Switch
 parallel = False
@@ -154,10 +135,7 @@ err_type = "Wass. Score"
 Lambda = np.logspace(-6,1,50).reshape(-1,1)
 # curr_SNR = 1
 
-eng = matlab.engine.start_matlab()
-eng.addpath(r'C:\Users\kimjosy\Downloads\LocReg_Regularization-1\ZamaUPEN\1D_test', nargout=0)
 preset_noise = False
-presetfilepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_18Apr25\est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_myelinmaps18Apr25.pkl"
 unif_noise = True
 
 #Key Functions
@@ -416,9 +394,9 @@ def generate_spanregbrain(i_param_combo, seed=None):
         noisy_f_rec_LR2D, noisy_MWF_LR2D, LR_Flag_Val2D = filter_and_compute_MWF(f_rec_LR2D, tol=1e-6)
 
         # UPEN reconstruction and MWF calculation
-        std_dev = np.std(curr_data[len(curr_data)-5:])
-        SNR_est = np.max(np.abs(curr_data))/std_dev
-        threshold = 1.05 * np.sqrt(A.shape[0]) * np.max(curr_data) / SNR_est
+        # std_dev = np.std(curr_data[len(curr_data)-5:])
+        # SNR_est = np.max(np.abs(curr_data))/std_dev
+        threshold = 1.05 * np.sqrt(A.shape[0]) * np.max(curr_data) / SNR
         noise_norm = threshold
         xex = noisy_f_rec_GCV
         Kmax = 50
@@ -551,9 +529,7 @@ if __name__ == "__main__":
     if unif_noise == True:
         num_signals = 1000
         coord_pairs = set()
-        mask_path = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\brain\masks\new_mask.mat" 
-        mask = scipy.io.loadmat(mask_path)["new_BW"]
-        brain_data = scipy.io.loadmat(r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\braindata\cleaned_brain_data (1).mat")["final_data_2"]
+        brain_data = clean_data 
         while len(coord_pairs) < num_signals:
             x = random.randint(130, 200)
             y = random.randint(100, 200)
@@ -569,7 +545,9 @@ if __name__ == "__main__":
         mean_sig = mean_sig / factor2
         tail_length = 3
         tail = mean_sig[-tail_length:]
-        tail_std = np.std(tail)
+        SNR = 100
+        tail_std = np.abs(np.max(mean_sig))/SNR
+        # tail_std = np.std(tail)
     else:
         pass
 
@@ -592,7 +570,7 @@ if __name__ == "__main__":
     lis = []  # Now this will be a list of dictionaries
 
     # === Checkpoint Setup ===
-    checkpoint_file = f"C:/Users/kimjosy/Downloads/LocReg_Regularization-1/data/Brain/results_{day}{month}{year}/checkpoint.pkl"
+    checkpoint_file = f"{data_folder}/checkpoint.pkl"
     # checkpoint_file = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_06Jun25\checkpoint.pkl"
     temp_checkpoint_prefix = f"{data_folder}/temp_checkpoint_"
     checkpoint_interval = 1000
