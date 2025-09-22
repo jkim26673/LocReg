@@ -4,6 +4,23 @@ import scipy
 import matplotlib.pyplot as plt
 from scipy.stats import wasserstein_distance
 
+import os
+import glob
+import pandas as pd
+
+folder = "/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
+
+# Find all pickle files that start with "temp_checkpoint"
+pkl_files = glob.glob(os.path.join(folder, "temp_checkpoint*.pkl"))
+
+# Load each pickle, convert list of dicts to DataFrame
+dfs = [pd.DataFrame(pd.read_pickle(f)) for f in pkl_files]
+
+# Concatenate all DataFrames
+df_combined = pd.concat(dfs, ignore_index=True)
+
+print(f"Combined shape: {df_combined.shape}")
+
 def plot_and_save2(MWF_slice, BW, savepath, str, xcoord=None, ycoord=None):
     zoom_slice = BW * MWF_slice
     # zoom_slice = MWF_slice[79:228, 103:215]
