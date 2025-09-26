@@ -8,18 +8,7 @@ import os
 import glob
 import pandas as pd
 
-folder = "/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
 
-# Find all pickle files that start with "temp_checkpoint"
-pkl_files = glob.glob(os.path.join(folder, "temp_checkpoint*.pkl"))
-
-# Load each pickle, convert list of dicts to DataFrame
-dfs = [pd.DataFrame(pd.read_pickle(f)) for f in pkl_files]
-
-# Concatenate all DataFrames
-df_combined = pd.concat(dfs, ignore_index=True)
-
-print(f"Combined shape: {df_combined.shape}")
 
 def plot_and_save2(MWF_slice, BW, savepath, str, xcoord=None, ycoord=None):
     zoom_slice = BW * MWF_slice
@@ -39,27 +28,34 @@ def plot_and_save2(MWF_slice, BW, savepath, str, xcoord=None, ycoord=None):
     plt.axis('on')
     plt.gca().set_aspect('equal', adjustable='box')
     plt.colorbar()
-
     if xcoord is not None and ycoord is not None:
         zoom_x = xcoord - yinit
         zoom_y = ycoord - xinit
         plt.scatter(zoom_x, zoom_y, color='red', s=10, label="Target (Red Dot)")
-
     plt.savefig(f"{savepath}/{str}.png")
 
-def load_brain_data(brain_data_filepath, mask_filepath, estimates_filepath):
+# def load_brain_data(brain_data_filepath, mask_filepath, estimates_filepath):
+#     # Load the brain data
+#     brain_data = scipy.io.loadmat(brain_data_filepath)["final_data_2"]
+    
+#     # Load the mask
+#     BW = scipy.io.loadmat(mask_filepath)["new_BW"]
+    
+#     # Load the estimates dataframe
+#     with open(estimates_filepath, "rb") as file:
+#         df = pickle.load(file)
+#     print(df)
+#     return brain_data, BW, df
+def load_brain_data(brain_data_filepath, mask_filepath):
     # Load the brain data
     brain_data = scipy.io.loadmat(brain_data_filepath)["final_data_2"]
-    
     # Load the mask
     BW = scipy.io.loadmat(mask_filepath)["new_BW"]
-    
     # Load the estimates dataframe
-    with open(estimates_filepath, "rb") as file:
-        df = pickle.load(file)
-    print(df)
-    return brain_data, BW, df
-
+    # with open(estimates_filepath, "rb") as file:
+    #     df = pickle.load(file)
+    # print(df)
+    return brain_data, BW
 
 def initialize_MWF_arrays():
     processed_slice = np.zeros((313, 313))
@@ -69,21 +65,33 @@ def load_MWF_values(df, MWF_list, ref = True):
     for i, row in df.iterrows():
         x = row['X_val']  # Adjust for 0-based index
         y = row['Y_val']  # Adjust for 0-based index
-        MWF_list[0][x, y] = row['processed_val']
+        MWF_list[0][x, y] = 1
     return MWF_list
 
 def rotate_images(BW, MWF_list):
     MWF_list = [BW * MWF for MWF in MWF_list]
     return MWF_list
 
-brain_data_filepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\braindata\cleaned_brain_data (1).mat"
-mask_filepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\brain\masks\new_mask.mat"
+brain_data_filepath = r"/Users/kimjosy/Downloads/LocReg/data/brain/processed/cleaned_brain_data.mat"
+mask_filepath = r"/Users/kimjosy/Downloads/LocReg/data/brain/masks/new_mask.mat"
+savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
 
-savepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_06Jun25"
+# filtered_estimates_filepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_06Jun25\est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN06Jun25.pkl"
 
-filtered_estimates_filepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_06Jun25\est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN06Jun25.pkl"
+brain_data, BW = load_brain_data(brain_data_filepath, mask_filepath)
 
-brain_data, BW, filtered_df = load_brain_data(brain_data_filepath, mask_filepath, filtered_estimates_filepath)
+folder = "/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
+
+# Find all pickle files that start with "temp_checkpoint"
+pkl_files = glob.glob(os.path.join(folder, "temp_checkpoint*.pkl"))
+
+# Load each pickle, convert list of dicts to DataFrame
+dfs = [pd.DataFrame(pd.read_pickle(f)) for f in pkl_files]
+
+# Concatenate all DataFrames
+filtered_df = pd.concat(dfs, ignore_index=True)
+
+print(f"Combined shape: {filtered_df.shape}")
 
 ref = True
 MWF_list = initialize_MWF_arrays()
