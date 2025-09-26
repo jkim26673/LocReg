@@ -18,7 +18,9 @@ def load_brain_data(brain_data_filepath, mask_filepath, estimates_filepath):
 
     df_list = []
     # filepath2 = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25.pkl"
-    filepath2 = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25_wassscores.pkl"
+    # filepath2 = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25_wassscores.pkl"
+    filepath2 = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/results_06Jun25/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN06Jun25_processed_wassscores.pkl"
+
     with open(filepath2, 'rb') as file2:
         filtered_df = pickle.load(file2)
     df_list.append(filtered_df)
@@ -71,14 +73,16 @@ def rotate_images(BW, MWF_list):
 brain_data_filepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/data/brain/processed/cleaned_brain_data.mat"
 mask_filepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/data/brain/masks/new_mask.mat"
 
-savepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925/wass_score_plot"
+# savepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925/wass_score_plot"
+savepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/results_06Jun25/wass_score_plot"
 
 import os
 import pickle
 import pandas as pd
 
-folder_path = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925/wass_score_plot"
+# folder_path = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925/wass_score_plot"
 
+folder_path = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/results_06Jun25/wass_score_plot"
 
 brain_data, BW, filtered_df = load_brain_data(brain_data_filepath, mask_filepath, folder_path)
 # _, _, unfiltered_df = load_brain_data(brain_data_filepath, mask_filepath, unfiltered_estimates_filepath)

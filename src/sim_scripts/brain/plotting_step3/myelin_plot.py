@@ -226,21 +226,25 @@ def load_brain_data(brain_data_filepath, mask_filepath, estimates_filepath):
     # with open(filepath2, 'rb') as file2:
     #     df2 = pickle.load(file2)
 
-    folder = "/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
+    filepath2 = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25.pkl"
+    with open(filepath2, 'rb') as file2:
+        df = pickle.load(file2)
 
-    # Find all pickle files that start with "temp_checkpoint"
-    pkl_files = glob.glob(os.path.join(folder, "temp_checkpoint*.pkl"))
+    # folder = "/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
 
-    # Load each pickle, convert list of dicts to DataFrame
-    dfs = [pd.DataFrame(pd.read_pickle(f)) for f in pkl_files]
+    # # Find all pickle files that start with "temp_checkpoint"
+    # pkl_files = glob.glob(os.path.join(folder, "temp_checkpoint*.pkl"))
 
-    # Concatenate all DataFrames
-    filtered_df = pd.concat(dfs, ignore_index=True)
+    # # Load each pickle, convert list of dicts to DataFrame
+    # dfs = [pd.DataFrame(pd.read_pickle(f)) for f in pkl_files]
 
-    print(f"Combined shape: {filtered_df.shape}")
-    df_list.append(filtered_df)
-    df = pd.concat(df_list, ignore_index=True)
-    df.to_pickle(f'{estimates_filepath}\combinedestimates.pkl')
+    # # Concatenate all DataFrames
+    # filtered_df = pd.concat(dfs, ignore_index=True)
+
+    # print(f"Combined shape: {filtered_df.shape}")
+    # df_list.append(filtered_df)
+    # df = pd.concat(df_list, ignore_index=True)
+    # df.to_pickle(f'{estimates_filepath}\combinedestimates.pkl')
     return brain_data, BW, df
 
 
@@ -305,8 +309,10 @@ def plot_and_save2(MWF_slice, BW, filepath, strslice, xcoord=None, ycoord=None):
 
 # Example usage
 
-brain_data_filepath = r"/Users/kimjosy/Downloads/LocReg/data/brain/processed/cleaned_brain_data.mat"
-mask_filepath = r"/Users/kimjosy/Downloads/LocReg/data/brain/masks/new_mask.mat"
+# brain_data_filepath = r"/Users/kimjosy/Downloads/LocReg/data/brain/processed/cleaned_brain_data.mat"
+# mask_filepath = r"/Users/kimjosy/Downloads/LocReg/data/brain/masks/new_mask.mat"
+brain_data_filepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/data/Brain/processed/cleaned_brain_data.mat"
+mask_filepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/data/Brain/masks/new_mask.mat"
 # filtered_estimates_filepath = "/home/kimjosy/LocReg_Regularization-1/data/Brain/results_04Feb25/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_SpanReg_curr_SNR_addition04Feb25.pkl"
 # filtered_estimates_filepath = "/home/kimjosy/LocReg_Regularization-1/data/Brain/results_11Feb25/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_SpanReg_curr_SNR_addition11Feb25.pkl"
 
@@ -326,7 +332,7 @@ mask_filepath = r"/Users/kimjosy/Downloads/LocReg/data/brain/masks/new_mask.mat"
 # savepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_14May25"
 # savepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_22May25"
 # savepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_30May25"
-savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
+savepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925"
 # filepath = "/home/kimjosy/LocReg_Regularization-1/data/Brain/results_04Feb25/noiseaddition"
 # filtered_estimates_filepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_02May25\est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN02May25.pkl"
 # filtered_estimates_filepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_14May25\est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN14May25.pkl"
@@ -340,7 +346,7 @@ import os
 import pickle
 import pandas as pd
 
-folder_path = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
+folder_path = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925"
 
 
 brain_data, BW, filtered_df = load_brain_data(brain_data_filepath, mask_filepath, folder_path)
