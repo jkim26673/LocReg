@@ -123,7 +123,7 @@ def plot_and_save2(MWF_slice, BW, savepath, str, xcoord=None, ycoord=None):
     zoom_slice = MWF_slice[xinit:xfin, yinit:yfin]
     plt.figure()
     plt.title(f"{str}")
-    plt.imshow(zoom_slice, cmap='viridis', vmin=0, vmax=0.01)
+    plt.imshow(zoom_slice, cmap='viridis', vmin=0)
     plt.xlabel(f'X Index ({yinit} to {yfin})')
     plt.ylabel(f'Y Index ({xinit} to {xfin})')
     plt.xticks(ticks=range(0, zoom_slice.shape[1], 25), labels=range(yinit, yfin, 25))

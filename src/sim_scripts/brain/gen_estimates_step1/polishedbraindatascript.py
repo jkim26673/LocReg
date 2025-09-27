@@ -23,8 +23,8 @@ day = date.strftime('%d')
 month = date.strftime('%B')[0:3]
 year = date.strftime('%y')
 # cwd_full = path_funcs.gen_results_dir(paths.ROOT_DIR, "noise_addition_exp",f"{month}{day}{year}")
-# data_path = os.path.join(r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
-data_path = os.path.join(r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+data_path = os.path.join(r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+# data_path = os.path.join(r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
 
 add_tag = f"xcoordlen_{p}_ycoordlen_{q}_NESMA_filtered_NA_GCV_LR012_UPEN"
 data_head = "est_table"
@@ -544,7 +544,8 @@ if __name__ == "__main__":
         mean_sig = mean_sig / factor2
         tail_length = 3
         tail = mean_sig[-tail_length:]
-        SNR = 100
+        # SNR = 100
+        SNR = 500
         tail_std = np.abs(np.max(mean_sig))/SNR
         # tail_std = np.std(tail)
     else:
@@ -569,9 +570,9 @@ if __name__ == "__main__":
     lis = []  # Now this will be a list of dictionaries
 
     # === Checkpoint Setup ===
-    # checkpoint_file = f"{data_folder}/checkpoint.pkl"
+    checkpoint_file = f"{data_folder}/checkpoint.pkl"
     # checkpoint_file = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_06Jun25\checkpoint.pkl"
-    checkpoint_file = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/checkpoint.pkl"
+    # checkpoint_file = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/checkpoint.pkl"
     temp_checkpoint_prefix = f"{data_folder}/temp_checkpoint_"
     checkpoint_interval = 1000
     checkpoint_time_interval = 900     # You can adjust to e.g., 60 seconds
