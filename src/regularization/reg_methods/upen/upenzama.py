@@ -16,6 +16,8 @@ oc = Oct2Py()
 # Add your Octave path (adjust as needed)
 # oc.addpath(r'/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/tools/zama_upen/1D_test')
 oc.addpath(r'/Users/kimjosy/Downloads/LocReg/tools/zama_upen/1D_test')
+# oc.addpath(r'/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/tools/zama_upen/1D_test')
+# oc.addpath(r'/Users/kimjosy/Downloads/LocReg/tools/zama_upen/1D_test')
 
 def UPEN_Zama(A, b, gt, noise_norm, beta_0, Kmax, tol_lam):
     """

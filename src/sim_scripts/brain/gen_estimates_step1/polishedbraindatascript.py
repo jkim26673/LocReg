@@ -23,8 +23,13 @@ day = date.strftime('%d')
 month = date.strftime('%B')[0:3]
 year = date.strftime('%y')
 # cwd_full = path_funcs.gen_results_dir(paths.ROOT_DIR, "noise_addition_exp",f"{month}{day}{year}")
+<<<<<<< HEAD
 # data_path = os.path.join(r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
 data_path = os.path.join(r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+=======
+data_path = os.path.join(r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+# data_path = os.path.join(r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp", f"{month}{day}{year}")
+>>>>>>> bf376d1e688d9eafc830d85314570082c5ce51e0
 
 add_tag = f"xcoordlen_{p}_ycoordlen_{q}_NESMA_filtered_NA_GCV_LR012_UPEN"
 data_head = "est_table"
@@ -219,7 +224,7 @@ def compute_MWF(f_rec, T2, Myelin_idx):
         f_rec_normalized = f_rec / (np.sum(f_rec) * dT)
     except ZeroDivisionError:
         epsilon = 0.0001
-        f_rec_normalized = f_rec / (epsilon)
+        # f_rec_normalized = f_rec / (epsilon)
         print("Division by zero encountered, using epsilon:", epsilon)
     total_MWF = np.cumsum(f_rec_normalized)
     MWF = total_MWF[Myelin_idx[-1][-1]]
@@ -518,6 +523,7 @@ if __name__ == "__main__":
     T2 = np.linspace(10, 200, m)
     A = np.zeros((n, m))
     dT = T2[1] - T2[0]
+    dT = 1.275167785234899
     logging.info(f"T2 range is from 10ms to 200ms with {m} discretizations")
     logging.info(f"dT is {dT}")
     logging.info(f"TE range is {TE}")
@@ -544,7 +550,12 @@ if __name__ == "__main__":
         mean_sig = mean_sig / factor2
         tail_length = 3
         tail = mean_sig[-tail_length:]
+<<<<<<< HEAD
         SNR = 100
+=======
+        # SNR = 100
+        SNR = 500
+>>>>>>> bf376d1e688d9eafc830d85314570082c5ce51e0
         tail_std = np.abs(np.max(mean_sig))/SNR
         # tail_std = np.std(tail)
     else:
@@ -563,15 +574,23 @@ if __name__ == "__main__":
     MWF_DP = np.zeros((p, q))
     OR_estimates = np.zeros((p, q, m))
     MWF_OR = np.zeros((p, q))
-    Myelin_idx = np.where(T2 <= 40)
+    # Myelin_idx = np.where(T2 <= 40)
+    #Myelin_idx = np.where((T2 >= 15) & (T2 <= 40))
+
     logging.info("We define myelin index to be less than 40 ms.")
     logging.info("Since this is experimental patient brain data, we do not have the ground truth. Set the ground truth to be GCV.")
     lis = []  # Now this will be a list of dictionaries
 
     # === Checkpoint Setup ===
+<<<<<<< HEAD
     # checkpoint_file = f"{data_folder}/checkpoint.pkl"
     # checkpoint_file = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_06Jun25\checkpoint.pkl"
     checkpoint_file = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/checkpoint.pkl"
+=======
+    checkpoint_file = f"{data_folder}/checkpoint.pkl"
+    # checkpoint_file = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_06Jun25\checkpoint.pkl"
+    # checkpoint_file = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/checkpoint.pkl"
+>>>>>>> bf376d1e688d9eafc830d85314570082c5ce51e0
     temp_checkpoint_prefix = f"{data_folder}/temp_checkpoint_"
     checkpoint_interval = 1000
     checkpoint_time_interval = 900     # You can adjust to e.g., 60 seconds
