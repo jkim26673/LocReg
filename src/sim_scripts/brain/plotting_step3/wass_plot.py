@@ -129,21 +129,21 @@ def plot_and_save2(MWF_slice, BW, savepath, str, xcoord=None, ycoord=None):
     zoom_slice = MWF_slice[xinit:xfin, yinit:yfin]
     plt.figure()
     plt.title(f"{str}: High SNR")
-    plt.imshow(zoom_slice, cmap='viridis', vmin=0)
+    plt.imshow(zoom_slice, cmap='viridis', vmin=0, vmax = 0.01)
     # plt.xlabel(f'X Index ({yinit} to {yfin})')
     # plt.ylabel(f'Y Index ({xinit} to {xfin})')
     # plt.xticks(ticks=range(0, zoom_slice.shape[1], 25), labels=range(yinit, yfin, 25))
     # plt.yticks(ticks=range(0, zoom_slice.shape[0], 25), labels=range(xinit, xfin, 25))
     plt.axis('off')
     plt.gca().set_aspect('equal', adjustable='box')
-    plt.colorbar()
+    # plt.colorbar()
 
     if xcoord is not None and ycoord is not None:
         zoom_x = xcoord - yinit
         zoom_y = ycoord - xinit
         plt.scatter(zoom_x, zoom_y, color='red', s=10, label="Target (Red Dot)")
 
-    plt.savefig(f"{savepath}/{str}.png")
+    plt.savefig(f"{savepath}/{str}.png", bbox_inches="tight", pad_inches=0, dpi=300)
 
 # Iterate over the corresponding elements of both lists
 # for i, (MWF_filt_slice, MWF_unfilt_slice) in enumerate(zip(MWF_filt_slices, MWF_unfilt_slices)):
