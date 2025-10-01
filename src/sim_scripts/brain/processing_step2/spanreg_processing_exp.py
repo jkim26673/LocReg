@@ -202,25 +202,31 @@ def remove_outliers_std_dev(df, columns, threshold=3):
 # filepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25.pkl"
 # filepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/results_06Jun25/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN06Jun25_processed_wassscores.pkl"
 
-filepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/results_06Jun25/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN06Jun25_processed_wassscores_newMWF.pkl"
-filepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25_wassscore_newMWF.pkl"
+# filepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/results_06Jun25/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN06Jun25_processed_wassscores_newMWF.pkl"
+# filepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25_wassscore_newMWF.pkl"
+# filepath =r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep2625/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN26Sep25_processed_wassscores.pkl"
+# filepath =r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25_modifiedMWF.pkl"
+filepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25_wassscores.pkl"
+# filepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep2625/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN26Sep25_processed_wassscores.pkl"
 
 with open(filepath, 'rb') as file:
     df1 = pickle.load(file)
 
 mask_filepath = r"/Users/kimjosy/Downloads/LocReg/data/brain/masks/new_mask.mat"
-savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
+# savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925"
 # savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/results_06Jun25"
-
+# savepath =r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep2625"
 # mask_filepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/data/brain/masks/new_mask.mat"
 BW_mask_mat = scipy.io.loadmat(mask_filepath)
 BW_mask = BW_mask_mat["new_BW"]
 print(f"Loaded brain mask with shape: {BW_mask.shape}")
 
 # mwf_columns_short = ['MWF_Ref', 'MWF_DP', 'MWF_LC', 'MWF_LR', 'MWF_GCV', 'MWF_LR2D', 'MWF_UPEN', 'MWF_LR1D']
-# mwf_columns_short = ['MWF_Ref', 'MWF_LR', 'MWF_GCV', 'MWF_LR2D', 'MWF_UPEN', 'MWF_LR1D']
-mwf_columns_short = ['sm_MWF_ref', 'sm_MWF_LR', 'sm_MWF_GCV', 'sm_MWF_LR2D', 'sm_MWF_UPEN', 'sm_MWF_LR1D']
-ref_mwf_tag = "sm_MWF_ref"
+mwf_columns_short = ['MWF_Ref', 'MWF_LR', 'MWF_GCV', 'MWF_LR2D', 'MWF_UPEN', 'MWF_LR1D']
+# mwf_columns_short = ['sm_MWF_ref', 'sm_MWF_LR', 'sm_MWF_GCV', 'sm_MWF_LR2D', 'sm_MWF_UPEN', 'sm_MWF_LR1D']
+# ref_mwf_tag = "sm_MWF_ref"
+ref_mwf_tag = "MWF_Ref"
+
 merged_df = df1
 
 
@@ -235,8 +241,8 @@ merged_df = df1
 
 # # --- 7. Outlier Removal ---
 print("\n--- 7. Outlier Removal ---")
-# df_filtered_mwf_outliers = remove_outliers_std_dev(merged_df, mwf_columns_short, threshold=3)
-# print(f"DataFrame shape after MWF outlier removal: {df_filtered_mwf_outliers.shape}")
+df_filtered_mwf_outliers = remove_outliers_std_dev(merged_df, mwf_columns_short, threshold=3)
+print(f"DataFrame shape after MWF outlier removal: {df_filtered_mwf_outliers.shape}")
 df_filtered_mwf_outliers = merged_df
 # --- 8. Absolute Difference Calculation ---
 print("\n--- 8. Absolute Difference Calculation ---")
@@ -245,7 +251,7 @@ for mwf in mwf_columns_short:
     if mwf == ref_mwf_tag:
         continue
     # df_filtered_mwf_outliers[f'absdiff_{mwf}'] = np.abs(df_filtered_mwf_outliers['MWF_Ref'] - df_filtered_mwf_outliers[mwf])
-    df_filtered_mwf_outliers[f'absdiff_{mwf}'] = np.linalg.norm(df_filtered_mwf_outliers[ref_mwf_tag]- df_filtered_mwf_outliers[mwf], ord = 1)
+    df_filtered_mwf_outliers[f'absdiff_{mwf}'] = np.linalg.norm(df_filtered_mwf_outliers[ref_mwf_tag]- df_filtered_mwf_outliers[mwf], ord = 2)
 # print(df_filtered_mwf_outliers)
 # --- 8.1. MSE Calculation ---
 print("\n--- 8.1. MSE Calculation ---")
@@ -288,29 +294,29 @@ print("\n--- Copy the table above and paste into Google Slides or another docume
 # savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/results_06Jun25"
 
 # --- 13. Box Plot Visualization ---
-print("\n--- 13. Box Plot Visualization ---")
-plt.figure(figsize=(10, 6))
-df_filtered_mwf_outliers[absdiff_columns].boxplot()
-plt.title('Box Plots of Absolute Differences')
-plt.ylabel('Absolute Difference')
-nametag = "spanreg_mwf_map"
-plt.savefig(f"{savepath}/boxplot_absdiff_{nametag}.png")
-plt.close()
-print("Box plot of absolute differences saved.")
+# print("\n--- 13. Box Plot Visualization ---")
+# plt.figure(figsize=(10, 6))
+# df_filtered_mwf_outliers[absdiff_columns].boxplot()
+# plt.title('Box Plots of Absolute Differences')
+# plt.ylabel('Absolute Difference')
+# nametag = "spanreg_mwf_map"
+# plt.savefig(f"{savepath}/boxplot_absdiff_{nametag}.png")
+# plt.close()
+# print("Box plot of absolute differences saved.")
 
 # --- 14. Histogram Visualization ---
-print("\n--- 14. Histogram Visualization ---")
-for mwf in mwf_columns_short:
-    if mwf == ref_mwf_tag:
-        continue
-    absdiff_col = f'absdiff_{mwf}'
-    plt.figure(figsize=(8, 6))
-    plt.hist(df_filtered_mwf_outliers[absdiff_col].dropna(), bins=30, edgecolor='black')
-    plt.title(f'Histogram of Absolute Differences ({mwf})')
-    plt.xlabel('Absolute Difference')
-    plt.ylabel('Frequency')
-    plt.savefig(f"{savepath}/histogram_absdiff_{mwf}_{nametag}.png")
-    plt.close()
-    print(f"Histogram for {mwf} saved as histogram_absdiff_{mwf}_{nametag}.png")
+# print("\n--- 14. Histogram Visualization ---")
+# for mwf in mwf_columns_short:
+#     if mwf == ref_mwf_tag:
+#         continue
+#     absdiff_col = f'absdiff_{mwf}'
+#     plt.figure(figsize=(8, 6))
+#     plt.hist(df_filtered_mwf_outliers[absdiff_col].dropna(), bins=30, edgecolor='black')
+#     plt.title(f'Histogram of Absolute Differences ({mwf})')
+#     plt.xlabel('Absolute Difference')
+#     plt.ylabel('Frequency')
+#     plt.savefig(f"{savepath}/histogram_absdiff_{mwf}_{nametag}.png")
+#     plt.close()
+#     print(f"Histogram for {mwf} saved as histogram_absdiff_{mwf}_{nametag}.png")
 
-print("\n--- Script execution completed successfully with absolute difference and MSE. ---")
+# print("\n--- Script execution completed successfully with absolute difference and MSE. ---")

@@ -123,18 +123,18 @@ def plot_and_save2(MWF_slice, BW, savepath, str, xcoord=None, ycoord=None):
     zoom_slice = BW * MWF_slice
     # zoom_slice = MWF_slice[79:228, 103:215]
     xinit =75
-    xfin =245    
-    yinit =103
-    yfin =215
+    xfin =235    
+    yinit =100
+    yfin =220
     zoom_slice = MWF_slice[xinit:xfin, yinit:yfin]
     plt.figure()
-    plt.title(f"{str} Wassterstein Score Plot")
+    plt.title(f"{str}: High SNR")
     plt.imshow(zoom_slice, cmap='viridis', vmin=0)
-    plt.xlabel(f'X Index ({yinit} to {yfin})')
-    plt.ylabel(f'Y Index ({xinit} to {xfin})')
-    plt.xticks(ticks=range(0, zoom_slice.shape[1], 25), labels=range(yinit, yfin, 25))
-    plt.yticks(ticks=range(0, zoom_slice.shape[0], 25), labels=range(xinit, xfin, 25))
-    plt.axis('on')
+    # plt.xlabel(f'X Index ({yinit} to {yfin})')
+    # plt.ylabel(f'Y Index ({xinit} to {xfin})')
+    # plt.xticks(ticks=range(0, zoom_slice.shape[1], 25), labels=range(yinit, yfin, 25))
+    # plt.yticks(ticks=range(0, zoom_slice.shape[0], 25), labels=range(xinit, xfin, 25))
+    plt.axis('off')
     plt.gca().set_aspect('equal', adjustable='box')
     plt.colorbar()
 

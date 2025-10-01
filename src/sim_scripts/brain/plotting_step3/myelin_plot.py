@@ -245,7 +245,8 @@ def load_brain_data(brain_data_filepath, mask_filepath, estimates_filepath):
     # filepath2 = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25.pkl"
     # filepath2 = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25_wassscore_newMWF.pkl"
     # filepath2 = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/results_06Jun25/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN06Jun25_processed_wassscores_newMWF.pkl"
-    filepath2 = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep2625/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN26Sep25.pkl"
+    # filepath2 = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep2625/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN26Sep25.pkl"
+    filepath2 = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN19Sep25_modifiedMWF.pkl"
     with open(filepath2, 'rb') as file2:
         df = pickle.load(file2)
 
@@ -284,32 +285,32 @@ def load_MWF_values(df, MWF_list, ref = True):
         for i, row in df.iterrows():
             x = row['X_val']  # Adjust for 0-based index
             y = row['Y_val']  # Adjust for 0-based index
-            MWF_list[0][x, y] = row['MWF_Ref']
-            MWF_list[1][x, y] = row['MWF_GCV']
-            MWF_list[2][x, y] = row['MWF_LR']
-            MWF_list[3][x, y] = row['MWF_LR1D']
-            MWF_list[4][x, y] = row['MWF_LR2D']
-            MWF_list[5][x, y] = row['MWF_UPEN']
-            # MWF_list[0][x, y] = row['sm_MWF_ref']
-            # MWF_list[1][x, y] = row['sm_MWF_GCV']
-            # MWF_list[2][x, y] = row['sm_MWF_LR']
-            # MWF_list[3][x, y] = row['sm_MWF_LR1D']
-            # MWF_list[4][x, y] = row['sm_MWF_LR2D']
-            # MWF_list[5][x, y] = row['sm_MWF_UPEN']
+            # MWF_list[0][x, y] = row['MWF_Ref']
+            # MWF_list[1][x, y] = row['MWF_GCV']
+            # MWF_list[2][x, y] = row['MWF_LR']
+            # MWF_list[3][x, y] = row['MWF_LR1D']
+            # MWF_list[4][x, y] = row['MWF_LR2D']
+            # MWF_list[5][x, y] = row['MWF_UPEN']
+            MWF_list[0][x, y] = row['sm_MWF_ref']
+            MWF_list[1][x, y] = row['sm_MWF_GCV']
+            MWF_list[2][x, y] = row['sm_MWF_LR']
+            MWF_list[3][x, y] = row['sm_MWF_LR1D']
+            MWF_list[4][x, y] = row['sm_MWF_LR2D']
+            MWF_list[5][x, y] = row['sm_MWF_UPEN']
     else:
         for i, row in df.iterrows():
             x = row['X_val']  # Adjust for 0-based index
             y = row['Y_val']  # Adjust for 0-based index
-            MWF_list[0][x, y] = row['MWF_GCV']
-            MWF_list[1][x, y] = row['MWF_LR']
-            MWF_list[2][x, y] = row['MWF_LR1D']
-            MWF_list[3][x, y] = row['MWF_LR2D']
-            MWF_list[4][x, y] = row['MWF_UPEN']
-            # MWF_list[0][x, y] = row['sm_MWF_GCV']
-            # MWF_list[1][x, y] = row['sm_MWF_LR']
-            # MWF_list[2][x, y] = row['sm_MWF_LR1D']
-            # MWF_list[3][x, y] = row['sm_MWF_LR2D']
-            # MWF_list[4][x, y] = row['sm_MWF_UPEN']
+            # MWF_list[0][x, y] = row['MWF_GCV']
+            # MWF_list[1][x, y] = row['MWF_LR']
+            # MWF_list[2][x, y] = row['MWF_LR1D']
+            # MWF_list[3][x, y] = row['MWF_LR2D']
+            # MWF_list[4][x, y] = row['MWF_UPEN']
+            MWF_list[0][x, y] = row['sm_MWF_GCV']
+            MWF_list[1][x, y] = row['sm_MWF_LR']
+            MWF_list[2][x, y] = row['sm_MWF_LR1D']
+            MWF_list[3][x, y] = row['sm_MWF_LR2D']
+            MWF_list[4][x, y] = row['sm_MWF_UPEN']
     return MWF_list
 
 def rotate_images(BW, MWF_list):
@@ -366,7 +367,9 @@ mask_filepath = r"/Users/kimjosy/Downloads/LocReg/data/brain/masks/new_mask.mat"
 # savepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_30May25"
 # savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/new_MWF_plot"
 # savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/results_06Jun25/new_MWF_plot"
-savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep2625/MWF_plot"
+# savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep2625/MWF_plot"
+savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/modified_MWF_plot"
+# savepath = r"/Users/kimjosy/Downloads/LocReg/results/brain/noise_addition_exp/Sep1925/orig_MWF_plot"
 # savepath = r"/Users/joshuakim/Downloads/Coding_Projects/LocReg/LocReg/results/brain/noise_addition_exp/Sep1925"
 # filepath = "/home/kimjosy/LocReg_Regularization-1/data/Brain/results_04Feb25/noiseaddition"
 # filtered_estimates_filepath = r"C:\Users\kimjosy\Downloads\LocReg_Regularization-1\data\Brain\results_02May25\est_table_xcoordlen_313_ycoordlen_313_NESMA_filtered_NA_GCV_LR012_UPEN02May25.pkl"
